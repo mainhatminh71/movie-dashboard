@@ -17,6 +17,22 @@ export class StorageService {
 
     constructor() {
         this.loadFromStorage();
+        effect(() => {
+            if (!this.localStorage) return;
+            try {
+                this.localStorage.setItem(this.WATCHLIST_KEY, JSON.stringify(this.watchListSignal));
+            } catch {
+                console.log("Effect Storage said: mewmew");
+            }
+        });
+        if (typeof window !== 'undefined') {
+            window.addEventListener('storage', (e) => {
+                if (e.key === this.WATCHLIST_KEY && e.newValue) {
+                    const parsed = JSON.parse(e.newValue);
+                    this.watchListSignal.set(parsed);
+                }
+            })
+        }
     }
 
     getWatchList() : WatchListItem[] {
@@ -30,41 +46,46 @@ export class StorageService {
         return [];
     }
     checkMovie(movie : Movie) : boolean {
-        const watchList = this.getWatchList();
-        if (watchList.some(m => movie.id === m.id)) return false;
+        if (computed(() => this.watchList().some(m => m.id === movie.id))) return false;
         return true;
     }
     addMovie(movie : Movie) : void {
-        const watchList = this.getWatchList();
-        if (!this.localStorage) return;
-        if (!this.checkMovie(movie)) return;
-        const newItem : WatchListItem = {
-            id: movie.id,
-            title: movie.title,
-            poster_path: movie.poster_path,
-            release_date: movie.release_date || '',
-            addedAt: new Date().toISOString()
-        }
-        watchList.push(newItem);
-        this.saveWatchList(watchList);
+        this.watchListSignal.update(current => {
+            if (this.checkMovie(movie)) return current;
+            const newMovie : WatchListItem = {
+                id: movie.id,
+                title: movie.title,
+                poster_path: movie.poster_path,
+                release_date: movie.release_date || '',
+                addedAt: new Date().toISOString()
+            }
+            return [...current, newMovie];
+        })
     }
     removeMovie(movie: Movie) : void {
-        if (!this.localStorage) return;
-        const watchList = this.getWatchList();
-        watchList.filter(m => movie.id !== m.id);
-        this.saveWatchList(watchList);
-    }
-    saveWatchList(watchList: WatchListItem[]) : void {
-        if (!this.localStorage) return;
-        try {
-            this.localStorage.setItem(this.WATCHLIST_KEY, JSON.stringify(watchList));
-        } catch (err) {
-            console.log("Save mewmew")
-        }
+        return this.watchListSignal.update(current => {
+             return current.filter(m => m.id !== movie.id)
+        })
     }
     clearWatchList(watchList: WatchListItem[]) : void {
         if (!this.localStorage) return;
+        this.watchListSignal.set([]);
         this.localStorage.removeItem(this.WATCHLIST_KEY);
+    }
+    private loadFromStorage() : void {
+        if (!this.localStorage) return;
+        try {
+            const data = this.localStorage.getItem(this.WATCHLIST_KEY);
+            if (data) {
+                const parsed = JSON.parse(data) as WatchListItem[];
+                this.watchListSignal.set(parsed);
+            }
+            else {
+                this.watchListSignal.set([]);
+            }
+        } catch (err) {
+            console.log("Load From Storage said: Mewmew")
+        }
     }
         
 }
