@@ -10,11 +10,13 @@ export class MovieService {
     private baseUrl = environment.tmdbBaseUrl;
     private http = inject(HttpClient);
     getPopularMovies(page: number = 1) : Observable<any> {
-        return this.http.get(`${this.baseUrl}/popular/movie`, {
+        return this.http.get(`${this.baseUrl}/movie/popular`, {
             params: {page}
         })
     }
     getTopRatedMovies(page: number = 1) : Observable<any> {
-        return this.http.get(`$`)
+        return this.http.get(`${this.baseUrl}/movie/top-rated`, {
+            params: {page}
+        })
     }
 }

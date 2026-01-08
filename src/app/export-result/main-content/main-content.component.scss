@@ -348,3 +348,400 @@
   }
 }
 
+// Movies Sections
+.movies-section {
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 1;
+  
+  &:last-child {
+    margin-bottom: 40px;
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, $a-00-b-9-ae-background 0%, transparent 100%);
+    border-radius: 2px;
+  }
+}
+
+.section-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: -0.8px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.title-text {
+  position: relative;
+  z-index: 1;
+}
+
+.title-accent {
+  width: 4px;
+  height: 36px;
+  background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, transparent 100%);
+  border-radius: 2px;
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+}
+
+.section-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.view-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 24px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 185, 174, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 185, 174, 0.5);
+    transform: translateX(4px);
+    box-shadow: 0 6px 20px rgba(0, 185, 174, 0.25), 0 0 0 1px rgba(0, 185, 174, 0.1);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  &:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 28px;
+  
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+.movie-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  &:hover {
+    transform: translateY(-12px) scale(1.02);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 185, 174, 0.4);
+    box-shadow: 
+      0 20px 48px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(0, 185, 174, 0.3),
+      0 0 40px rgba(0, 185, 174, 0.1);
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    .poster-overlay {
+      opacity: 1;
+    }
+    
+    .card-hover-effect {
+      opacity: 1;
+    }
+    
+    .movie-badge {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  &.top-rated-card {
+    &::before {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 185, 174, 0.3) 50%, transparent 100%);
+    }
+    
+    &:hover {
+      box-shadow: 
+        0 20px 48px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 215, 0, 0.3),
+        0 0 40px rgba(255, 215, 0, 0.1);
+    }
+  }
+}
+
+.movie-poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(135deg, 
+    rgba(40, 40, 50, 0.9) 0%, 
+    rgba(25, 25, 35, 0.95) 50%,
+    rgba(20, 20, 30, 1) 100%);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 30% 30%, rgba(0, 185, 174, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(100, 50, 150, 0.1) 0%, transparent 50%);
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+  }
+  
+  &::after {
+    content: '🎬';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 56px;
+    opacity: 0.25;
+    filter: blur(1px);
+    transition: all 0.5s ease;
+  }
+  
+  .movie-card:hover &::after {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.movie-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transform: translateY(-8px) scale(0.9);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.popular-badge {
+  background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, rgba(0, 150, 140, 0.2) 100%);
+  color: $a-00-b-9-ae-color;
+  box-shadow: 0 4px 12px rgba(0, 185, 174, 0.3);
+}
+
+.top-rated-badge {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 180, 0, 0.2) 100%);
+  color: #ffd700;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  
+  svg {
+    color: #ffd700;
+  }
+}
+
+.card-hover-effect {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 185, 174, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 20px;
+}
+
+.movie-info {
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.movie-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease;
+  
+  .movie-card:hover & {
+    color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+.movie-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.movie-year {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.rating-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: $a-00-b-9-ae-color;
+  font-weight: 700;
+}
+
+.star-icon {
+  width: 14px;
+  height: 14px;
+  color: $a-00-b-9-ae-color;
+  filter: drop-shadow(0 0 4px rgba(0, 185, 174, 0.5));
+  animation: twinkle 3s ease-in-out infinite;
+  
+  .top-rated-card & {
+    color: #ffd700;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.movie-rating {
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  
+  .top-rated-card & {
+    color: #ffd700;
+  }
+}
+
