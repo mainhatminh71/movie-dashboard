@@ -1,4 +1,4 @@
-/* Spotify-inspired Global Styles */
+/* Dark Theme Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,9 +6,9 @@
 }
 
 body {
-  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #121212;
-  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background: #0f0f0f;
+  color: #e5e5e5;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -20,7 +20,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Spotify-style scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -30,18 +30,18 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Selection color */
 ::selection {
-  background: #1db954;
+  background: #00b9ae;
   color: #fff;
 }

@@ -1,8 +1,6 @@
+import { WatchListItem } from './../models/watchlistitem.model';
 import { Movie } from './../models/movie.model';
-import { WatchlistComponent } from './../../export-result/watchlist/watchlist.component';
-import { Injectable, inject } from "@angular/core";
-import { environment } from "src/environments/environment";
-import { WatchListItem } from "../models/watchlistitem.model";
+import { Injectable, inject, signal, computed, effect } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 
 @Injectable({
@@ -12,6 +10,15 @@ export class StorageService {
     private readonly document = inject(DOCUMENT);
     private readonly localStorage = this.document.defaultView?.localStorage;
     private readonly WATCHLIST_KEY =  'tmdb_watchlist';
+    
+    private watchListSignal = signal<WatchListItem[]>([]);
+    private watchList = this.watchListSignal.asReadonly();
+    count = computed(() => this.watchList().length);
+
+    constructor() {
+        this.loadFromStorage();
+    }
+
     getWatchList() : WatchListItem[] {
         if (!this.localStorage) return [];
         try {

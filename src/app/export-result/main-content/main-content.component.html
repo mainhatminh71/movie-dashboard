@@ -1,0 +1,76 @@
+<div class="main-content-wrapper">
+  <div class="content-header">
+    <div class="category-tabs">
+      <button class="tab" [class.active]="activeTab === 'movies'">
+        <span>Movies</span>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'tvshows'">
+        <span>TV Shows</span>
+        <div class="active-indicator" *ngIf="activeTab === 'tvshows'"></div>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'anime'">
+        <span>Anime</span>
+      </button>
+    </div>
+    <div class="search-filter">
+      <div class="search-bar">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input type="text" placeholder="Search" class="search-input">
+      </div>
+      <div class="filter-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 5H17M7 10H17M10 15H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="2" cy="5" r="2" fill="currentColor"/>
+          <circle cx="6" cy="10" r="2" fill="currentColor"/>
+          <circle cx="9" cy="15" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-section">
+    <div class="hero-card">
+      <div class="hero-background"></div>
+      <div class="hero-content">
+        <div class="hero-left">
+          <h1 class="hero-title">The Crown</h1>
+        </div>
+        <div class="hero-right">
+          <div class="hero-image-placeholder"></div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button class="hero-btn watchlist-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Watchlist</span>
+        </button>
+        <button class="hero-btn watch-now-btn">
+          <span>Watch Now</span>
+        </button>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-arrow left-arrow">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="carousel-arrow right-arrow">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="carousel-indicators">
+        <div class="indicator active"></div>
+        <div class="indicator"></div>
+        <div class="indicator"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
