@@ -1,7 +1,17 @@
 import { Routes } from "@angular/router"
 export const routes: Routes = [
     {
-        path: 'award',
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+
+    },
+     {
+        path: 'home',
+        loadComponent: () => import('./export-result/home/home.component').then(m => m.HomeComponent)
+    },
+    {
+        path: 'awards',
         loadComponent: () => import('./export-result/award/award.component').then(m => m.AwardComponent)
     },
     {
@@ -47,5 +57,9 @@ export const routes: Routes = [
     {
         path: 'watchlist',
         loadComponent: () => import('./export-result/watchlist/watchlist.component').then(m => m.WatchlistComponent)
+    },
+    {
+        path: '**',
+        redirectTo: '/error'
     }
 ]
