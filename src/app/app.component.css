@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   min-height: 100vh;
-  background: #0f0f0f;
+  background: #0a0a0a;
 }
 
 .main-content {
@@ -11,6 +11,19 @@
   margin-right: 280px;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(42, 42, 42, 0.1) 0%, #0f0f0f 15%);
+  background: linear-gradient(180deg, rgba(42, 42, 42, 0.08) 0%, #0a0a0a 12%);
   overflow-y: auto;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(0, 185, 174, 0.03) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
 }
