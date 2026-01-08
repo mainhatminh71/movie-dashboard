@@ -1,0 +1,281 @@
+@import "src/app/tokens.scss";
+
+/* Spotify-style Sidebar */
+.left-side_54-43 {
+  width: 240px;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 8px;
+  background: #000000;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.bg_2-9 {
+  display: none;
+}
+
+/* Logo - Spotify style */
+.text-logo_2-6 {
+  color: #ffffff;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  padding: 0 16px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+/* Menu Section */
+.menu_54-66 {
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  padding: 0 8px;
+}
+
+.text-menu_34-88 {
+  display: none; /* Hide section title like Spotify */
+}
+
+/* Menu Items - Spotify style */
+.home_54-47,
+.discover_54-48,
+.awards_54-49,
+.celebrities_54-50 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  margin: 4px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #b3b3b3;
+  
+  &:hover {
+    color: #ffffff;
+    background-color: #1a1a1a;
+  }
+  
+  &.active {
+    color: #ffffff;
+    background-color: #1a1a1a;
+  }
+}
+
+.home_54-47 {
+  color: #ffffff;
+  background-color: #1a1a1a;
+  
+  .current_34-124 {
+    display: none; /* Hide SVG indicator, use background instead */
+  }
+}
+
+.text-home_34-76,
+.text-discover_34-80,
+.text-awards_34-81,
+.text-celebrities_34-82 {
+  color: inherit;
+  font-size: 14px;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.icon_54-65,
+.discover_54-62,
+.award_54-63,
+.celebrities_54-64 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: inherit;
+  
+  svg,
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+/* Library Section */
+.library_54-84 {
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  padding: 0 8px;
+  border-top: 1px solid #282828;
+  padding-top: 16px;
+}
+
+.text-library_34-94 {
+  color: #b3b3b3;
+  font-size: 11px;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Library Items */
+.recent_54-52,
+.top-rated_54-53,
+.downloaded_54-54,
+.playlists_54-55,
+.watchlist_54-56,
+.completed_54-57 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  margin: 4px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #b3b3b3;
+  
+  &:hover {
+    color: #ffffff;
+    background-color: #1a1a1a;
+  }
+}
+
+.text-recent_34-83,
+.text-top-rated_34-84,
+.text-downloaded_34-85,
+.text-playlists_34-93,
+.text-watchlist_34-102,
+.text-completed_34-114 {
+  color: inherit;
+  font-size: 14px;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.recent_54-79,
+.top-rated_54-80,
+.downloaded_54-81,
+.playlists_54-78,
+.watchlist_54-82,
+.completed_54-83 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: inherit;
+  
+  svg,
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+.playlists_54-55 {
+  position: relative; /* Fix absolute positioning */
+}
+
+/* General Section */
+.general_54-101 {
+  position: relative;
+  box-sizing: border-box;
+  margin-top: auto;
+  padding: 16px 8px 0;
+  border-top: 1px solid #282828;
+}
+
+.text-general_34-95 {
+  display: none; /* Hide section title */
+}
+
+.settings_54-59,
+.log-out_54-60 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  margin: 4px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #b3b3b3;
+  
+  &:hover {
+    color: #ffffff;
+    background-color: #1a1a1a;
+  }
+}
+
+.log-out_54-60:hover {
+  color: #e22134;
+}
+
+.text-settings_34-86,
+.text-log-out_34-87 {
+  color: inherit;
+  font-size: 14px;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.settings_54-99,
+.log-out_54-100 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: inherit;
+  
+  svg,
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+/* Custom scrollbar for sidebar */
+.left-side_54-43::-webkit-scrollbar {
+  width: 12px;
+}
+
+.left-side_54-43::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.left-side_54-43::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.left-side_54-43::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
