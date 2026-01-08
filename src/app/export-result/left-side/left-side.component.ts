@@ -11,14 +11,16 @@ import { RecentComponent } from "../recent/recent.component";
 import { CelebritiesComponent } from "../celebrities/celebrities.component";
 import { AwardComponent } from "../award/award.component";
 import { DiscoverComponent } from "../discover/discover.component";
+import { RouterLinkWithHref, RouterLinkActive } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 @Component({
     selector: "app-left-side",
     templateUrl: "./left-side.component.html",
     styleUrls: ["./left-side.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [IconComponent, LogOutComponent, SettingsComponent, CompletedComponent, WatchlistComponent, PlaylistsComponent, DownloadedComponent,
-        TopRatedComponent, RecentComponent, CelebritiesComponent, AwardComponent, DiscoverComponent
-    ],
+    imports: [CommonModule, RouterModule,IconComponent, LogOutComponent, SettingsComponent, CompletedComponent, WatchlistComponent, PlaylistsComponent, DownloadedComponent,
+    TopRatedComponent, RecentComponent, CelebritiesComponent, AwardComponent, DiscoverComponent, RouterLinkWithHref, RouterLinkActive],
     standalone: true
 })
 export class LeftSideComponent {}
