@@ -1,10 +1,11 @@
 <div class="main-content-wrapper">
   <div class="content-header">
     <div class="category-tabs">
-      <button class="tab" [class.active]="activeTab === 'movies'">
+      <button class="tab" [class.active]="activeTab === 'movies'" (click)="(switchTab('movies'))">
         <span>Movies</span>
+        <div class="active-indicator" *ngIf="activeTab === 'movies'"></div>
       </button>
-      <button class="tab" [class.active]="activeTab === 'tvshows'">
+      <button class="tab" [class.active]="activeTab === 'tvshows'" (click)="(switchTab('tvshows'))">
         <span>TV Shows</span>
         <div class="active-indicator" *ngIf="activeTab === 'tvshows'"></div>
       </button>
@@ -75,7 +76,8 @@
     <div class="section-header">
       <div class="section-title-wrapper">
         <h2 class="section-title">
-          <span class="title-text">Popular Movies</span>
+          <span class="title-text" *ngIf="activeTab==='movies'">Popular Movies</span>
+          <span class="title-text" *ngIf="activeTab==='tvshows'">Popular TVShows</span>
           <span class="title-accent"></span>
         </h2>
         <p class="section-subtitle">Trending now</p>
@@ -94,7 +96,8 @@
           <div class="movie-badge popular-badge">Popular</div>
         </div>
         <div class="movie-info">
-          <h3 class="movie-title">Movie Title {{i}}</h3>
+          <h3 class="movie-title" *ngIf="activeTab==='movies'">Movie Title {{i}}</h3>
+          <h3 class="movie-title" *ngIf="activeTab==='tvshows'">TVShow Title {{i}}</h3>
           <div class="movie-meta">
             <span class="movie-year">2024</span>
             <div class="rating-wrapper">
@@ -110,49 +113,5 @@
     </div>
   </div>
 
-  <!-- Top Rated Movies Section -->
-  <div class="movies-section">
-    <div class="section-header">
-      <div class="section-title-wrapper">
-        <h2 class="section-title">
-          <span class="title-text">Top Rated Movies</span>
-          <span class="title-accent"></span>
-        </h2>
-        <p class="section-subtitle">Critically acclaimed</p>
-      </div>
-      <button class="view-all-btn">
-        <span>View All</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
-    <div class="movies-grid">
-      <div class="movie-card top-rated-card" *ngFor="let i of [1,2,3,4,5,6]">
-        <div class="movie-poster">
-          <div class="poster-overlay"></div>
-          <div class="movie-badge top-rated-badge">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 0L7.34708 4.57462L12 4.57462L8.32646 7.40076L9.67354 11.9754L6 9.14924L2.32646 11.9754L3.67354 7.40076L0 4.57462L4.65292 4.57462L6 0Z" fill="currentColor"/>
-            </svg>
-            Top Rated
-          </div>
-        </div>
-        <div class="movie-info">
-          <h3 class="movie-title">Top Movie {{i}}</h3>
-          <div class="movie-meta">
-            <span class="movie-year">2024</span>
-            <div class="rating-wrapper">
-              <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
-              </svg>
-              <span class="movie-rating">9.{{i}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="card-hover-effect"></div>
-      </div>
-    </div>
-  </div>
 </div>
 

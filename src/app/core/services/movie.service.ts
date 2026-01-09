@@ -9,6 +9,9 @@ import { environment } from "src/environments/environment";
 export class MovieService {
     private baseUrl = environment.tmdbBaseUrl;
     private http = inject(HttpClient);
+    getAllMovies() : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie`)
+    }
     getPopularMovies(page: number = 1) : Observable<any> {
         return this.http.get(`${this.baseUrl}/movie/popular`, {
             params: {page}

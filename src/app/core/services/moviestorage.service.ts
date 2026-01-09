@@ -1,7 +1,8 @@
-import { WatchListItem } from './../models/watchlistitem.model';
-import { Movie } from './../models/movie.model';
+import { WatchListItem } from '../models/watchlistitem.model';
+import { Movie } from '../models/movie.model';
 import { Injectable, inject, signal, computed, effect } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
+import { MovieService } from './movie.service';
 
 @Injectable({
     providedIn: 'root'
@@ -49,6 +50,10 @@ export class StorageService {
         if (computed(() => this.watchList().some(m => m.id === movie.id))) return false;
         return true;
     }
+    checkMovieById(movieId : number) : boolean {
+        if (computed(() => this.watchList().some(m => m.id === movieId))) return false;
+        return true;
+    }
     addMovie(movie : Movie) : void {
         this.watchListSignal.update(current => {
             if (this.checkMovie(movie)) return current;
@@ -71,6 +76,12 @@ export class StorageService {
         if (!this.localStorage) return;
         this.watchListSignal.set([]);
         this.localStorage.removeItem(this.WATCHLIST_KEY);
+    }
+    saveWatchList(watchList: WatchListItem[]) : void {
+        if (typeof localStorage === 'undefined') return;
+        try {
+            this.localStorage?.setItem(this.WATCHLIST_KEY, JSON.stringify(watchList));
+        } catch (err) {}
     }
     private loadFromStorage() : void {
         if (!this.localStorage) return;
