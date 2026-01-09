@@ -20,7 +20,6 @@ import { CommonModule } from "@angular/common";
 })
 export class DiscoverComponent implements OnInit{
     private movieService = inject(MovieService);
-    private movieStorageService = inject(StorageService);
     private movieStore = inject(MovieStore);
     private route = inject(ActivatedRoute);
     private router = inject(Router);

@@ -1,1 +1,210 @@
-<p>movie-details works!</p>
+<div class="movie-details-container">
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading movie details...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-container">
+      <svg class="error-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="error-message">{{ error() }}</p>
+      <button class="retry-btn" (click)="loadMovieData(currentMovieId()!)">Try Again</button>
+    </div>
+  } @else if (movie()) {
+    <div class="movie-hero" [style.background-image]="'url(' + getImageUrl(currentBackdrop(), 'w1280') + ')'">
+      <div class="hero-overlay"></div>
+      <button class="back-button-hero" (click)="goBack()" aria-label="Back to discover">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>Back to Discover</span>
+      </button>
+      <div class="hero-content">
+        <div class="movie-poster-wrapper">
+          <img 
+            [src]="getImageUrl(currentPoster(), 'w500')" 
+            [alt]="currentTitle() + ' poster'"
+            [title]="currentTitle() + ' poster'"
+            class="movie-poster"
+            loading="eager"
+            (error)="onImageError($event)"
+          />
+        </div>
+        <div class="movie-info-header">
+          <h1 class="movie-title">{{ currentTitle() }}</h1>
+          <div class="movie-meta">
+            <div class="rating-badge">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+              </svg>
+              <span>{{ voteAverage()?.toFixed(1) || 'N/A' }}</span>
+            </div>
+            <span class="meta-separator">•</span>
+            <span class="movie-year">{{ getYear(currentReleaseDate()) }}</span>
+            @if (movie()?.runtime) {
+              <span class="meta-separator">•</span>
+              <span class="movie-runtime">{{ formatRuntime(movie().runtime) }}</span>
+            }
+          </div>
+          <div class="movie-genres">
+            @for (genre of movie()?.genres; track genre.id) {
+              <span class="genre-tag">{{ genre.name }}</span>
+            }
+          </div>
+          <div class="movie-actions">
+            <button 
+              class="watchlist-btn"
+              [class.active]="isInWatchlist()"
+              (click)="toggleWatchlist()"
+            >
+              @if (isInWatchlist()) {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"/>
+                </svg>
+                <span>In Watchlist</span>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                </svg>
+                <span>Add to Watchlist</span>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="movie-content">
+      <div class="content-main">
+        <section class="overview-section">
+          <h2 class="section-title">Overview</h2>
+          <p class="movie-overview">{{ currentOverview() || 'No overview available.' }}</p>
+        </section>
+
+        @if (movie()?.budget || movie()?.revenue) {
+          <section class="financial-section">
+            <h2 class="section-title">Box Office</h2>
+            <div class="financial-info">
+              @if (movie()?.budget) {
+                <div class="financial-item">
+                  <span class="financial-label">Budget</span>
+                  <span class="financial-value">{{ formatCurrency(movie().budget) }}</span>
+                </div>
+              }
+              @if (movie()?.revenue) {
+                <div class="financial-item">
+                  <span class="financial-label">Revenue</span>
+                  <span class="financial-value">{{ formatCurrency(movie().revenue) }}</span>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        @if (cast().length > 0) {
+          <section class="cast-section">
+            <h2 class="section-title">Cast</h2>
+            <div class="cast-grid">
+              @for (actor of cast().slice(0, 12); track actor.id) {
+                <div class="cast-card">
+                  <div class="cast-image-wrapper">
+                    <img 
+                      [src]="getImageUrl(actor.profile_path, 'w185')" 
+                      [alt]="actor.name"
+                      [title]="actor.name"
+                      class="cast-image"
+                      loading="lazy"
+                      (error)="onImageError($event)"
+                    />
+                  </div>
+                  <div class="cast-info">
+                    <h3 class="cast-name">{{ actor.name }}</h3>
+                    <p class="cast-character">{{ actor.character }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        @if (reviews().length > 0) {
+          <section class="reviews-section">
+            <h2 class="section-title">Reviews</h2>
+            <div class="reviews-list">
+              @for (review of reviews().slice(0, 5); track review.id) {
+                <div class="review-card">
+                  <div class="review-header">
+                    <div class="review-author">
+                      <div class="author-avatar">
+                        @if (review.author_details?.avatar_path) {
+                          <img 
+                            [src]="getImageUrl(review.author_details.avatar_path, 'w45')" 
+                            [alt]="review.author"
+                            [title]="review.author"
+                            (error)="onImageError($event)"
+                          />
+                        } @else {
+                          <div class="avatar-placeholder">{{ review.author.charAt(0) }}</div>
+                        }
+                      </div>
+                      <div class="author-info">
+                        <h4 class="author-name">{{ review.author }}</h4>
+                        @if (review.created_at) {
+                          <p class="review-date">{{ getYear(review.created_at) }}</p>
+                        }
+                      </div>
+                    </div>
+                    @if (review.author_details?.rating) {
+                      <div class="review-rating">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                        </svg>
+                        <span>{{ review.author_details.rating }}/10</span>
+                      </div>
+                    }
+                  </div>
+                  <p class="review-content">{{ review.content }}</p>
+                </div>
+              }
+            </div>
+          </section>
+        }
+      </div>
+    </div>
+
+    @if (similarMovies().length > 0) {
+      <section class="similar-movies-section">
+        <h2 class="section-title">Similar Movies</h2>
+        <div class="similar-movies-grid">
+          @for (similarMovie of similarMovies().slice(0, 8); track similarMovie.id) {
+            <div class="similar-movie-card" (click)="navigateToMovieDetails(similarMovie.id)">
+              <div class="similar-movie-poster">
+                <img 
+                  [src]="getImageUrl(similarMovie.poster_path, 'w300')" 
+                  [alt]="similarMovie.title"
+                  [title]="similarMovie.title + ' poster'"
+                  loading="lazy"
+                  (error)="onImageError($event)"
+                />
+                <div class="similar-movie-overlay">
+                  <div class="similar-movie-rating">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                    </svg>
+                    <span>{{ similarMovie.vote_average.toFixed(1) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="similar-movie-info">
+                <h3 class="similar-movie-title">{{ similarMovie.title }}</h3>
+                <p class="similar-movie-year">{{ getYear(similarMovie.release_date) }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  }
+</div>

@@ -42,5 +42,47 @@ export class MovieService {
         return this.http.get(`${this.baseUrl}/genre/movie/list`);
     }
 
+    //Movie details
+    getMovieDetails(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}`);
+    }
+    getMovieCredits(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/credits`);
+    }
+    getMovieReviews(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/reviews`);
+    }
+    getMovieRecommendations(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/recommendations`);
+    }
+    getMovieSimilar(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/similar`);
+    }
+    getMovieVideos(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/videos`);
+    }
+    getMovieImages(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/images`);
+    }
+    getMovieKeywords(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/keywords`);
+    }
+    getMovieReleaseDates(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/release_dates`);
+    }
+    getMovieExternalIds(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/external_ids`);
+    }
+    getMovieAlternativeTitles(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/alternative_titles`);
+    }
+    getMovieTranslations(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/translations`);
+    }
+    getSimilarMovies(movieId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/${movieId}/similar`);
+    }
+
+
 
 }
