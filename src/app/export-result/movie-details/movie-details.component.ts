@@ -37,7 +37,7 @@ export class MovieDetailsComponent implements OnInit {
     isInWatchlist = signal<boolean>(false);
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
+        (this.route.params as any).subscribe((params: Record<string, string>) => {
             const id = +params['id'];
             if (id) {
                 this.loadMovieData(id);
@@ -57,7 +57,7 @@ export class MovieDetailsComponent implements OnInit {
             reviews: this.movieService.getMovieReviews(movieId),
             similar: this.movieService.getSimilarMovies(movieId)
         }).subscribe({
-            next: (data) => {
+            next: (data: any) => {
                 const movieDetails = data.details;
                 this.movie.set(movieDetails);
                 
@@ -84,7 +84,7 @@ export class MovieDetailsComponent implements OnInit {
                 this.movieStore.setLoading(false);
                 this.cdr.markForCheck();
             },
-            error: (err) => {
+            error: (err: any) => {
                 const errorMessage = 'Failed to load movie details';
                 this.error.set(errorMessage);
                 this.movieStore.setError(errorMessage);
@@ -117,7 +117,7 @@ export class MovieDetailsComponent implements OnInit {
     }
 
     navigateToMovieDetails(movieId: number): void {
-        this.router.navigate(['/movie', movieId]);
+        (this.router.navigate as any)(['/movie', movieId]);
     }
 
     formatRuntime(minutes: number): string {
@@ -144,6 +144,6 @@ export class MovieDetailsComponent implements OnInit {
     }
 
     goBack(): void {
-        this.router.navigate(['/discover']);
+        (this.router.navigate as any)(['/discover']);
     }
 }

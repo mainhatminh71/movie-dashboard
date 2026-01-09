@@ -3,12 +3,10 @@ import { MovieService } from "src/app/core/services/movie.service";
 import { StorageService } from "src/app/core/services/moviestorage.service";
 import { MovieStore } from "src/app/core/stores/movie.store";
 import { environment } from "src/environments/environment";
-import { ActivatedRoute, Route, Router } from "@angular/router";
-import { Subject } from 'rxjs';
-import { debounceTime } from "rxjs";
-import { distinctUntilChanged } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { toSignal } from "@angular/core/rxjs-interop";
-import { Observable } from "rxjs";
 import { CommonModule } from "@angular/common";
 @Component({
     selector: "app-discover-page",
@@ -48,21 +46,21 @@ export class DiscoverComponent implements OnInit{
 
     constructor() {
         effect(() => {
-            const queryParams: any = {}
+            const queryParams: Record<string, string | number> = {}
             const search = this.searchQuery();
-            if (search) queryParams.search = search;
+            if (search) queryParams['search'] = search;
             
             const genres = this.selectedGenreIDs();
-            if (genres.length > 0) queryParams.genres = genres.join(',');
+            if (genres.length > 0) queryParams['genres'] = genres.join(',');
             
             const year = this.selectedYear();
-            if (year) queryParams.year = year;
+            if (year) queryParams['year'] = year;
             
             const rating = this.minRating();
-            if (rating > 0) queryParams.rating = rating;
-            this.router.navigate([], {
+            if (rating > 0) queryParams['rating'] = rating;
+            (this.router.navigate as any)([], {
                 relativeTo: this.route,
-                queryParams,
+                queryParams: queryParams,
                 queryParamsHandling: 'merge',
                 replaceUrl: true
       });
@@ -81,7 +79,7 @@ export class DiscoverComponent implements OnInit{
      ngOnInit(): void {
     this.loadGenres();
     
-    this.route.queryParams.subscribe(params => {
+    (this.route.queryParams as any).subscribe((params: Record<string, string | undefined>) => {
       if (params['search']) {
         this.movieStore.searchQuery.set(params['search']);
       } else {
@@ -116,7 +114,7 @@ export class DiscoverComponent implements OnInit{
         this.movieStore.setLoading(true);
         this.movieStore.setError(null);
 
-        const query = this.debounceSearch() || this.searchQuery();
+        const query = (this.debounceSearch() || this.searchQuery()) as string;
         const year = this.selectedYear();
         const genres = this.selectedGenreIDs();
         const rating = this.minRating();
@@ -125,12 +123,12 @@ export class DiscoverComponent implements OnInit{
         if (query && query.trim()) {
             request = this.movieService.searchMovie(1, query);
             request.subscribe({
-                next: (response) => {
+                next: (response: any) => {
                     this.movieStore.setDiscoveredMovie(response.results || []);
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
-                error: (err) => {
+                error: (err: any) => {
                     this.movieStore.setError('Failed to load movies');
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
@@ -138,19 +136,19 @@ export class DiscoverComponent implements OnInit{
                 }
             });
         } else {
-            const discoverParams: any = { page: 1 };
-            if (genres.length > 0) discoverParams.with_genres = genres.join(',');
-            if (year) discoverParams.year = year;
+            const discoverParams: Record<string, string | number> = { page: 1 };
+            if (genres.length > 0) discoverParams['with_genres'] = genres.join(',');
+            if (year) discoverParams['year'] = year;
             if (rating > 0) discoverParams['vote_average_gte'] = rating;
             request = this.movieService.discoverMovie(discoverParams);
 
             request.subscribe({
-                next: (response) => {
+                next: (response: any) => {
                     this.movieStore.setDiscoveredMovie(response.results || []);
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
-                error: (err) => {
+                error: (err: any) => {
                     this.movieStore.setError('Failed to load movies');
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
@@ -161,10 +159,10 @@ export class DiscoverComponent implements OnInit{
     }
     loadGenres() : void {
         this.movieService.getGenres().subscribe({
-      next: (response) => {
+      next: (response: any) => {
         this.movieStore.setGenresSignal(response.genres || []);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error loading genres:', err);
       }
     });
@@ -195,7 +193,7 @@ export class DiscoverComponent implements OnInit{
         this.movieStore.selectedYear.set(null);
         this.minRating.set(0);
         this.searchSubject.next('');
-        this.router.navigate([], {
+        (this.router.navigate as any)([], {
           relativeTo: this.route,
           replaceUrl: true,
           queryParams: {}
@@ -204,7 +202,7 @@ export class DiscoverComponent implements OnInit{
     }
 
     navigateToMovieDetails(movieId: number): void {
-        this.router.navigate(['/movie', movieId]);
+        (this.router.navigate as any)(['/movie', movieId]);
     }
 
     getImageUrl(path: string | null, size: string = 'w300'): string {
