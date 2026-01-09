@@ -22,4 +22,25 @@ export class MovieService {
             params: {page}
         })
     }
+    searchMovie(page: number = 1, query: string) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/search/movie`, {
+            params: {page, query}
+        })
+    } 
+    discoverMovie(params: {
+        page?: number;
+        genre?: number[];
+        year?: number;
+        'vote_average_gte'?: number;
+        sort_by?: string
+    }) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/discover/movie`, {
+            params: params as any
+        })
+    }
+    getGenres() : Observable<any> {
+        return this.http.get(`${this.baseUrl}/genre/movie/list`);
+    }
+
+
 }

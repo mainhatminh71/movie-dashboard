@@ -10,7 +10,7 @@ import { TopRatedComponent } from "../top-rated/top-rated.component";
 import { RecentComponent } from "../recent/recent.component";
 import { CelebritiesComponent } from "../celebrities/celebrities.component";
 import { AwardComponent } from "../award/award.component";
-import { DiscoverComponent } from "../discover/discover.component";
+import { DiscoverIconComponent } from "../discover/discover-icon.component";
 import { RouterLinkWithHref, RouterLinkActive } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
@@ -20,7 +20,7 @@ import { RouterModule } from "@angular/router";
     styleUrls: ["./left-side.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, RouterModule,IconComponent, LogOutComponent, SettingsComponent, CompletedComponent, WatchlistComponent, PlaylistsComponent, DownloadedComponent,
-    TopRatedComponent, RecentComponent, CelebritiesComponent, AwardComponent, DiscoverComponent, RouterLinkWithHref, RouterLinkActive],
+    TopRatedComponent, RecentComponent, CelebritiesComponent, AwardComponent, DiscoverIconComponent, RouterLinkWithHref, RouterLinkActive],
     standalone: true
 })
 export class LeftSideComponent {}

@@ -2,7 +2,6 @@ import { WatchListItem } from '../models/watchlistitem.model';
 import { Movie } from '../models/movie.model';
 import { Injectable, inject, signal, computed, effect } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
-import { MovieService } from './movie.service';
 
 @Injectable({
     providedIn: 'root'
