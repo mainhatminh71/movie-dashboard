@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal, effect, ChangeDetectorRef } from "@angular/core";
 import { MovieService } from "src/app/core/services/movie.service";
-import { StorageService } from "src/app/core/services/moviestorage.service";
 import { MovieStore } from "src/app/core/stores/movie.store";
+import { Movie } from "src/app/core/models/movie.model";
 import { environment } from "src/environments/environment";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subject, Observable } from 'rxjs';
@@ -135,9 +135,27 @@ export class DiscoverComponent implements OnInit{
                     console.error('Error loading movies:', err);
                 }
             });
+        } else if (genres.length > 0) {
+            request = this.movieStore.takeMovieListByGenreId(this.movieService, genres, {
+                year: year || undefined,
+                rating: rating > 0 ? rating : undefined
+            });
+
+            request.subscribe({
+                next: (movies: Movie[]) => {
+                    this.movieStore.setDiscoveredMovie(movies);
+                    this.movieStore.setLoading(false);
+                    this.cdr.markForCheck();
+                },
+                error: (err: any) => {
+                    this.movieStore.setError('Failed to load movies by genre');
+                    this.movieStore.setLoading(false);
+                    this.cdr.markForCheck();
+                    console.error('Error loading movies by genre:', err);
+                }
+            });
         } else {
             const discoverParams: Record<string, string | number> = { page: 1 };
-            if (genres.length > 0) discoverParams['with_genres'] = genres.join(',');
             if (year) discoverParams['year'] = year;
             if (rating > 0) discoverParams['vote_average_gte'] = rating;
             request = this.movieService.discoverMovie(discoverParams);
@@ -202,7 +220,13 @@ export class DiscoverComponent implements OnInit{
     }
 
     navigateToMovieDetails(movieId: number): void {
-        (this.router.navigate as any)(['/movie', movieId]);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.router.navigate(['/movie', movieId]).then(() => {
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.scrollTop = 0;
+            }
+        });
     }
 
     getImageUrl(path: string | null, size: string = 'w300'): string {
@@ -248,4 +272,5 @@ export class DiscoverComponent implements OnInit{
     getImageAlt(movieTitle: string): string {
         return `Poster for ${movieTitle}`;
     }
+    
 }

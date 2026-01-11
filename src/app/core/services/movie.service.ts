@@ -2,6 +2,9 @@ import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { HttpHeaders } from "@angular/common/http";
+import { map } from "rxjs";
+import { Movie } from "../models/movie.model";
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +19,24 @@ export class MovieService {
         return this.http.get(`${this.baseUrl}/movie/popular`, {
             params: {page}
         })
+    }
+    getMoviesByGenre(genreList: string[], page: number = 1, options?: { year?: number; rating?: number }): Observable<Movie[]> {
+        const params: any = {
+            page: page.toString(),
+            with_genres: genreList.join(',')
+        };
+        
+        if (options?.year) {
+            params['year'] = options.year.toString();
+        }
+        
+        if (options?.rating && options.rating > 0) {
+            params['vote_average_gte'] = options.rating.toString();
+        }
+
+        return this.http.get<any>(`${this.baseUrl}/discover/movie`, { params }).pipe(
+            map((response: any) => response.results as Movie[])
+        );
     }
     getTopRatedMovies(page: number = 1) : Observable<any> {
         return this.http.get(`${this.baseUrl}/movie/top-rated`, {
@@ -39,7 +60,10 @@ export class MovieService {
         })
     }
     getGenres() : Observable<any> {
-        return this.http.get(`${this.baseUrl}/genre/movie/list`);
+        const headers = new HttpHeaders({
+    Authorization: `Bearer ${environment.tmdbApiToken}`   
+         });
+        return this.http.get(`${this.baseUrl}/genre/movie/list`, { headers});
     }
 
     //Movie details
@@ -82,6 +106,8 @@ export class MovieService {
     getSimilarMovies(movieId: number) : Observable<any> {
         return this.http.get(`${this.baseUrl}/movie/${movieId}/similar`);
     }
+
+    
 
 
 

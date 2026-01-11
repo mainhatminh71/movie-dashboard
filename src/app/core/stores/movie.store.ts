@@ -2,7 +2,9 @@ import { Movie } from "../models/movie.model";
 import { Injectable, signal, computed, effect } from "@angular/core";
 import { StorageService } from "../services/moviestorage.service";
 import { WatchListItem } from "../models/watchlistitem.model";
-
+import { MovieService } from "../services/movie.service";
+import { Observable, of } from "rxjs";
+import { map } from "rxjs/operators";
 @Injectable({
     providedIn: 'root'
 })
@@ -16,20 +18,9 @@ export class MovieStore {
     filteredMovies = computed(() => {
         let movies = this.discoveredWatchListSignal();
         const query = this.searchQuery().toLowerCase().trim();
-        const genreId = this.selectedGenreIDs();
-        const year = this.selectedYear();
+        
         if (query) {
             movies = movies.filter(m => m.title.toLowerCase().trim().includes(query))
-        }
-        if (genreId.length > 0) {
-            movies = movies.filter(m => m.genre_ide?.some(id => m.genre_ide?.includes(id)))
-        }
-        if (year) {
-            movies = movies.filter(m => {
-                if (!m.release_date) return false;
-                const movieYear = new Date(m.release_date).getFullYear();
-                return movieYear === year;
-            })
         }
         return movies;
     })
@@ -61,6 +52,9 @@ export class MovieStore {
     selectedGenreIDs = signal<number[]>([]);
     selectedYear = signal<number | null>(null);
     currentMovieId = signal< number| null>(null);
+    currentGenreListSignal = signal<string[] | null>(null);
+
+    currentGenreList = computed(() => this.currentGenreListSignal() ?? []);
 
     //movie attribute state
     currentTitle = signal<string | null>(null);
@@ -70,7 +64,7 @@ export class MovieStore {
     currentReleaseDate = signal< string | null>(null);
     voteAverage = signal <number| null>(null);
     currentMovieGenre = signal <number | null>(null);
-
+    currentPopularMovieList = signal<Movie[] | null> (null);
     
     constructor(private storageService : StorageService) {
         const savedWatchList = storageService.getWatchList();
@@ -88,6 +82,13 @@ export class MovieStore {
         if (movie != null) {
             this.storageService.addMovie(movie);
         }
+    }
+    takeMovieListByGenreId(movieService: MovieService, genreIds: number[], options?: { year?: number; rating?: number }): Observable<Movie[]> {
+        if (genreIds.length === 0) {
+            return of([]);
+        }
+        const genreList = genreIds.map(id => id.toString());
+        return movieService.getMoviesByGenre(genreList, 1, options);
     }
     clearFilter() : void {
         this.searchQuery.set('');

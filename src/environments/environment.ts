@@ -1,7 +1,8 @@
 /* import { SecretEnvironment } from "./environment.secret"
- */export const environment = {
+ */ export const environment = {
     production: false,
-    tmdbApiKey: /* SecretEnvironment.tmdbApiKey || */ 'TMDB_API_KEY',
+    tmdbApiKey: /*  SecretEnvironment.tmdbApiKey || */  'TMDB_API_KEY',
     tmdbBaseUrl: 'https://api.themoviedb.org/3',
-    tmdbImageBaseUrl: 'https://image.tmdb.org/t/p/'
+    tmdbImageBaseUrl: 'https://image.tmdb.org/t/p/',
+    tmdbApiToken: /* SecretEnvironment.tmdbApiToken || */ 'TMDB_API_TOKEN'
 }

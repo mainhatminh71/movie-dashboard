@@ -37,6 +37,12 @@ export class MovieDetailsComponent implements OnInit {
     isInWatchlist = signal<boolean>(false);
 
     ngOnInit(): void {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            mainContent.scrollTop = 0;
+        }
+
         (this.route.params as any).subscribe((params: Record<string, string>) => {
             const id = +params['id'];
             if (id) {
@@ -117,7 +123,13 @@ export class MovieDetailsComponent implements OnInit {
     }
 
     navigateToMovieDetails(movieId: number): void {
-        (this.router.navigate as any)(['/movie', movieId]);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.router.navigate(['/movie', movieId]).then(() => {
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.scrollTop = 0;
+            }
+        });
     }
 
     formatRuntime(minutes: number): string {

@@ -1,0 +1,11 @@
+{
+  "debug.javascript.autoAttachFilter": "disabled",
+  "debug.javascript.autoAttachSmartPattern": [
+    "!**/node_modules/**",
+    "**/$KNOWN_TOOLS$/node_modules/**"
+  ],
+  "debug.javascript.usePreviewAutoAttach": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
+
