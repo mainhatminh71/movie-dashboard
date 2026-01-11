@@ -1,8 +1,26 @@
 <div class="discover-container">
   <!-- Header Section -->
   <div class="discover-header">
-    <h1 class="page-title">Discover Movies</h1>
-    <p class="page-subtitle">Find your next favorite movie</p>
+    <h1 class="page-title">Discover</h1>
+    <p class="page-subtitle">Find your next favorite {{ activeTab() === 'movies' ? 'movie' : 'TV show' }}</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab() === 'movies'"
+      (click)="switchTab('movies')"
+    >
+      Movies
+    </button>
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab() === 'tvshows'"
+      (click)="switchTab('tvshows')"
+    >
+      TV Shows
+    </button>
   </div>
 
   <!-- Search and Filters Section -->
@@ -16,9 +34,10 @@
         <input 
           type="text" 
           class="search-input" 
-          placeholder="Search for movies..."
+          [placeholder]="'Search for ' + (activeTab() === 'movies' ? 'movies' : 'TV shows') + '...'"
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
+          [attr.aria-label]="'Search for ' + (activeTab() === 'movies' ? 'movies' : 'TV shows')"
         />
         @if (searchQuery()) {
           <button class="clear-search-btn" (click)="clearFilters()" aria-label="Clear search">
@@ -100,7 +119,7 @@
     @if (loading()) {
       <div class="loading-container">
         <div class="spinner"></div>
-        <p class="loading-text">Loading movies...</p>
+        <p class="loading-text">Loading {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}...</p>
       </div>
     } @else if (error()) {
       <div class="error-container">
@@ -108,14 +127,14 @@
           <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <p class="error-message">{{ error() }}</p>
-        <button class="retry-btn" (click)="loadMovies()">Try Again</button>
+        <button class="retry-btn" (click)="loadContent()">Try Again</button>
       </div>
-    } @else if (filteredDiscoveredMovie().length === 0) {
+    } @else if (filteredContent().length === 0) {
       <div class="empty-container">
         <svg class="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <p class="empty-message">No movies found</p>
+        <p class="empty-message">No {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }} found</p>
         <p class="empty-submessage">Try adjusting your filters or search query</p>
         @if (hasActiveFilters()) {
           <button class="clear-filters-btn" (click)="clearFilters()">Clear Filters</button>
@@ -123,13 +142,13 @@
       </div>
     } @else {
       <div class="movies-grid">
-        @for (movie of filteredDiscoveredMovie(); track movie.id) {
-          <div class="movie-card" (click)="navigateToMovieDetails(movie.id)">
+        @for (item of filteredContent(); track item.id) {
+          <div class="movie-card" (click)="navigateToDetails(item.id)">
             <div class="movie-poster">
               <img 
-                [src]="getImageUrl(movie.poster_path, 'w300')" 
-                [alt]="getImageAlt(movie.title)"
-                [title]="movie.title + ' poster'"
+                [src]="getImageUrl(item.poster_path, 'w300')" 
+                [alt]="getImageAlt(getTitle(item))"
+                [title]="getTitle(item) + ' poster'"
                 loading="lazy"
                 (error)="onImageError($event)"
               />
@@ -138,19 +157,19 @@
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
                   </svg>
-                  <span>{{ movie.vote_average.toFixed(1) }}</span>
+                  <span>{{ item.vote_average.toFixed(1) }}</span>
                 </div>
               </div>
             </div>
             <div class="movie-info">
-              <h3 class="movie-title">{{ movie.title }}</h3>
-              <p class="movie-year">{{ getYear(movie.release_date) }}</p>
+              <h3 class="movie-title">{{ getTitle(item) }}</h3>
+              <p class="movie-year">{{ getYear(getReleaseDate(item)) }}</p>
             </div>
           </div>
         }
       </div>
       <div class="results-count">
-        <p>Found {{ filteredDiscoveredMovie().length }} movie{{ filteredDiscoveredMovie().length !== 1 ? 's' : '' }}</p>
+        <p>Found {{ filteredContent().length }} {{ activeTab() === 'movies' ? 'movie' : 'TV show' }}{{ filteredContent().length !== 1 ? 's' : '' }}</p>
       </div>
     }
   </div>

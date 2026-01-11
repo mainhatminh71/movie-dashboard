@@ -43,6 +43,11 @@ export class MovieService {
             params: {page}
         })
     }
+    getNowPlayingMovies(page: number = 1) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/movie/now_playing`, {
+            params: {page}
+        })
+    }
     searchMovie(page: number = 1, query: string) : Observable<any> {
         return this.http.get(`${this.baseUrl}/search/movie`, {
             params: {page, query}

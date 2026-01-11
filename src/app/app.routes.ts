@@ -39,6 +39,10 @@ export const routes: Routes = [
         loadComponent: () => import('./export-result/movie-details/movie-details.component').then(m => m.MovieDetailsComponent)
     },
     {
+        path: 'tv/:id',
+        loadComponent: () => import('./export-result/tv-details/tv-details.component').then(m => m.TvDetailsComponent)
+    },
+    {
         path: 'playlists',
         loadComponent: () => import('./export-result/playlists/playlists.component').then(m => m.PlaylistsComponent)
     },
@@ -59,7 +63,11 @@ export const routes: Routes = [
         loadComponent: () => import('./export-result/watchlist/watchlist.component').then(m => m.WatchlistComponent)
     },
     {
+        path: 'error',
+        loadComponent: () => import('./export-result/error/error.component').then(m => m.ErrorComponent)
+    },
+    {
         path: '**',
-        redirectTo: '/error'
+        redirectTo: '/home'
     }
 ]

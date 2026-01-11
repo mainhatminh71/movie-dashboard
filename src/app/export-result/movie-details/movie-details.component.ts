@@ -26,6 +26,7 @@ export class MovieDetailsComponent implements OnInit {
     similarMovies = signal<any[]>([]);
     loading = signal<boolean>(false);
     error = signal<string | null>(null);
+    referrer = signal<string>('home'); // 'home' or 'discover'
 
     currentMovieId = this.movieStore.currentMovieId;
     currentTitle = this.movieStore.currentTitle;
@@ -41,6 +42,15 @@ export class MovieDetailsComponent implements OnInit {
         const mainContent = document.querySelector('.main-content');
         if (mainContent) {
             mainContent.scrollTop = 0;
+        }
+
+        // Get referrer from history state
+        const state = (window.history as any).state;
+        if (state && state.referrer) {
+            this.referrer.set(state.referrer);
+        } else {
+            // Default to 'home' if no referrer found
+            this.referrer.set('home');
         }
 
         (this.route.params as any).subscribe((params: Record<string, string>) => {
@@ -156,6 +166,11 @@ export class MovieDetailsComponent implements OnInit {
     }
 
     goBack(): void {
-        (this.router.navigate as any)(['/discover']);
+        const referrerValue = this.referrer();
+        if (referrerValue === 'discover') {
+            this.router.navigate(['/discover']);
+        } else {
+            this.router.navigate(['/home']);
+        }
     }
 }

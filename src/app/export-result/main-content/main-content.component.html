@@ -16,7 +16,15 @@
           <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <input type="text" placeholder="Search" class="search-input">
+        <input 
+          type="text" 
+          class="search-input" 
+          [placeholder]="'Search for ' + (activeTab === 'movies' ? 'movies' : 'TV shows') + '...'"
+          [value]="searchQuery"
+          (input)="onSearchInput($event)"
+          (keydown.enter)="onSearchKeyDown($event)"
+          [attr.aria-label]="'Search for ' + (activeTab === 'movies' ? 'movies' : 'TV shows')"
+        />
       </div>
       <div class="filter-icon">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,47 +37,169 @@
     </div>
   </div>
 
-  <div class="hero-section">
-    <div class="hero-card">
-      <div class="hero-background"></div>
-      <div class="hero-content">
-        <div class="hero-left">
-          <h1 class="hero-title">The Crown</h1>
+  @if (activeTab === 'movies' && heroMovies.length > 0 && getCurrentHeroMovie()) {
+    @let currentMovie = getCurrentHeroMovie()!;
+    <div class="hero-section">
+      <div 
+        class="hero-card"
+        (touchstart)="onTouchStart($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="onTouchEnd($event)"
+        (mousedown)="onMouseDown($event)"
+        (mousemove)="onMouseMove($event)"
+        (mouseup)="onMouseUp($event)"
+        (mouseleave)="onMouseLeave()"
+      >
+        <div class="hero-background" [style.background-image]="'url(' + getImageUrl(currentMovie.backdrop_path, 'w1280') + ')'" [@fadeIn]="currentHeroIndex"></div>
+        <div class="hero-content" [@slideIn]="currentHeroIndex">
+          <div class="hero-left">
+            <h1 class="hero-title">{{ currentMovie.title || 'Loading...' }}</h1>
+            @if (currentMovie.overview) {
+              <p class="hero-description">{{ currentMovie.overview }}</p>
+            }
+            <div class="hero-meta">
+              <span class="hero-year">{{ getYear(currentMovie.release_date) }}</span>
+              @if (currentMovie.vote_average) {
+                <span class="hero-rating">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                  </svg>
+                  {{ currentMovie.vote_average.toFixed(1) }}
+                </span>
+              }
+            </div>
+          </div>
+          <div class="hero-right">
+            @if (currentMovie.poster_path) {
+              <img 
+                [src]="getImageUrl(currentMovie.poster_path, 'w500')" 
+                [alt]="currentMovie.title"
+                [title]="currentMovie.title + ' poster'"
+                class="hero-poster"
+                (error)="onImageError($event)"
+              />
+            } @else {
+              <div class="hero-image-placeholder"></div>
+            }
+          </div>
         </div>
-        <div class="hero-right">
-          <div class="hero-image-placeholder"></div>
+        <div class="hero-actions">
+          <button class="hero-btn watchlist-btn" (click)="navigateToMovieDetails(currentMovie.id)" [attr.aria-label]="'Add ' + currentMovie.title + ' to watchlist'">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Watchlist</span>
+          </button>
+          <button class="hero-btn watch-now-btn" (click)="navigateToMovieDetails(currentMovie.id)" [attr.aria-label]="'Watch ' + currentMovie.title">
+            <span>Watch Now</span>
+          </button>
         </div>
-      </div>
-      <div class="hero-actions">
-        <button class="hero-btn watchlist-btn">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span>Watchlist</span>
-        </button>
-        <button class="hero-btn watch-now-btn">
-          <span>Watch Now</span>
-        </button>
-      </div>
-      <div class="carousel-controls">
-        <button class="carousel-arrow left-arrow">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="carousel-arrow right-arrow">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-      <div class="carousel-indicators">
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
+        <div class="carousel-controls">
+          <button class="carousel-arrow left-arrow" (click)="prevHero()" aria-label="Previous movie">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="carousel-arrow right-arrow" (click)="nextHero()" aria-label="Next movie">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="carousel-indicators">
+          @for (movie of heroMovies; track movie.id; let i = $index) {
+            <div 
+              class="indicator" 
+              [class.active]="i === currentHeroIndex"
+              (click)="goToHero(i)"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            ></div>
+          }
+        </div>
       </div>
     </div>
-  </div>
+  } @else if (activeTab === 'tvshows' && heroTVShows.length > 0 && getCurrentHeroTVShow()) {
+    @let currentTVShow = getCurrentHeroTVShow()!;
+    <div class="hero-section">
+      <div 
+        class="hero-card"
+        (touchstart)="onTouchStart($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="onTouchEnd($event)"
+        (mousedown)="onMouseDown($event)"
+        (mousemove)="onMouseMove($event)"
+        (mouseup)="onMouseUp($event)"
+        (mouseleave)="onMouseLeave()"
+      >
+        <div class="hero-background" [style.background-image]="'url(' + getImageUrl(currentTVShow.backdrop_path, 'w1280') + ')'" [@fadeIn]="currentHeroIndex"></div>
+        <div class="hero-content" [@slideIn]="currentHeroIndex">
+          <div class="hero-left">
+            <h1 class="hero-title">{{ currentTVShow.name || 'Loading...' }}</h1>
+            @if (currentTVShow.overview) {
+              <p class="hero-description">{{ currentTVShow.overview }}</p>
+            }
+            <div class="hero-meta">
+              <span class="hero-year">{{ getYear(currentTVShow.first_air_date) }}</span>
+              @if (currentTVShow.vote_average) {
+                <span class="hero-rating">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                  </svg>
+                  {{ currentTVShow.vote_average.toFixed(1) }}
+                </span>
+              }
+            </div>
+          </div>
+          <div class="hero-right">
+            @if (currentTVShow.poster_path) {
+              <img 
+                [src]="getImageUrl(currentTVShow.poster_path, 'w500')" 
+                [alt]="currentTVShow.name"
+                [title]="currentTVShow.name + ' poster'"
+                class="hero-poster"
+                (error)="onImageError($event)"
+              />
+            } @else {
+              <div class="hero-image-placeholder"></div>
+            }
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="hero-btn watchlist-btn" (click)="navigateToTVDetails(currentTVShow.id)" [attr.aria-label]="'Add ' + currentTVShow.name + ' to watchlist'">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Watchlist</span>
+          </button>
+          <button class="hero-btn watch-now-btn" (click)="navigateToTVDetails(currentTVShow.id)" [attr.aria-label]="'Watch ' + currentTVShow.name">
+            <span>Watch Now</span>
+          </button>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-arrow left-arrow" (click)="prevHero()" aria-label="Previous TV show">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="carousel-arrow right-arrow" (click)="nextHero()" aria-label="Next TV show">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="carousel-indicators">
+          @for (tvShow of heroTVShows; track tvShow.id; let i = $index) {
+            <div 
+              class="indicator" 
+              [class.active]="i === currentHeroIndex"
+              (click)="goToHero(i)"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            ></div>
+          }
+        </div>
+      </div>
+    </div>
+  }
 
   <!-- Popular Movies Section -->
   <div class="movies-section">
@@ -90,25 +220,124 @@
       </button>
     </div>
     <div class="movies-grid">
-      <div class="movie-card" *ngFor="let i of [1,2,3,4,5,6]">
-        <div class="movie-poster">
-          <div class="poster-overlay"></div>
-          <div class="movie-badge popular-badge">Popular</div>
-        </div>
-        <div class="movie-info">
-          <h3 class="movie-title" *ngIf="activeTab==='movies'">Movie Title {{i}}</h3>
-          <h3 class="movie-title" *ngIf="activeTab==='tvshows'">TVShow Title {{i}}</h3>
-          <div class="movie-meta">
-            <span class="movie-year">2024</span>
-            <div class="rating-wrapper">
-              <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
-              </svg>
-              <span class="movie-rating">8.{{i}}</span>
+      <!-- Movies -->
+      <ng-container *ngIf="activeTab==='movies'">
+        <div class="movie-card" *ngFor="let movie of popularMovies" (click)="navigateToMovieDetails(movie.id)">
+          <div class="movie-poster">
+            <img [src]="getImageUrl(movie.poster_path)" [alt]="movie.title" [title]="movie.title">
+            <div class="poster-overlay"></div>
+            <div class="movie-badge popular-badge">Popular</div>
+          </div>
+          <div class="movie-info">
+            <h3 class="movie-title">{{movie.title}}</h3>
+            <div class="movie-meta">
+              <span class="movie-year">{{getYear(movie.release_date)}}</span>
+              <div class="rating-wrapper">
+                <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
+                </svg>
+                <span class="movie-rating">{{movie.vote_average.toFixed(1)}}</span>
+              </div>
             </div>
           </div>
+          <div class="card-hover-effect"></div>
         </div>
-        <div class="card-hover-effect"></div>
+      </ng-container>
+      <!-- TV Shows -->
+      <ng-container *ngIf="activeTab==='tvshows'">
+        <div class="movie-card" *ngFor="let tvShow of popularTVShows" (click)="navigateToTVDetails(tvShow.id)">
+          <div class="movie-poster">
+            <img [src]="getImageUrl(tvShow.poster_path)" [alt]="tvShow.name" [title]="tvShow.name">
+            <div class="poster-overlay"></div>
+            <div class="movie-badge popular-badge">Popular</div>
+          </div>
+          <div class="movie-info">
+            <h3 class="movie-title">{{tvShow.name}}</h3>
+            <div class="movie-meta">
+              <span class="movie-year">{{getYear(tvShow.first_air_date)}}</span>
+              <div class="rating-wrapper">
+                <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
+                </svg>
+                <span class="movie-rating">{{tvShow.vote_average.toFixed(1)}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-hover-effect"></div>
+        </div>
+      </ng-container>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination-wrapper">
+      <!-- Movies Pagination -->
+      <div class="pagination" *ngIf="activeTab === 'movies' && totalMoviesPages > 1">
+        <button 
+          class="pagination-btn" 
+          [class.disabled]="currentMoviesPage === 1"
+          (click)="goToMoviesPage(currentMoviesPage - 1)"
+          [disabled]="currentMoviesPage === 1"
+          title="Previous page">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        
+        <div class="pagination-pages">
+          <button
+            *ngFor="let page of getPagesArray(totalMoviesPages)"
+            class="pagination-page"
+            [class.active]="page === currentMoviesPage"
+            (click)="goToMoviesPage(page)">
+            {{page}}
+          </button>
+        </div>
+        
+        <button 
+          class="pagination-btn" 
+          [class.disabled]="currentMoviesPage === totalMoviesPages"
+          (click)="goToMoviesPage(currentMoviesPage + 1)"
+          [disabled]="currentMoviesPage === totalMoviesPages"
+          title="Next page">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- TV Shows Pagination -->
+      <div class="pagination" *ngIf="activeTab === 'tvshows' && totalTVShowsPages > 1">
+        <button 
+          class="pagination-btn" 
+          [class.disabled]="currentTVShowsPage === 1"
+          (click)="goToTVShowsPage(currentTVShowsPage - 1)"
+          [disabled]="currentTVShowsPage === 1"
+          title="Previous page">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        
+        <div class="pagination-pages">
+          <button
+            *ngFor="let page of getPagesArray(totalTVShowsPages)"
+            class="pagination-page"
+            [class.active]="page === currentTVShowsPage"
+            (click)="goToTVShowsPage(page)">
+            {{page}}
+          </button>
+        </div>
+        
+        <button 
+          class="pagination-btn" 
+          [class.disabled]="currentTVShowsPage === totalTVShowsPages"
+          (click)="goToTVShowsPage(currentTVShowsPage + 1)"
+          [disabled]="currentTVShowsPage === totalTVShowsPages"
+          title="Next page">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>

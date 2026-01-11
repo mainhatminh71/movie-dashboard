@@ -15,20 +15,24 @@
   
   <div class="library_54-84">
     <span class="text-library_34-94">Library</span>
-    <div class="top-rated_54-53" routerLink="/top-rated" routerLinkActive="active">
-      <app-top-rated class="top-rated_54-80"></app-top-rated>
-      <span class="text-top-rated_34-84">Top Rated</span>
-    </div>
+    
     <div class="watchlist_54-56"  routerLink="/watchlist" routerLinkActive="active">
-      <app-watchlist class="watchlist_54-82"></app-watchlist>
+      <app-watchlist-icon class="watchlist_54-82"></app-watchlist-icon>
       <span class="text-watchlist_34-102">Watchlist</span>
+      @if (watchlistCount() > 0) {
+        <span class="watchlist-badge">{{ watchlistCount() }}</span>
+      }
     </div>
   </div>
   
-  <div class="general_54-101">
-    <div class="settings_54-59" routerLink="/settings" routerLinkActive="active">
-      <app-settings class="settings_54-99"></app-settings>
-      <span class="text-settings_34-86">Settings</span>
+  <!-- Decorative Footer -->
+  <div class="sidebar-footer">
+    <div class="footer-stats">
+      <div class="stat-item">
+        <span class="stat-label">Powered by</span>
+        <span class="stat-value">TMDB</span>
+      </div>
     </div>
+    <div class="footer-accent"></div>
   </div>
 </div>

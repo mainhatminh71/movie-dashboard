@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { IconComponent } from "../icon/icon.component";
 import { SettingsComponent } from "../settings/settings.component";
-import { WatchlistComponent } from "../watchlist/watchlist.component";
+import { WatchlistIconComponent } from "../watchlist/watchlist-icon.component";
 import { TopRatedComponent } from "../top-rated/top-rated.component";
 import { DiscoverIconComponent } from "../discover/discover-icon.component";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { StorageService } from "src/app/core/services/moviestorage.service";
 
 @Component({
     selector: "app-left-side",
@@ -17,10 +18,13 @@ import { RouterModule } from "@angular/router";
         RouterModule,
         IconComponent,
         SettingsComponent,
-        WatchlistComponent,
+        WatchlistIconComponent,
         TopRatedComponent,
         DiscoverIconComponent
     ],
     standalone: true
 })
-export class LeftSideComponent {}
+export class LeftSideComponent {
+    private storageService = inject(StorageService);
+    watchlistCount = this.storageService.count;
+}

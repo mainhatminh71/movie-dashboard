@@ -9,7 +9,6 @@ import { map } from "rxjs/operators";
     providedIn: 'root'
 })
 export class MovieStore {
-    private watchListSignal = signal<WatchListItem[]>([]);
     private discoveredWatchListSignal = signal<Movie[]>([]);
     private discoveredGenres = signal<any[]>([]);
     private loadingSignal = signal<boolean>(false);
@@ -39,9 +38,8 @@ export class MovieStore {
         this.errorSignal.set(error);
     }
     
-    watchList = this.watchListSignal.asReadonly();
-    watchListLength = computed(() => this.watchList.length);
-    isEmptyWatchList = computed(() => this.watchListLength() === 0);
+    watchList = this.storageService.watchList;
+    watchListLength = computed(() => this.watchList().length);
 
     loading = this.loadingSignal.asReadonly();
     error = this.errorSignal.asReadonly();
@@ -67,11 +65,6 @@ export class MovieStore {
     currentPopularMovieList = signal<Movie[] | null> (null);
     
     constructor(private storageService : StorageService) {
-        const savedWatchList = storageService.getWatchList();
-        this.watchListSignal.set(savedWatchList);
-        effect(() => {
-            storageService.saveWatchList(this.watchList());
-        })
     }
     checkCurrentMovieInWatchList() : boolean{
         const movieId = this.currentMovieId();
@@ -80,7 +73,11 @@ export class MovieStore {
     }
     toggleWatchlist(movie : Movie) : void {
         if (movie != null) {
-            this.storageService.addMovie(movie);
+            if (this.storageService.checkMovieById(movie.id)) {
+                this.storageService.removeMovie(movie);
+            } else {
+                this.storageService.addMovie(movie);
+            }
         }
     }
     takeMovieListByGenreId(movieService: MovieService, genreIds: number[], options?: { year?: number; rating?: number }): Observable<Movie[]> {

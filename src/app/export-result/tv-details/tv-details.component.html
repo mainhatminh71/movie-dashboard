@@ -1,8 +1,8 @@
-<div class="movie-details-container">
+<div class="tv-details-container">
   @if (loading()) {
     <div class="loading-container">
       <div class="spinner"></div>
-      <p class="loading-text">Loading movie details...</p>
+      <p class="loading-text">Loading TV show details...</p>
     </div>
   } @else if (error()) {
     <div class="error-container">
@@ -10,10 +10,10 @@
         <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <p class="error-message">{{ error() }}</p>
-      <button class="retry-btn" (click)="loadMovieData(currentMovieId()!)">Try Again</button>
+      <button class="retry-btn" (click)="loadTVData(currentTVShowId()!)">Try Again</button>
     </div>
-  } @else if (movie()) {
-    <div class="movie-hero" [style.background-image]="'url(' + getImageUrl(currentBackdrop(), 'w1280') + ')'">
+  } @else if (tv()) {
+    <div class="tv-hero" [style.background-image]="'url(' + getImageUrl(backdrop_path(), 'w1280') + ')'">
       <div class="hero-overlay"></div>
       <button class="back-button-hero" (click)="goBack()" [attr.aria-label]="'Back to ' + (referrer() === 'discover' ? 'Discover' : 'Home')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -22,42 +22,54 @@
         <span>Back to {{ referrer() === 'discover' ? 'Discover' : 'Home' }}</span>
       </button>
       <div class="hero-content">
-        <div class="movie-poster-wrapper">
+        <div class="tv-poster-wrapper">
           <img 
-            [src]="getImageUrl(currentPoster(), 'w500')" 
-            [alt]="currentTitle() + ' poster'"
-            [title]="currentTitle() + ' poster'"
-            class="movie-poster"
+            [src]="getImageUrl(poster_path(), 'w500')" 
+            [alt]="currentName() + ' poster'"
+            [title]="currentName() + ' poster'"
+            class="tv-poster"
             loading="eager"
             (error)="onImageError($event)"
           />
         </div>
-        <div class="movie-info-header">
-          <h1 class="movie-title">{{ currentTitle() }}</h1>
-          <div class="movie-meta">
+        <div class="tv-info-header">
+          <h1 class="tv-title">{{ currentName() }}</h1>
+          <div class="tv-meta">
             <div class="rating-badge">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
               </svg>
-              <span>{{ voteAverage()?.toFixed(1) || 'N/A' }}</span>
+              <span>{{ vote_average()?.toFixed(1) || 'N/A' }}</span>
             </div>
             <span class="meta-separator">•</span>
-            <span class="movie-year">{{ getYear(currentReleaseDate()) }}</span>
-            @if (movie()?.runtime) {
+            <span class="tv-year">{{ getYear(first_air_date()) }}</span>
+            @if (tv()?.number_of_seasons) {
               <span class="meta-separator">•</span>
-              <span class="movie-runtime">{{ formatRuntime(movie().runtime) }}</span>
+              <span class="tv-seasons">{{ tv().number_of_seasons }} Season{{ tv().number_of_seasons !== 1 ? 's' : '' }}</span>
+            }
+            @if (tv()?.episode_run_time && tv().episode_run_time.length > 0) {
+              <span class="meta-separator">•</span>
+              <span class="tv-runtime">{{ tv().episode_run_time[0] }} min/ep</span>
             }
           </div>
-          <div class="movie-genres">
-            @for (genre of movie()?.genres; track genre.id) {
+          <div class="tv-genres">
+            @for (genre of tv()?.genres; track genre.id) {
               <span class="genre-tag">{{ genre.name }}</span>
             }
           </div>
-          <div class="movie-actions">
+          @if (tv()?.status) {
+            <div class="tv-status">
+              <span class="status-badge" [class.ended]="tv().status === 'Ended'" [class.returning]="tv().status === 'Returning Series'">
+                {{ tv().status }}
+              </span>
+            </div>
+          }
+          <div class="tv-actions">
             <button 
               class="watchlist-btn"
               [class.active]="isInWatchlist()"
               (click)="toggleWatchlist()"
+              [attr.aria-label]="isInWatchlist() ? 'Remove from watchlist' : 'Add to watchlist'"
             >
               @if (isInWatchlist()) {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -76,27 +88,39 @@
       </div>
     </div>
 
-    <div class="movie-content">
+    <div class="tv-content">
       <div class="content-main">
         <section class="overview-section">
           <h2 class="section-title">Overview</h2>
-          <p class="movie-overview">{{ currentOverview() || 'No overview available.' }}</p>
+          <p class="tv-overview">{{ overview() || 'No overview available.' }}</p>
         </section>
 
-        @if (movie()?.budget || movie()?.revenue) {
-          <section class="financial-section">
-            <h2 class="section-title">Box Office</h2>
-            <div class="financial-info">
-              @if (movie()?.budget) {
-                <div class="financial-item">
-                  <span class="financial-label">Budget</span>
-                  <span class="financial-value">{{ formatCurrency(movie().budget) }}</span>
+        @if (tv()?.number_of_episodes || tv()?.number_of_seasons) {
+          <section class="show-info-section">
+            <h2 class="section-title">Show Information</h2>
+            <div class="show-info">
+              @if (tv()?.number_of_seasons) {
+                <div class="show-info-item">
+                  <span class="show-info-label">Seasons</span>
+                  <span class="show-info-value">{{ tv().number_of_seasons }}</span>
                 </div>
               }
-              @if (movie()?.revenue) {
-                <div class="financial-item">
-                  <span class="financial-label">Revenue</span>
-                  <span class="financial-value">{{ formatCurrency(movie().revenue) }}</span>
+              @if (tv()?.number_of_episodes) {
+                <div class="show-info-item">
+                  <span class="show-info-label">Episodes</span>
+                  <span class="show-info-value">{{ tv().number_of_episodes }}</span>
+                </div>
+              }
+              @if (tv()?.episode_run_time && tv().episode_run_time.length > 0) {
+                <div class="show-info-item">
+                  <span class="show-info-label">Episode Runtime</span>
+                  <span class="show-info-value">{{ tv().episode_run_time[0] }} min</span>
+                </div>
+              }
+              @if (tv()?.first_air_date) {
+                <div class="show-info-item">
+                  <span class="show-info-label">First Air Date</span>
+                  <span class="show-info-value">{{ getYear(tv().first_air_date) }}</span>
                 </div>
               }
             </div>
@@ -174,32 +198,32 @@
       </div>
     </div>
 
-    @if (similarMovies().length > 0) {
-      <section class="similar-movies-section">
-        <h2 class="section-title">Similar Movies</h2>
-        <div class="similar-movies-grid">
-          @for (similarMovie of similarMovies().slice(0, 8); track similarMovie.id) {
-            <div class="similar-movie-card" (click)="navigateToMovieDetails(similarMovie.id)">
-              <div class="similar-movie-poster">
+    @if (similarTVShows().length > 0) {
+      <section class="similar-tv-shows-section">
+        <h2 class="section-title">Similar TV Shows</h2>
+        <div class="similar-tv-shows-grid">
+          @for (similarTV of similarTVShows().slice(0, 8); track similarTV.id) {
+            <div class="similar-tv-show-card" (click)="navigateToTVDetails(similarTV.id)">
+              <div class="similar-tv-show-poster">
                 <img 
-                  [src]="getImageUrl(similarMovie.poster_path, 'w300')" 
-                  [alt]="similarMovie.title"
-                  [title]="similarMovie.title + ' poster'"
+                  [src]="getImageUrl(similarTV.poster_path, 'w300')" 
+                  [alt]="similarTV.name"
+                  [title]="similarTV.name + ' poster'"
                   loading="lazy"
                   (error)="onImageError($event)"
                 />
-                <div class="similar-movie-overlay">
-                  <div class="similar-movie-rating">
+                <div class="similar-tv-show-overlay">
+                  <div class="similar-tv-show-rating">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
                     </svg>
-                    <span>{{ similarMovie.vote_average.toFixed(1) }}</span>
+                    <span>{{ similarTV.vote_average.toFixed(1) }}</span>
                   </div>
                 </div>
               </div>
-              <div class="similar-movie-info">
-                <h3 class="similar-movie-title">{{ similarMovie.title }}</h3>
-                <p class="similar-movie-year">{{ getYear(similarMovie.release_date) }}</p>
+              <div class="similar-tv-show-info">
+                <h3 class="similar-tv-show-title">{{ similarTV.name }}</h3>
+                <p class="similar-tv-show-year">{{ getYear(similarTV.first_air_date) }}</p>
               </div>
             </div>
           }

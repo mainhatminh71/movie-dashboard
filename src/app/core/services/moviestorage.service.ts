@@ -1,5 +1,6 @@
 import { WatchListItem } from '../models/watchlistitem.model';
 import { Movie } from '../models/movie.model';
+import { TVShow } from '../models/tvshow.model';
 import { Injectable, inject, signal, computed, effect } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 
@@ -12,7 +13,7 @@ export class StorageService {
     private readonly WATCHLIST_KEY =  'tmdb_watchlist';
     
     private watchListSignal = signal<WatchListItem[]>([]);
-    private watchList = this.watchListSignal.asReadonly();
+    watchList = this.watchListSignal.asReadonly();
     count = computed(() => this.watchList().length);
 
     constructor() {
@@ -20,7 +21,7 @@ export class StorageService {
         effect(() => {
             if (!this.localStorage) return;
             try {
-                this.localStorage.setItem(this.WATCHLIST_KEY, JSON.stringify(this.watchListSignal));
+                this.localStorage.setItem(this.WATCHLIST_KEY, JSON.stringify(this.watchListSignal()));
             } catch {
                 console.log("Effect Storage said: mewmew");
             }
@@ -46,22 +47,21 @@ export class StorageService {
         return [];
     }
     checkMovie(movie : Movie) : boolean {
-        if (computed(() => this.watchList().some(m => m.id === movie.id))) return false;
-        return true;
+        return !this.watchList().some(m => m.id === movie.id);
     }
     checkMovieById(movieId : number) : boolean {
-        if (computed(() => this.watchList().some(m => m.id === movieId))) return false;
-        return true;
+        return this.watchList().some(m => m.id === movieId);
     }
     addMovie(movie : Movie) : void {
         this.watchListSignal.update(current => {
-            if (this.checkMovie(movie)) return current;
+            if (!this.checkMovie(movie)) return current;
             const newMovie : WatchListItem = {
                 id: movie.id,
                 title: movie.title,
                 poster_path: movie.poster_path,
-                release_date: movie.release_date || '',
-                addedAt: new Date().toISOString()
+                release_date: movie.release_date || null,
+                addedAt: new Date().toISOString(),
+                type: 'movie'
             }
             return [...current, newMovie];
         })
@@ -69,6 +69,39 @@ export class StorageService {
     removeMovie(movie: Movie) : void {
         return this.watchListSignal.update(current => {
              return current.filter(m => m.id !== movie.id)
+        })
+    }
+    addTVShow(tvShow: TVShow): void {
+        this.watchListSignal.update(current => {
+            if (!this.checkTVShow(tvShow)) return current;
+            const newTVShow: WatchListItem = {
+                id: tvShow.id,
+                title: tvShow.name,
+                poster_path: tvShow.poster_path,
+                release_date: tvShow.first_air_date || null,
+                addedAt: new Date().toISOString(),
+                type: 'tvshow'
+            }
+            return [...current, newTVShow];
+        })
+    }
+    removeTVShow(tvShow: TVShow): void {
+        return this.watchListSignal.update(current => {
+            return current.filter(m => m.id !== tvShow.id)
+        })
+    }
+    checkTVShow(tvShow: TVShow): boolean {
+        return !this.watchList().some(m => m.id === tvShow.id);
+    }
+    checkTVShowById(tvShowId: number): boolean {
+        return this.watchList().some(m => m.id === tvShowId);
+    }
+    checkItemById(itemId: number): boolean {
+        return this.watchList().some(m => m.id === itemId);
+    }
+    removeItemById(itemId: number): void {
+        this.watchListSignal.update(current => {
+            return current.filter(m => m.id !== itemId)
         })
     }
     clearWatchList(watchList: WatchListItem[]) : void {

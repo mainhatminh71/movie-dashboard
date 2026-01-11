@@ -24,25 +24,33 @@
   gap: 16px;
 }
 
-.window-controls {
+.brand-logo {
   display: flex;
-  gap: 6px;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.control-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.header-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #f5f5f5;
-  margin: 0;
+.brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.brand-tagline {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .header-right {
