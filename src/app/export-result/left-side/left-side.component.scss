@@ -414,3 +414,63 @@
 .left-side_54-43::-webkit-scrollbar-thumb:active {
   background: rgba(255, 255, 255, 0.5);
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .left-side_54-43 {
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 200;
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+  
+  .bg_2-9 {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    
+    &.mobile-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .left-side_54-43 {
+    width: 280px;
+    padding: 20px 12px;
+  }
+  
+  .text-logo_2-6 {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+  
+  .home_54-47,
+  .discover_54-48,
+  .top-rated_54-53,
+  .watchlist_54-56,
+  .settings_54-59 {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+  
+  .text-home_34-76,
+  .text-discover_34-80,
+  .text-top-rated_34-84,
+  .text-watchlist_34-102,
+  .text-settings_34-86 {
+    font-size: 14px;
+  }
+}

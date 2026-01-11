@@ -27,4 +27,14 @@ import { StorageService } from "src/app/core/services/moviestorage.service";
 export class LeftSideComponent {
     private storageService = inject(StorageService);
     watchlistCount = this.storageService.count;
+
+    closeMobileMenu(): void {
+        const sidebar = document.querySelector('.left-side_54-43');
+        const backdrop = document.querySelector('.bg_2-9');
+        
+        if (sidebar && backdrop) {
+            sidebar.classList.remove('mobile-open');
+            backdrop.classList.remove('mobile-open');
+        }
+    }
 }

@@ -26,4 +26,14 @@
     pointer-events: none;
     z-index: 0;
   }
+  
+  @media (max-width: 1024px) {
+    margin-left: 0;
+    max-width: 100vw;
+    padding: 88px 24px 32px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 72px 16px 24px;
+  }
 }
