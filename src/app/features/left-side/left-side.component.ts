@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { IconComponent } from "../icon/icon.component";
-import { SettingsComponent } from "../settings/settings.component";
-import { WatchlistIconComponent } from "../watchlist/watchlist-icon.component";
+// import { SettingsComponent } from "../settings/settings.component";
+// import { WatchlistIconComponent } from "../watchlist/watchlist-icon.component";
 import { TopRatedComponent } from "../top-rated/top-rated.component";
-import { DiscoverIconComponent } from "../discover/discover-icon.component";
+// import { DiscoverIconComponent } from "../discover/discover-icon.component";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { StorageService } from "src/app/core/services/moviestorage.service";
+
 
 @Component({
     selector: "app-left-side",
@@ -17,10 +18,10 @@ import { StorageService } from "src/app/core/services/moviestorage.service";
         CommonModule,
         RouterModule,
         IconComponent,
-        SettingsComponent,
-        WatchlistIconComponent,
+        // SettingsComponent,
+        // WatchlistIconComponent,
         TopRatedComponent,
-        DiscoverIconComponent
+        // DiscoverIconComponent
     ],
     standalone: true
 })

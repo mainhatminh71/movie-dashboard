@@ -1,0 +1,8 @@
+<div class="content">
+  <app-header></app-header>
+  <app-left-side></app-left-side>
+  <main class="main-content">
+    <app-main-content *ngIf="isHomeRoute()"></app-main-content>
+    <router-outlet></router-outlet>
+  </main>
+</div>

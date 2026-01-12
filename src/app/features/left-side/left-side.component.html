@@ -9,7 +9,7 @@
       <span class="text-home_34-76">Home</span>
     </div>
     <div class="discover_54-48" routerLink="/discover" routerLinkActive="active">
-      <app-discover class="discover_54-62"></app-discover>
+      <app-icon name="discover" class="discover_54-62"></app-icon>
       <span class="text-discover_34-80">Discover</span>
     </div>
   </div>
@@ -18,7 +18,7 @@
     <span class="text-library_34-94">Library</span>
     
     <div class="watchlist_54-56"  routerLink="/watchlist" routerLinkActive="active">
-      <app-watchlist-icon class="watchlist_54-82"></app-watchlist-icon>
+      <app-icon name="watchlist" class="watchlist_54-82"></app-icon>
       <span class="text-watchlist_34-102">Watchlist</span>
       @if (watchlistCount() > 0) {
         <span class="watchlist-badge">{{ watchlistCount() }}</span>
