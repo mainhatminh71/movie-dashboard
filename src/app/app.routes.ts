@@ -8,63 +8,63 @@ export const routes: Routes = [
     },
      {
         path: 'home',
-        loadComponent: () => import('./export-result/home/home.component').then(m => m.HomeComponent)
+        loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
     },
     {
         path: 'awards',
-        loadComponent: () => import('./export-result/award/award.component').then(m => m.AwardComponent)
+        loadComponent: () => import('./features/award/award.component').then(m => m.AwardComponent)
     },
     {
         path: 'celebrities',
-        loadComponent: () => import('./export-result/celebrities/celebrities.component').then(m => m.CelebritiesComponent)
+        loadComponent: () => import('./features/celebrities/celebrities.component').then(m => m.CelebritiesComponent)
     },
     {
         path: 'completed',
-        loadComponent: () => import('./export-result/completed/completed.component').then(m => m.CompletedComponent)
+        loadComponent: () => import('./features/completed/completed.component').then(m => m.CompletedComponent)
     },
     {
         path: 'discover',
-        loadComponent: () => import('./export-result/discover/discover.component').then(m => m.DiscoverComponent)
+        loadComponent: () => import('./features/discover/discover.component').then(m => m.DiscoverComponent)
     },
     {
         path: 'downloaded',
-        loadComponent: () => import('./export-result/downloaded/downloaded.component').then(m => m.DownloadedComponent)
+        loadComponent: () => import('./features/downloaded/downloaded.component').then(m => m.DownloadedComponent)
     },
     {
         path: 'log-out',
-        loadComponent: () => import('./export-result/log-out/log-out.component').then(m => m.LogOutComponent)
+        loadComponent: () => import('./features/log-out/log-out.component').then(m => m.LogOutComponent)
     },
     {
         path: 'movie/:id',
-        loadComponent: () => import('./export-result/movie-details/movie-details.component').then(m => m.MovieDetailsComponent)
+        loadComponent: () => import('./features/movie-details/movie-details.component').then(m => m.MovieDetailsComponent)
     },
     {
         path: 'tv/:id',
-        loadComponent: () => import('./export-result/tv-details/tv-details.component').then(m => m.TvDetailsComponent)
+        loadComponent: () => import('./features/tv-details/tv-details.component').then(m => m.TvDetailsComponent)
     },
     {
         path: 'playlists',
-        loadComponent: () => import('./export-result/playlists/playlists.component').then(m => m.PlaylistsComponent)
+        loadComponent: () => import('./features/playlists/playlists.component').then(m => m.PlaylistsComponent)
     },
     {
         path: 'recent',
-        loadComponent: () => import('./export-result/recent/recent.component').then(m => m.RecentComponent)
+        loadComponent: () => import('./features/recent/recent.component').then(m => m.RecentComponent)
     },
     {
         path: 'settings',
-        loadComponent: () => import('./export-result/settings/settings.component').then(m => m.SettingsComponent)
+        loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent)
     },
     {
         path: 'top-rated',
-        loadComponent: () => import('./export-result/top-rated/top-rated.component').then(m => m.TopRatedComponent)
+        loadComponent: () => import('./features/top-rated/top-rated.component').then(m => m.TopRatedComponent)
     },
     {
         path: 'watchlist',
-        loadComponent: () => import('./export-result/watchlist/watchlist.component').then(m => m.WatchlistComponent)
+        loadComponent: () => import('./features/watchlist/watchlist.component').then(m => m.WatchlistComponent)
     },
     {
         path: 'error',
-        loadComponent: () => import('./export-result/error/error.component').then(m => m.ErrorComponent)
+        loadComponent: () => import('./features/error/error.component').then(m => m.ErrorComponent)
     },
     {
         path: '**',

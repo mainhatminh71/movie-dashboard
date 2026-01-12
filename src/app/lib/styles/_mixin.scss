@@ -1,0 +1,443 @@
+
+@import 'variables';
+
+// 1. RESPONSIVE BREAKPOINTS (Mobile-first)
+
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == xs {
+      @media (max-width: #{$breakpoint-xs - 1px}) {
+        @content;
+      }
+    } @else if $breakpoint == sm {
+      @media (max-width: #{$breakpoint-sm - 1px}) {
+        @content;
+      }
+    } @else if $breakpoint == md {
+      @media (max-width: #{$breakpoint-md - 1px}) {
+        @content;
+      }
+    } @else if $breakpoint == lg {
+      @media (max-width: #{$breakpoint-lg - 1px}) {
+        @content;
+      }
+    } @else if $breakpoint == xl {
+      @media (max-width: #{$breakpoint-xl - 1px}) {
+        @content;
+      }
+    } @else {
+      @media (max-width: #{$breakpoint}) {
+        @content;
+      }
+    }
+  }
+
+  @mixin respond-from($breakpoint) {
+    @if $breakpoint == xs {
+      @media (min-width: #{$breakpoint-xs}) {
+        @content;
+      }
+    } @else if $breakpoint == sm {
+      @media (min-width: #{$breakpoint-sm}) {
+        @content;
+      }
+    } @else if $breakpoint == md {
+      @media (min-width: #{$breakpoint-md}) {
+        @content;
+      }
+    } @else if $breakpoint == lg {
+      @media (min-width: #{$breakpoint-lg}) {
+        @content;
+      }
+    } @else if $breakpoint == xl {
+      @media (min-width: #{$breakpoint-xl}) {
+        @content;
+      }
+    } @else {
+      @media (min-width: #{$breakpoint}) {
+        @content;
+      }
+    }
+  }
+
+  // Common responsive shortcuts
+  @mixin mobile-only {
+    @include respond-to(sm) {
+      @content;
+    }
+  }
+  @mixin tablet-only {
+    @include respond-from(sm) {
+      @include respond-to(md) {
+        @content;
+      }
+    }
+  }
+  @mixin desktop-only {
+    @include respond-from(md) {
+      @content;
+    }
+  }
+
+  // 2. FLEXBOX UTILITIES
+  // Flex Center (horizontally and vertically)
+  @mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Flex Between (space-between)
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // Flex Start
+@mixin flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  // Flex End
+@mixin flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  // Flex Column
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Flex Column
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Flex with gap
+@mixin flex-gap($gap: $spacing-md) {
+    display: flex;
+    gap: $gap;
+  }
+
+  // Flexible flex utility
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: null) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+    @if $gap {
+      gap: $gap;
+    }
+  }
+
+  // 3. TEXT TRUNCATION
+
+  // Single line truncation
+@mixin text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Multi-line truncation (with line clamp)
+@mixin text-clamp($lines: 2) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // 4. BUTTON STYLES
+
+  // Primary Button
+@mixin button-primary {
+    background: $gradient-primary;
+    color: $color-text-primary;
+    border: $border-width-medium solid $color-primary;
+    border-radius: $border-radius-lg;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    transition: $token-transition-button;
+    box-shadow: $shadow-primary-md;
+  
+    &:hover {
+      background: linear-gradient(135deg, #{$color-primary-light} 0%, #{$color-primary} 100%);
+      box-shadow: $shadow-primary-lg;
+      transform: translateY(-2px);
+    }
+  
+    &:active {
+      transform: translateY(0);
+    }
+  
+    &:disabled {
+      opacity: $opacity-disabled;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  // Secondary Button
+@mixin button-secondary {
+    background: rgba(18, 18, 18, 0.8);
+    color: $color-text-secondary;
+    border: $border-width-medium solid $color-border-primary;
+    border-radius: $border-radius-lg;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $token-transition-button;
+  
+    &:hover {
+      background: rgba(18, 18, 18, 0.95);
+      border-color: $color-primary;
+      color: $color-text-primary;
+    }
+  }
+
+  // Ghost Button (no background)
+@mixin button-ghost {
+    background: transparent;
+    color: $color-text-tertiary;
+    border: $border-width-medium solid transparent;
+    border-radius: $border-radius-lg;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $token-transition-button;
+  
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: $color-text-primary;
+    }
+  }
+
+  // Button with custom parameters
+@mixin button(
+    $bg: transparent,
+    $color: $color-text-primary,
+    $border-color: transparent,
+    $radius: $border-radius-lg,
+    $padding-x: $spacing-lg,
+    $padding-y: $spacing-md
+  ) {
+    background: $bg;
+    color: $color;
+    border: $border-width-medium solid $border-color;
+    border-radius: $radius;
+    padding: $padding-y $padding-x;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $token-transition-button;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+  }
+
+  // 5. CARD STYLES
+
+  // Base Card
+@mixin card-base {
+    background: $color-bg-surface;
+    border: $border-width-thin solid $color-border-secondary;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+  }
+
+  // Card with backdrop blur
+@mixin card-glass {
+    background: rgba(26, 26, 26, 0.85);
+    border: $border-width-thin solid $color-border-secondary;
+    border-radius: $border-radius-xl;
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: $shadow-lg;
+  }
+
+  // Card with hover effect
+@mixin card-hover {
+    @include card-base;
+    transition: $token-transition-card;
+    cursor: pointer;
+  
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-xl;
+      border-color: rgba($color-primary, 0.3);
+    }
+  }
+
+  // Card with padding
+@mixin card($padding: $spacing-lg) {
+    @include card-base;
+    padding: $padding;
+  }
+
+  // 6. TRANSITIONS
+
+  // Base transition
+@mixin transition($property: all, $duration: $transition-base, $easing: $ease-in-out) {
+    transition: $property $duration $easing;
+  }
+
+  // Fast transition
+@mixin transition-fast($property: all) {
+    transition: $property $transition-fast $ease-out;
+  }
+
+  // Slow transition
+@mixin transition-slow($property: all) {
+    transition: $property $transition-slow $ease-in-out;
+  }
+
+  // Button transition (common pattern)
+@mixin transition-button {
+    transition: all $transition-base $ease-in-out;
+  }
+
+  // Card transition
+@mixin transition-card {
+    transition: all $transition-base $ease-in-out;
+  }
+
+  // Input transition
+@mixin transition-input {
+    transition: all $transition-base $ease-out;
+  }
+
+  // 7. BACKDROP FILTER
+  @mixin backdrop-blur($blur: $backdrop-blur-md, $saturate: $backdrop-saturate) {
+    -webkit-backdrop-filter: #{$blur} #{$saturate};
+    backdrop-filter: #{$blur} #{$saturate};
+  }
+
+  @mixin backdrop-blur-sm {
+    @include backdrop-blur($backdrop-blur-sm);
+  }
+  
+  @mixin backdrop-blur-md {
+    @include backdrop-blur($backdrop-blur-md);
+  }
+
+  // 8. INPUT STYLES
+  @mixin input-base {
+    width: 100%;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    border: $border-width-medium solid $color-border-primary;
+    border-radius: $border-radius-lg;
+    background: rgba(18, 18, 18, 0.8);
+    color: $color-text-primary;
+    transition: $token-transition-input;
+  
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
+      background: rgba(18, 18, 18, 0.95);
+    }
+  
+    &::placeholder {
+      color: $color-text-placeholder;
+    }
+  }
+  // 9. SCROLLBAR STYLING
+  
+  @mixin scrollbar-style(
+  $width: 12px,
+  $thumb-color: rgba(255, 255, 255, 0.15),
+  $thumb-hover: rgba(255, 255, 255, 0.25),
+  $track-color: transparent,
+  $radius: 6px
+) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $radius;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+
+    &:hover {
+      background: $thumb-hover;
+    }
+  }
+}
+
+
+// 10. ABSOLUTE CENTER
+@mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin absolute-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  @mixin absolute-center-y {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+// 11. GRADIENT TEXT
+@mixin gradient-text($gradient: $gradient-primary) {
+    background: $gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  // 12. FOCUS STYLE
+  @mixin focus-ring($color: $color-primary, $offset: 3px) {
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 $offset rgba($color, 0.3);
+    }
+  
+    &:focus-visible {
+      outline: 2px solid $color;
+      outline-offset: 2px;
+    }
+  }
+
+  // 13. GRID LAYOUTS
+  @mixin grid-responsive($min-width: 200px, $gap: $spacing-xl) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+    gap: $gap;
+  
+    @include respond-to(md) {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: $spacing-xl;
+    }
+  
+    @include respond-to(sm) {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: $spacing-lg;
+    }
+  
+    @include respond-to(xs) {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: $spacing-md;
+    }
+  }
+  

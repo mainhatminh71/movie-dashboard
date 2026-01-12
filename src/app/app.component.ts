@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, OnDestroy} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NavigationEnd, RouterOutlet, Router } from "@angular/router";
-import { LeftSideComponent } from "./export-result/left-side/left-side.component";
-import { HeaderComponent } from "./export-result/header/header.component";
-import { MainContentComponent } from "./export-result/main-content/main-content.component";
+import { LeftSideComponent } from "./features/left-side/left-side.component";
+import { HeaderComponent } from "./features/header/header.component";
+import { MainContentComponent } from "./features/main-content/main-content.component";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { filter, map, startWith, Subscription } from "rxjs";
 import { computed } from "@angular/core";

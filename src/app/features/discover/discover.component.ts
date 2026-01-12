@@ -187,7 +187,6 @@ export class DiscoverComponent implements OnInit{
                 }
             }
             
-            // Set year
             if (params['year']) {
                 const year = +params['year'];
                 if (isMovies) {

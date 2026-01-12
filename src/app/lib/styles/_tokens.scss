@@ -1,0 +1,174 @@
+@import 'variables';
+
+
+// 1. COLOR TOKENS - Semantic Color Mapping
+
+// Primary Colors
+$token-color-primary: $color-primary;
+$token-color-primary-hover: $color-primary-light;
+$token-color-primary-active: $color-primary-dark;
+
+// Background Tokens
+$token-bg-base: $color-bg-primary;
+$token-bg-surface: $color-bg-secondary;
+$token-bg-surface-elevated: $color-bg-tertiary;
+$token-bg-card: $color-bg-surface;
+$token-bg-card-hover: $color-bg-surface-hover;
+$token-bg-overlay: $color-bg-surface-elevated;
+$token-bg-input: rgba(18, 18, 18, 0.8);
+$token-bg-input-focus: rgba(18, 18, 18, 0.95);
+
+// Text Tokens
+$token-text-primary: $color-text-primary;
+$token-text-secondary: $color-text-secondary;
+$token-text-tertiary: $token-text-tertiary;
+$token-text-muted: $color-text-muted;
+$token-text-disabled: $color-text-disabled;
+$token-text-placeholder: $color-text-placeholder;
+$token-text-link: $color-primary;
+$token-text-link-hover: $color-primary-light;
+
+// Border Tokens
+$token-border-default: $color-border-primary;
+$token-border-subtle: $color-border-secondary;
+$token-border-muted: $color-border-tertiary;
+$token-border-focus: $color-border-focus;
+$token-border-card: $color-border-secondary;
+
+// State Colors
+$token-color-success: $color-success;
+$token-color-warning: $color-warning;
+$token-color-error: $color-error;
+$token-color-error-hover: $color-error-dark;
+$token-color-info: $color-info;
+
+// Interactive Colors
+$token-bg-button-primary: $gradient-primary;
+$token-bg-button-primary-hover: linear-gradient(135deg, #{$color-primary-light} 0%, #{$color-primary} 100%);
+$token-bg-button-secondary: rgba(18, 18, 18, 0.8);
+$token-bg-button-secondary-hover: rgba(18, 18, 18, 0.95);
+
+// 2. SPACING TOKENS - Semantic Spacing
+// Component Spacing
+$token-spacing-component-padding: $spacing-lg;        // 16px - Component internal padding
+$token-spacing-component-gap: $spacing-md;            // 12px - Gap between elements
+$token-spacing-section-padding: $spacing-2xl;         // 32px - Section padding
+$token-spacing-section-gap: $spacing-xl;              // 24px - Gap between sections
+
+// Layout Spacing
+$token-spacing-container-padding: $spacing-2xl;       // 32px - Container padding
+$token-spacing-container-padding-mobile: $spacing-lg; // 16px - Mobile container padding
+$token-spacing-sidebar-width: $spacing-sidebar-width; // 240px
+$token-spacing-header-height: $spacing-header-height; // 72px
+
+// Input Spacing
+$token-spacing-input-padding-x: $spacing-lg;          // 16px
+$token-spacing-input-padding-y: $spacing-md;          // 12px
+$token-spacing-input-gap: $spacing-sm;                // 8px
+
+// Card Spacing
+$token-spacing-card-padding: $spacing-lg;             // 16px
+$token-spacing-card-gap: $spacing-md;                 // 12px
+
+// Grid Spacing
+$token-spacing-grid-gap: $spacing-xl;                 // 24px
+$token-spacing-grid-gap-mobile: $spacing-md;          // 12px
+
+// 3. TYPOGRAPHY TOKENS
+// Font Families
+$token-font-family-base: $font-family-primary;
+$token-font-family-heading: $font-family-primary;
+$token-font-family-mono: $font-family-mono;
+
+// Font Sizes - Semantic Names
+$token-font-size-caption: $font-size-xs;      // 0.75rem - Small text, captions
+$token-font-size-body-small: $font-size-sm;   // 0.85rem - Small body text
+$token-font-size-body: $font-size-base;       // 1rem - Base body text
+$token-font-size-body-large: $font-size-md;   // 1.1rem - Large body text
+$token-font-size-subtitle: $font-size-lg;     // 1.2rem - Subtitles
+$token-font-size-h4: $font-size-xl;           // 1.5rem - Heading 4
+$token-font-size-h3: $font-size-2xl;          // 2rem - Heading 3
+$token-font-size-h2: $font-size-2xl;          // 2rem - Heading 2
+$token-font-size-h1: $font-size-3xl;          // 3rem - Heading 1
+
+// Font Weights
+$token-font-weight-light: $font-weight-light;
+$token-font-weight-normal: $font-weight-normal;
+$token-font-weight-medium: $font-weight-medium;
+$token-font-weight-semibold: $font-weight-semibold;
+$token-font-weight-bold: $font-weight-bold;
+
+// Line Heights
+$token-line-height-tight: $line-height-tight;
+$token-line-height-normal: $line-height-normal;
+$token-line-height-relaxed: $line-height-relaxed;
+
+// 4. BORDER TOKENS
+
+$token-border-radius-sm: $border-radius-sm;         // 4px - Small elements
+$token-border-radius-md: $border-radius-md;         // 8px - Buttons, inputs
+$token-border-radius-lg: $border-radius-lg;         // 12px - Cards, modals
+$token-border-radius-xl: $border-radius-xl;         // 16px - Large cards
+$token-border-radius-pill: $border-radius-2xl;      // 20px - Pills, chips
+$token-border-radius-round: $border-radius-full;    // 50% - Circles
+
+$token-border-width: $border-width-medium;          // 2px - Default border
+$token-border-width-thin: $border-width-thin;       // 1px - Subtle borders
+
+// 5. SHADOW TOKENS - Semantic Elevation
+
+$token-shadow-sm: $shadow-sm;                       // Small elevation
+$token-shadow-md: $shadow-md;                       // Medium elevation
+$token-shadow-lg: $shadow-lg;                       // Large elevation
+$token-shadow-xl: $shadow-xl;                       // Extra large elevation
+$token-shadow-card: $shadow-md;                     // Card shadow
+$token-shadow-card-hover: $shadow-xl;               // Card hover shadow
+$token-shadow-modal: $shadow-2xl;                   // Modal shadow
+
+// Primary Color Shadows
+$token-shadow-primary-sm: $shadow-primary-sm;
+$token-shadow-primary-md: $shadow-primary-md;
+$token-shadow-primary-lg: $shadow-primary-lg;
+$token-shadow-button: $shadow-primary-md;
+$token-shadow-button-hover: $shadow-primary-lg;
+
+// 6. TRANSITION TOKENS
+
+$token-transition-fast: $transition-fast;
+$token-transition-base: $transition-base;
+$token-transition-slow: $transition-slow;
+$token-transition-easing: $ease-in-out;
+
+// Specific Transitions
+$token-transition-button: all $transition-base $ease-in-out;
+$token-transition-card: all $transition-base $ease-in-out;
+$token-transition-input: all $transition-base $ease-out;
+
+// 7. Z-INDEX TOKENS
+
+$token-z-dropdown: $z-index-dropdown;
+$token-z-sticky: $z-index-sticky;
+$token-z-fixed: $z-index-fixed;
+$token-z-modal: $z-index-modal;
+$token-z-header: $z-index-header;
+$token-z-sidebar: $z-index-sidebar;
+
+// 8. LEGACY TOKEN MAPPING (Backward Compatibility)
+
+
+$a-16181-e-background: $color-bg-secondary;
+$a-16181-e-color: $color-bg-secondary;
+$a-21242-d-background: $color-bg-tertiary;
+$a-21242-d-color: $color-bg-tertiary;
+$f-9-f-9-f-9-background: $color-text-primary;
+$f-9-f-9-f-9-color: $color-text-primary;
+$a-00-b-9-ae-background: $color-primary;
+$a-00-b-9-ae-color: $color-primary;
+$low-op-titles-background: rgba(249, 249, 249, 0.67);  // #f9f9f9aa
+$low-op-titles-color: rgba(249, 249, 249, 0.67);
+$low-op-btn-background: rgba(249, 249, 249, 0.2);      // #f9f9f933
+$low-op-btn-color: rgba(249, 249, 249, 0.2);
+$descriptions-background: rgba(249, 249, 249, 0.7);    // #f9f9f9b2
+$descriptions-color: rgba(249, 249, 249, 0.7);
+$border-background: rgba(249, 249, 249, 0.1);          // #f9f9f919
+$border-color: rgba(249, 249, 249, 0.1);
