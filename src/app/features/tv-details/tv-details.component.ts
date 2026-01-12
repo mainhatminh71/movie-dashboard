@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-tv-details',
   imports: [CommonModule],
   templateUrl: './tv-details.component.html',
-  styleUrl: './tv-details.component.css',
+  styleUrl: './tv-details.component.scss',
   standalone: true
 })
 export class TvDetailsComponent implements OnInit{

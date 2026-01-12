@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './movie-details.component.html',
-  styleUrl: './movie-details.component.css'
+  styleUrl: './movie-details.component.scss'
 })
 export class MovieDetailsComponent implements OnInit {
     private movieService = inject(MovieService);

@@ -7,7 +7,7 @@ import { TVShowService } from 'src/app/core/services/tvshow.service';
   selector: 'app-home',
   imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.scss',
   standalone: true
 })
 export class HomeComponent implements OnInit{
