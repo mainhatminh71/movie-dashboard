@@ -9,10 +9,10 @@ import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tv-details',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './tv-details.component.html',
-  styleUrl: './tv-details.component.scss',
-  standalone: true
+  styleUrl: './tv-details.component.scss'
 })
 export class TvDetailsComponent implements OnInit{
   private tvShowService = inject(TVShowService);

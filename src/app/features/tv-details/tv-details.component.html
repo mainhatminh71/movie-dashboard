@@ -10,7 +10,9 @@
         <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <p class="error-message">{{ error() }}</p>
-      <button class="retry-btn" (click)="loadTVData(currentTVShowId()!)">Try Again</button>
+      @if (currentTVShowId()) {
+        <button class="retry-btn" (click)="loadTVData(currentTVShowId()!)">Try Again</button>
+      }
     </div>
   } @else if (tv()) {
     <div class="tv-hero" [style.background-image]="'url(' + getImageUrl(backdrop_path(), 'w1280') + ')'">
@@ -39,7 +41,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
               </svg>
-              <span>{{ vote_average()?.toFixed(1) || 'N/A' }}</span>
+              <span>{{ vote_average() ? vote_average().toFixed(1) : 'N/A' }}</span>
             </div>
             <span class="meta-separator">•</span>
             <span class="tv-year">{{ getYear(first_air_date()) }}</span>
