@@ -1,4 +1,4 @@
-@import "src/app/tokens.scss";
+@import '../../lib/styles/index';
 
 .right-sidebar {
   width: 280px;
@@ -7,14 +7,14 @@
   position: fixed;
   right: 0;
   top: 72px;
-  background: linear-gradient(180deg, #181818 0%, #161616 100%);
+  background: linear-gradient(180deg, $color-bg-secondary 0%, $color-bg-secondary 100%);
   padding: 28px 20px;
   overflow-y: auto;
   overflow-x: hidden;
-  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 1px solid $token-border-muted;
   box-shadow: -2px 0 24px rgba(0, 0, 0, 0.3);
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-color: $token-border-default transparent;
 }
 
 /* Custom scrollbar for right sidebar */
@@ -28,7 +28,7 @@
 }
 
 .right-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: $token-border-default;
   border-radius: 5px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -36,12 +36,12 @@
 }
 
 .right-sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba($token-text-primary, 0.35);
   border: 1px solid transparent;
 }
 
 .right-sidebar::-webkit-scrollbar-thumb:active {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba($token-text-primary, 0.5);
 }
 
 .notifications {
@@ -55,14 +55,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f5f5f5;
+  color: $token-text-secondary;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 12px;
   
   &:hover {
-    color: $a-00-b-9-ae-color;
-    background: rgba(255, 255, 255, 0.06);
+    color: $token-color-primary;
+    background: $color-overlay-light;
     transform: scale(1.05);
   }
   
@@ -79,9 +79,9 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: linear-gradient(135deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
-  border: 2px solid #181818;
-  box-shadow: 0 2px 8px rgba(0, 185, 174, 0.6);
+  background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+  border: 2px solid $color-bg-secondary;
+  box-shadow: 0 2px 8px rgba($token-color-primary, 0.6);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -110,10 +110,10 @@
 }
 
 .continue-item {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba($token-text-primary, 0.04);
   border-radius: 16px;
   padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid $token-border-muted;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
   
@@ -128,10 +128,10 @@
 .thumbnail-placeholder {
   width: 100%;
   height: 140px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba($token-text-primary, 0.06);
   border-radius: 12px;
   margin-bottom: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $token-border-muted;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
@@ -143,8 +143,8 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
-    box-shadow: 0 0 12px rgba(0, 185, 174, 0.5);
+    background: linear-gradient(90deg, $token-color-primary 0%, $color-primary-dark 100%);
+    box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
   }
 }
 

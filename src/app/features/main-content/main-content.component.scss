@@ -1,4 +1,4 @@
-@import "src/app/tokens.scss";
+@import '../../lib/styles/index';
 
 .main-content-wrapper {
   padding: 0;
@@ -44,7 +44,7 @@
 .tab {
   background: none;
   border: none;
-  color: #999999;
+  color: $token-text-muted;
   font-size: 17px;
   font-weight: 700;
   cursor: pointer;
@@ -55,12 +55,12 @@
   letter-spacing: -0.3px;
   
   &:hover {
-    color: #ffffff;
+    color: $token-text-primary;
     transform: translateY(-1px);
   }
   
   &.active {
-    color: $a-00-b-9-ae-color;
+    color: $token-color-primary;
     
     .active-indicator {
       position: absolute;
@@ -68,9 +68,9 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
+      background: linear-gradient(90deg, $token-color-primary 0%, $color-primary-dark 100%);
       border-radius: 2px;
-      box-shadow: 0 2px 8px rgba(0, 185, 174, 0.5);
+      box-shadow: 0 2px 8px rgba($token-color-primary, 0.5);
     }
   }
 }
@@ -85,11 +85,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.06);
+  background: $color-overlay-light;
   border-radius: 28px;
   padding: 12px 20px;
   min-width: 320px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $token-border-muted;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -100,19 +100,19 @@
   }
   
   &:focus-within {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(0, 185, 174, 0.4);
-    box-shadow: 0 0 0 3px rgba(0, 185, 174, 0.1);
+    background: rgba($token-text-primary, 0.1);
+    border-color: $color-overlay-primary-strong;
+    box-shadow: 0 0 0 3px rgba($token-color-primary, 0.1);
   }
   
   svg {
-    color: #999999;
+    color: $token-text-muted;
     flex-shrink: 0;
     transition: color 0.3s ease;
   }
   
   &:focus-within svg {
-    color: $a-00-b-9-ae-color;
+    color: $token-color-primary;
   }
 }
 
@@ -120,14 +120,14 @@
   background: none;
   border: none;
   outline: none;
-  color: #f5f5f5;
+  color: $token-text-secondary;
   font-size: 15px;
   flex: 1;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 500;
   
   &::placeholder {
-    color: #999999;
+    color: $token-text-muted;
     font-weight: 400;
   }
 }
@@ -136,22 +136,22 @@
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
+  background: $color-overlay-light;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: $token-text-primary;
+  border: 1px solid $token-border-muted;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(0, 185, 174, 0.4);
+    background: rgba($token-text-primary, 0.1);
+    border-color: $color-overlay-primary-strong;
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 185, 174, 0.2);
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.2);
   }
   
   svg {
@@ -172,8 +172,8 @@
   height: 520px;
   border-radius: 20px;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(26, 77, 62, 0.95) 0%, rgba(13, 40, 24, 1) 100%);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background: linear-gradient(135deg, rgba($color-bg-tertiary, 0.95) 0%, rgba($color-bg-secondary, 1) 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba($token-text-primary, 0.05);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: grab;
   -webkit-user-select: none;
@@ -198,7 +198,7 @@
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba($token-text-primary, 0.08);
   }
   
   &:active {
@@ -209,7 +209,7 @@
 .hero-background {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(26, 77, 62, 0.8) 0%, rgba(13, 40, 24, 0.9) 100%);
+  background: linear-gradient(135deg, rgba($color-bg-tertiary, 0.8) 0%, rgba($color-bg-secondary, 0.9) 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -220,7 +220,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 30% 50%, rgba(0, 185, 174, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 30% 50%, rgba($token-color-primary, 0.1) 0%, transparent 70%);
   }
 }
 
@@ -257,7 +257,7 @@
 .hero-title {
   font-size: 64px;
   font-weight: 800;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   line-height: 1.1;
@@ -312,12 +312,11 @@
 .hero-image-placeholder {
   width: 340px;
   height: 420px;
-  background: rgba(255, 255, 255, 0.1);
+  background: $color-overlay-light;
   border-radius: 16px;
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  @include backdrop-blur-md;
+  border: 1px solid $token-border-default;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba($token-text-primary, 0.1);
 }
 
 .hero-actions {
@@ -370,30 +369,29 @@
 }
 
 .watchlist-btn {
-  background: rgba(30, 30, 30, 0.9);
-  color: #ffffff;
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba($color-bg-surface, 0.9);
+  color: $token-text-primary;
+  @include backdrop-blur-md;
+  border: 1px solid $token-border-subtle;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   
   &:hover {
-    background: rgba(40, 40, 40, 0.95);
+    background: rgba($color-bg-tertiary, 0.95);
     transform: translateY(-2px);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: $token-border-default;
   }
 }
 
 .watch-now-btn {
-  background: linear-gradient(135deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
-  color: #ffffff;
-  box-shadow: 0 6px 20px rgba(0, 185, 174, 0.4), 0 0 0 1px rgba(0, 185, 174, 0.2);
+  background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+  color: $token-text-primary;
+  box-shadow: 0 6px 20px rgba($token-color-primary, 0.4), 0 0 0 1px rgba($token-color-primary, 0.2);
   
   &:hover {
-    background: linear-gradient(135deg, #00c9bb 0%, $a-00-b-9-ae-background 100%);
+    background: linear-gradient(135deg, $color-primary-light 0%, $token-color-primary 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0, 185, 174, 0.5), 0 0 0 1px rgba(0, 185, 174, 0.3);
+    box-shadow: 0 8px 28px rgba($token-color-primary, 0.5), 0 0 0 1px rgba($token-color-primary, 0.3);
   }
   
   &:active {
@@ -417,24 +415,23 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba($token-text-primary, 0.12);
+  @include backdrop-blur-md;
+  border: 1px solid $token-border-default;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #ffffff;
+  color: $token-text-primary;
   pointer-events: all;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba($token-text-primary, 0.2);
     transform: scale(1.1);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba($token-text-primary, 0.25);
   }
   
   svg {
@@ -457,20 +454,20 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba($token-text-primary, 0.3);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba($token-text-primary, 0.5);
     transform: scale(1.2);
   }
   
   &.active {
-    background: linear-gradient(90deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
+    background: linear-gradient(90deg, $token-color-primary 0%, $color-primary-dark 100%);
     width: 28px;
     border-radius: 5px;
-    box-shadow: 0 4px 12px rgba(0, 185, 174, 0.5), 0 0 0 2px rgba(0, 185, 174, 0.2);
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.5), 0 0 0 2px rgba($token-color-primary, 0.2);
   }
 }
 
@@ -513,7 +510,7 @@
 .section-title {
   font-size: 36px;
   font-weight: 800;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: -0.8px;
@@ -532,7 +529,7 @@
 .title-accent {
   width: 4px;
   height: 36px;
-  background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, transparent 100%);
+  background: linear-gradient(180deg, $token-color-primary 0%, transparent 100%);
   border-radius: 2px;
   opacity: 0.6;
   animation: pulse 2s ease-in-out infinite;
@@ -552,7 +549,7 @@
 .section-subtitle {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: $token-text-placeholder;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: 0.5px;
@@ -567,7 +564,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   padding: 12px 24px;
-  color: #ffffff;
+  color: $token-text-primary;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -582,16 +579,16 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0, 185, 174, 0.1) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba($token-color-primary, 0.1) 0%, transparent 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
   }
   
   &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 185, 174, 0.5);
+    background: rgba($token-text-primary, 0.08);
+    border-color: rgba($token-color-primary, 0.5);
     transform: translateX(4px);
-    box-shadow: 0 6px 20px rgba(0, 185, 174, 0.25), 0 0 0 1px rgba(0, 185, 174, 0.1);
+    box-shadow: 0 6px 20px rgba($token-color-primary, 0.25), 0 0 0 1px rgba($token-color-primary, 0.1);
     
     &::before {
       opacity: 1;
@@ -635,11 +632,11 @@
 }
 
 .movie-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba($token-text-primary, 0.03);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $token-border-muted;
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   cursor: pointer;
@@ -652,8 +649,8 @@
     inset: 0;
     border-radius: 20px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, transparent 50%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: linear-gradient(135deg, rgba($token-color-primary, 0.3) 0%, transparent 50%);
+    -webkit-mask: linear-gradient($token-text-primary 0 0) content-box, linear-gradient($token-text-primary 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
@@ -664,12 +661,12 @@
   
   &:hover {
     transform: translateY(-12px) scale(1.02);
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(0, 185, 174, 0.4);
+    background: $color-overlay-light;
+    border-color: $color-overlay-primary-strong;
     box-shadow: 
       0 20px 48px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(0, 185, 174, 0.3),
-      0 0 40px rgba(0, 185, 174, 0.1);
+      0 0 0 1px rgba($token-color-primary, 0.3),
+      0 0 40px rgba($token-color-primary, 0.1);
     
     &::before {
       opacity: 1;
@@ -691,14 +688,14 @@
   
   &.top-rated-card {
     &::before {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 185, 174, 0.3) 50%, transparent 100%);
+      background: linear-gradient(135deg, rgba($color-warning-alt, 0.2) 0%, rgba($token-color-primary, 0.3) 50%, transparent 100%);
     }
     
     &:hover {
       box-shadow: 
         0 20px 48px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(255, 215, 0, 0.3),
-        0 0 40px rgba(255, 215, 0, 0.1);
+        0 0 0 1px rgba($color-warning-alt, 0.3),
+        0 0 40px rgba($color-warning-alt, 0.1);
     }
   }
 }
@@ -707,9 +704,9 @@
   width: 100%;
   aspect-ratio: 2 / 3;
   background: linear-gradient(135deg, 
-    rgba(40, 40, 50, 0.9) 0%, 
-    rgba(25, 25, 35, 0.95) 50%,
-    rgba(20, 20, 30, 1) 100%);
+    rgba($color-bg-tertiary, 0.9) 0%, 
+    rgba($color-bg-secondary, 0.95) 50%,
+    rgba($color-bg-primary, 1) 100%);
   position: relative;
   overflow: hidden;
   
@@ -728,8 +725,8 @@
     position: absolute;
     inset: 0;
     background: 
-      radial-gradient(circle at 30% 30%, rgba(0, 185, 174, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 70% 70%, rgba(100, 50, 150, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 30% 30%, rgba($token-color-primary, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba($color-secondary, 0.1) 0%, transparent 50%);
     opacity: 0.6;
     transition: opacity 0.5s ease;
     z-index: 1;
@@ -757,7 +754,7 @@
 .poster-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+  background: linear-gradient(to top, $color-overlay-dark 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 1;
@@ -776,7 +773,7 @@
   text-transform: uppercase;
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid $token-border-default;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -791,25 +788,25 @@
 }
 
 .popular-badge {
-  background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, rgba(0, 150, 140, 0.2) 100%);
-  color: $a-00-b-9-ae-color;
-  box-shadow: 0 4px 12px rgba(0, 185, 174, 0.3);
+  background: linear-gradient(135deg, rgba($token-color-primary, 0.3) 0%, rgba($color-primary-dark, 0.2) 100%);
+  color: $token-color-primary;
+  box-shadow: 0 4px 12px rgba($token-color-primary, 0.3);
 }
 
 .top-rated-badge {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 180, 0, 0.2) 100%);
-  color: #ffd700;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg, rgba($color-warning-alt, 0.3) 0%, rgba($color-warning, 0.2) 100%);
+  color: $color-warning-alt;
+  box-shadow: 0 4px 12px rgba($color-warning-alt, 0.3);
   
   svg {
-    color: #ffd700;
+    color: $color-warning-alt;
   }
 }
 
 .card-hover-effect {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(0, 185, 174, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba($token-color-primary, 0.1) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -827,7 +824,7 @@
 .movie-title {
   font-size: 17px;
   font-weight: 700;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 10px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   line-height: 1.4;
@@ -839,7 +836,7 @@
   transition: color 0.3s ease;
   
   .movie-card:hover & {
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba($token-text-primary, 0.95);
   }
 }
 
@@ -852,7 +849,7 @@
 }
 
 .movie-year {
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
   font-weight: 500;
   letter-spacing: 0.3px;
 }
@@ -861,14 +858,14 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  color: $a-00-b-9-ae-color;
+  color: $token-color-primary;
   font-weight: 700;
 }
 
 .star-icon {
   width: 14px;
   height: 14px;
-  color: $a-00-b-9-ae-color;
+  color: $token-color-primary;
 }
 
 // Pagination
@@ -889,8 +886,8 @@
   gap: 12px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba($token-text-primary, 0.03);
+  border: 1px solid $token-border-muted;
   border-radius: 16px;
   padding: 12px 20px;
   
@@ -908,16 +905,16 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba($token-text-primary, 0.05);
+  border: 1px solid $token-border-subtle;
+  color: rgba($token-text-primary, 0.8);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover:not(.disabled) {
-    background: rgba(0, 185, 174, 0.2);
-    border-color: $a-00-b-9-ae-color;
-    color: $a-00-b-9-ae-color;
+    background: rgba($token-color-primary, 0.2);
+    border-color: $token-color-primary;
+    color: $token-color-primary;
     transform: translateY(-2px);
   }
   
@@ -951,9 +948,9 @@
   height: 36px;
   padding: 0 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba($token-text-primary, 0.05);
+  border: 1px solid $token-border-subtle;
+  color: rgba($token-text-primary, 0.8);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -963,29 +960,29 @@
   justify-content: center;
   
   &:hover {
-    background: rgba(0, 185, 174, 0.15);
-    border-color: rgba(0, 185, 174, 0.4);
-    color: $a-00-b-9-ae-color;
+    background: rgba($token-color-primary, 0.15);
+    border-color: $color-overlay-primary-strong;
+    color: $token-color-primary;
     transform: translateY(-2px);
   }
   
   &.active {
-    background: linear-gradient(135deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
-    border-color: $a-00-b-9-ae-color;
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 185, 174, 0.3);
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    border-color: $token-color-primary;
+    color: $token-text-primary;
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.3);
     
     &:hover {
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 6px 16px rgba(0, 185, 174, 0.4);
+      box-shadow: 0 6px 16px $color-overlay-primary-strong;
     }
   }
-  filter: drop-shadow(0 0 4px rgba(0, 185, 174, 0.5));
+  filter: drop-shadow(0 0 4px rgba($token-color-primary, 0.5));
   animation: twinkle 3s ease-in-out infinite;
   
   .top-rated-card & {
-    color: #ffd700;
-    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+    color: $color-warning-alt;
+    filter: drop-shadow(0 0 4px rgba($color-warning-alt, 0.6));
   }
 }
 
@@ -1005,7 +1002,7 @@
   letter-spacing: 0.2px;
   
   .top-rated-card & {
-    color: #ffd700;
+    color: $color-warning-alt;
   }
 }
 

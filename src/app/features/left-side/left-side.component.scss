@@ -1,5 +1,4 @@
-@import "src/app/tokens.scss";
-
+@import '../../lib/styles/index';
 /* Premium Dark theme Sidebar */
 .left-side_54-43 {
   width: 240px;
@@ -12,13 +11,13 @@
   display: flex;
   flex-direction: column;
   padding: 28px 12px;
-  background: linear-gradient(180deg, #181818 0%, #161616 100%);
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, $color-bg-surface 0%, $color-bg-secondary 100%);
+  border-right: 1px solid $token-border-muted;
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 2px 0 24px rgba(0, 0, 0, 0.3);
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-color: $token-border-default transparent;
 }
 
 .bg_2-9 {
@@ -27,7 +26,7 @@
 
 /* Logo */
 .text-logo_2-6 {
-  color: #ffffff;
+  color : $token-text-primary;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-size: 24px;
   font-weight: 800;
@@ -35,11 +34,11 @@
   padding: 0 16px;
   margin-bottom: 40px;
   display: block;
-  background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+  background: linear-gradient(135deg, $token-text-primary 0%, rgba($token-text-primary, 0.9) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 2px 8px rgba($token-text-primary, 0.1);
 }
 
 /* Menu Section */
@@ -51,7 +50,7 @@
 }
 
 .text-menu_34-88 {
-  color: #999999;
+  color: $token-text-muted;
   font-size: 11px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 700;
@@ -74,18 +73,18 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #cccccc;
+  color: $token-text-tertiary;
   font-weight: 600;
   
   &:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.06);
+    color: $token-text-primary;
+    background-color: $color-overlay-light;
     transform: translateX(2px);
   }
   
   &.active {
     color: $a-00-b-9-ae-color;
-    background-color: rgba(0, 185, 174, 0.08);
+    background-color: $color-overlay-primary;
     
     &::before {
       content: '';
@@ -95,16 +94,16 @@
       transform: translateY(-50%);
       width: 4px;
       height: 32px;
-      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
+      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, $color-primary-dark 100%);
       border-radius: 0 3px 3px 0;
-      box-shadow: 0 0 12px rgba(0, 185, 174, 0.5);
+      box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
     }
   }
 }
 
 .home_54-47 {
   color: $a-00-b-9-ae-color;
-  background-color: rgba(0, 185, 174, 0.08);
+  background-color: $color-overlay-primary;
   
   &::before {
     content: '';
@@ -114,9 +113,9 @@
     transform: translateY(-50%);
     width: 4px;
     height: 32px;
-    background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
+    background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, $color-primary-dark 100%);
     border-radius: 0 3px 3px 0;
-    box-shadow: 0 0 12px rgba(0, 185, 174, 0.5);
+      box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
   }
   
   .current_34-124 {
@@ -163,12 +162,12 @@
   box-sizing: border-box;
   margin-bottom: 24px;
   padding: 0 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid $color-overlay-light;
   padding-top: 20px;
 }
 
 .text-library_34-94 {
-  color: #999999;
+  color: $token-text-muted;
   font-size: 11px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 700;
@@ -191,18 +190,18 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #cccccc;
+  color: $token-text-tertiary;
   font-weight: 500;
   
   &:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.06);
+    color: $token-text-primary;
+    background-color: $color-overlay-light;
     transform: translateX(2px);
   }
   
   &.active {
     color: $a-00-b-9-ae-color;
-    background-color: rgba(0, 185, 174, 0.08);
+    background-color: $color-overlay-primary;
     
     &::before {
       content: '';
@@ -212,9 +211,9 @@
       transform: translateY(-50%);
       width: 4px;
       height: 32px;
-      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
+      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, $color-primary-dark 100%);
       border-radius: 0 3px 3px 0;
-      box-shadow: 0 0 12px rgba(0, 185, 174, 0.5);
+      box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
     }
   }
 }
@@ -254,7 +253,7 @@
   box-sizing: border-box;
   margin-top: auto;
   padding: 20px 8px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid $color-overlay-light;
 }
 
 .text-general_34-95 {
@@ -271,18 +270,18 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #cccccc;
+  color: $token-text-tertiary;
   font-weight: 500;
   
   &:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.06);
+    color: $token-text-primary;
+    background-color: $color-overlay-light;
     transform: translateX(2px);
   }
   
   &.active {
     color: $a-00-b-9-ae-color;
-    background-color: rgba(0, 185, 174, 0.08);
+    background-color: $color-overlay-primary;
     
     &::before {
       content: '';
@@ -292,9 +291,9 @@
       transform: translateY(-50%);
       width: 4px;
       height: 32px;
-      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
+      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, $color-primary-dark 100%);
       border-radius: 0 3px 3px 0;
-      box-shadow: 0 0 12px rgba(0, 185, 174, 0.5);
+      box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
     }
   }
 }
@@ -328,8 +327,8 @@
 .watchlist-badge {
   margin-left: auto;
   padding: 2px 8px;
-  background: rgba(0, 185, 174, 0.2);
-  border: 1px solid rgba(0, 185, 174, 0.3);
+  background: rgba($token-color-primary, 0.2);
+  border: 1px solid rgba($token-color-primary, 0.3);
   border-radius: 12px;
   font-size: 11px;
   font-weight: 600;
@@ -344,7 +343,7 @@
 .sidebar-footer {
   margin-top: auto;
   padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid $color-overlay-light;
 }
 
 .footer-stats {
@@ -360,7 +359,7 @@
 .stat-label {
   font-size: 10px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
+  color: $token-text-disabled;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -369,7 +368,7 @@
 .stat-value {
   font-size: 13px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.7);
+  color: $token-text-tertiary;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: 1px;
 }
@@ -378,9 +377,9 @@
   height: 2px;
   background: linear-gradient(90deg, 
     transparent 0%,
-    rgba(0, 185, 174, 0.3) 20%,
-    rgba(0, 185, 174, 0.5) 50%,
-    rgba(0, 185, 174, 0.3) 80%,
+    rgba($token-color-primary, 0.3) 20%,
+    rgba($token-color-primary, 0.5) 50%,
+    rgba($token-color-primary, 0.3) 80%,
     transparent 100%
   );
   margin: 0 24px;
@@ -399,7 +398,7 @@
 }
 
 .left-side_54-43::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: $token-border-default;
   border-radius: 5px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -407,12 +406,12 @@
 }
 
 .left-side_54-43::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba($token-text-primary, 0.35);
   border: 1px solid transparent;
 }
 
 .left-side_54-43::-webkit-scrollbar-thumb:active {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba($token-text-primary, 0.5);
 }
 
 /* Responsive Styles */
@@ -431,7 +430,7 @@
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: $color-overlay-dark;
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     z-index: 199;

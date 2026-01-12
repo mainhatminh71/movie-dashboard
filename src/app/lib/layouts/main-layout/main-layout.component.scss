@@ -12,7 +12,7 @@
   margin-left: 240px;
   padding: 88px 32px 40px;
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(42, 42, 42, 0.08) 0%, $color-bg-primary 12%);
+  background: $gradient-background-subtle;
   overflow-y: auto;
   position: relative;
   max-width: calc(100vw - 240px);
@@ -24,7 +24,7 @@
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(180deg, rgba(0, 185, 174, 0.03) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba($token-color-primary, 0.03) 0%, transparent 100%);
     pointer-events: none;
     z-index: 0;
   }

@@ -431,6 +431,16 @@ export class DiscoverComponent implements OnInit{
         this.minRating.set(rating);
     }
 
+    clearSearch(): void {
+        const store = this.currentStore();
+        if (store === this.movieStore) {
+            (store as MovieStore).searchQuery.set('');
+        } else {
+            (store as TVShowStore).searchQuery.set('');
+        }
+        this.searchSubject.next('');
+    }
+
     clearFilters(): void {
         const store = this.currentStore();
         if (store === this.movieStore) {

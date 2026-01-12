@@ -1,4 +1,4 @@
-@import "src/app/tokens.scss";
+@import '../../lib/styles/index';
 
 .watchlist-container {
   padding: 0;
@@ -35,10 +35,10 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: rgba(255, 107, 107, 0.1);
-  border: 1px solid rgba(255, 107, 107, 0.3);
+  background: rgba($token-color-error, 0.1);
+  border: 1px solid rgba($token-color-error, 0.3);
   border-radius: 8px;
-  color: #ff6b6b;
+  color: $token-color-error;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -46,10 +46,10 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   
   &:hover {
-    background: rgba(255, 107, 107, 0.2);
-    border-color: rgba(255, 107, 107, 0.5);
+    background: rgba($token-color-error, 0.2);
+    border-color: rgba($token-color-error, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+    box-shadow: 0 4px 12px rgba($token-color-error, 0.2);
   }
   
   &:active {
@@ -66,11 +66,11 @@
 .page-title {
   font-size: 48px;
   font-weight: 800;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 8px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: -1px;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(135deg, $token-text-primary 0%, rgba($token-text-primary, 0.8) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -86,7 +86,7 @@
 
 .page-subtitle {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
   margin: 0;
   font-weight: 500;
 }
@@ -95,24 +95,24 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.06);
+  background: $color-overlay-light;
   border-radius: 28px;
   padding: 12px 20px;
   min-width: 320px;
   max-width: 400px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $token-border-muted;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   
   &:focus-within {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(0, 185, 174, 0.4);
-    box-shadow: 0 0 0 3px rgba(0, 185, 174, 0.1);
+    background: rgba($token-text-primary, 0.1);
+    border-color: $color-overlay-primary-strong;
+    box-shadow: 0 0 0 3px rgba($token-color-primary, 0.1);
   }
   
   svg {
-    color: #999999;
+    color: $token-text-muted;
     flex-shrink: 0;
     transition: color 0.3s ease;
   }
@@ -131,21 +131,21 @@
   background: none;
   border: none;
   outline: none;
-  color: #f5f5f5;
+  color: $token-text-secondary;
   font-size: 15px;
   font-weight: 500;
   flex: 1;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   
   &::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: $token-text-disabled;
   }
 }
 
 .clear-search-btn {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -155,7 +155,7 @@
   transition: all 0.2s ease;
   
   &:hover {
-    color: #ffffff;
+    color: $token-text-primary;
     background: rgba(255, 255, 255, 0.1);
   }
 }
@@ -173,21 +173,21 @@
   max-width: 500px;
   
   svg {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba($token-text-primary, 0.3);
     margin-bottom: 24px;
   }
   
   h2 {
     font-size: 28px;
     font-weight: 700;
-    color: #ffffff;
+    color: $token-text-primary;
     margin: 0 0 12px 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
   
   p {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.6);
+    color: $token-text-muted;
     margin: 0 0 24px 0;
   }
 }
@@ -195,8 +195,8 @@
 .clear-search-btn-large,
 .browse-btn {
   padding: 12px 24px;
-  background: linear-gradient(135deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
-  color: white;
+  background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+  color: $token-text-primary;
   border: none;
   border-radius: 12px;
   font-weight: 600;
@@ -207,7 +207,7 @@
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 185, 174, 0.4);
+    box-shadow: 0 8px 24px rgba($token-color-primary, 0.4);
   }
   
   &:active {
@@ -252,11 +252,11 @@
 }
 
 .watchlist-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba($token-text-primary, 0.03);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $token-border-muted;
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   cursor: pointer;
@@ -269,10 +269,10 @@
     inset: 0;
     border-radius: 20px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, transparent 50%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: linear-gradient(135deg, rgba($token-color-primary, 0.3) 0%, transparent 50%);
+    -webkit-mask: linear-gradient($token-text-primary 0 0) content-box, linear-gradient($token-text-primary 0 0);
     -webkit-mask-composite: xor;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient($token-text-primary 0 0) content-box, linear-gradient($token-text-primary 0 0);
     mask-composite: exclude;
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -282,12 +282,12 @@
   
   &:hover {
     transform: translateY(-12px) scale(1.02);
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(0, 185, 174, 0.4);
+    background: rgba($token-text-primary, 0.06);
+    border-color: $color-overlay-primary-strong;
     box-shadow: 
       0 20px 48px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(0, 185, 174, 0.3),
-      0 0 40px rgba(0, 185, 174, 0.1);
+      0 0 0 1px rgba($token-color-primary, 0.3),
+      0 0 40px rgba($token-color-primary, 0.1);
     
     &::before {
       opacity: 1;
@@ -304,7 +304,7 @@
   width: 100%;
   padding-top: 150%;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba($token-text-primary, 0.05);
   
   img {
     position: absolute;
@@ -327,7 +327,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  background: linear-gradient(to bottom, transparent 0%, $color-overlay-dark 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
@@ -338,7 +338,7 @@
 }
 
 .remove-btn {
-  background: rgba(255, 107, 107, 0.9);
+  background: rgba($token-color-error, 0.9);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -348,14 +348,14 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: white;
+  color: $token-text-primary;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   
   &:hover {
-    background: rgba(255, 82, 82, 1);
+    background: $color-error-dark;
     transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 4px 12px rgba($token-color-error, 0.4);
   }
   
   &:active {
@@ -375,7 +375,7 @@
 .card-title {
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 8px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   line-height: 1.3;
@@ -392,12 +392,12 @@
   flex-direction: column;
   gap: 4px;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
 }
 
 .card-year {
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba($token-text-primary, 0.8);
 }
 
 .card-date {
@@ -411,7 +411,7 @@
   padding: 16px;
   
   p {
-    color: rgba(255, 255, 255, 0.6);
+    color: $token-text-muted;
     font-size: 14px;
     margin: 0;
     font-weight: 500;
@@ -445,7 +445,7 @@
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $token-border-muted;
   border-radius: 16px;
   padding: 12px 20px;
 }
@@ -457,15 +457,15 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba($token-text-primary, 0.05);
+  border: 1px solid $token-border-subtle;
+  color: rgba($token-text-primary, 0.8);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover:not(.disabled) {
-    background: rgba(0, 185, 174, 0.2);
-    border-color: $a-00-b-9-ae-color;
+    background: rgba($token-color-primary, 0.2);
+    border-color: $token-color-primary;
     color: $a-00-b-9-ae-color;
     transform: translateY(-2px);
   }
@@ -492,9 +492,9 @@
   height: 36px;
   padding: 0 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba($token-text-primary, 0.05);
+  border: 1px solid $token-border-subtle;
+  color: rgba($token-text-primary, 0.8);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -504,17 +504,17 @@
   justify-content: center;
   
   &:hover {
-    background: rgba(0, 185, 174, 0.15);
-    border-color: rgba(0, 185, 174, 0.4);
-    color: $a-00-b-9-ae-color;
+    background: rgba($token-color-primary, 0.15);
+    border-color: $color-overlay-primary-strong;
+    color: $token-color-primary;
     transform: translateY(-2px);
   }
   
   &.active {
-    background: linear-gradient(135deg, $a-00-b-9-ae-background 0%, #00a89a 100%);
-    border-color: $a-00-b-9-ae-color;
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 185, 174, 0.3);
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    border-color: $token-color-primary;
+    color: $token-text-primary;
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.3);
     
     &:hover {
       transform: translateY(-2px) scale(1.05);
@@ -551,7 +551,7 @@
 
 .modal-dialog {
   background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $token-border-subtle;
   border-radius: 20px;
   width: 100%;
   max-width: 480px;
@@ -578,13 +578,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 24px 28px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid $token-border-muted;
 }
 
 .modal-title {
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: -0.5px;
@@ -593,7 +593,7 @@
 .modal-close {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -603,7 +603,7 @@
   transition: all 0.2s ease;
   
   &:hover {
-    color: #ffffff;
+    color: $token-text-primary;
     background: rgba(255, 255, 255, 0.1);
   }
   
@@ -619,7 +619,7 @@
 
 .modal-message {
   font-size: 16px;
-  color: #ffffff;
+  color: $token-text-primary;
   line-height: 1.6;
   margin: 0 0 12px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -627,7 +627,7 @@
 
 .modal-submessage {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
@@ -651,25 +651,25 @@
   
   &.cancel-btn {
     background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba($token-text-primary, 0.8);
+    border: 1px solid $token-border-subtle;
     
     &:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
+      background: rgba($token-text-primary, 0.12);
+      color: $token-text-primary;
       transform: translateY(-2px);
     }
   }
   
   &.confirm-btn {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    background: linear-gradient(135deg, $token-color-error 0%, $color-error-dark 100%);
+    color: $token-text-primary;
+    box-shadow: 0 4px 12px rgba($token-color-error, 0.3);
     
     &:hover {
-      background: linear-gradient(135deg, #ff5252 0%, #ff4444 100%);
+      background: linear-gradient(135deg, $color-error-dark 0%, rgba($token-color-error, 0.9) 100%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+      box-shadow: 0 6px 16px rgba($token-color-error, 0.4);
     }
     
     &:active {

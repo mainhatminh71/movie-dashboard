@@ -1,3 +1,5 @@
+@import '../../lib/styles/index';
+
 :host {
   display: block;
   width: 100%;
@@ -8,7 +10,7 @@
 .tv-details-container {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.08) 40%, transparent 100%);
+  background: linear-gradient(180deg, rgba($color-secondary, 0.12) 0%, rgba($color-secondary, 0.08) 40%, transparent 100%);
   position: relative;
   padding: 0 0 2rem 0;
   margin: -88px -32px 0 -32px;
@@ -23,14 +25,14 @@
   min-height: 60vh;
   padding: 2rem;
   text-align: center;
-  color: #ffffff;
+  color: $token-text-primary;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #00b9ae;
+  border: 4px solid $token-border-subtle;
+  border-top-color: $token-color-primary;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -46,7 +48,7 @@
 }
 
 .error-icon {
-  color: #ff6b6b;
+  color: $token-color-error;
   margin-bottom: 1rem;
 }
 
@@ -58,10 +60,10 @@
 
 .retry-btn {
   padding: 0.75rem 1.5rem;
-  background: #00b9ae;
+  background: $token-color-primary;
   border: none;
   border-radius: 8px;
-  color: #ffffff;
+  color: $token-text-primary;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -69,9 +71,9 @@
 }
 
 .retry-btn:hover {
-  background: #00a399;
+  background: $color-primary-dark;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 185, 174, 0.4);
+  box-shadow: 0 4px 12px rgba($token-color-primary, 0.4);
 }
 
 .tv-hero {
@@ -97,10 +99,10 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(20, 20, 30, 0.75) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba($color-bg-primary, 0.75) 100%);
+  border: 1px solid $token-border-default;
   border-radius: 16px;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba($token-text-primary, 0.95);
   font-size: 0.95rem;
   font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -110,8 +112,8 @@
   backdrop-filter: blur(20px) saturate(180%);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+    0 0 0 1px rgba($token-text-primary, 0.05) inset,
+    0 1px 0 rgba($token-text-primary, 0.1) inset;
   letter-spacing: 0.3px;
   overflow: hidden;
   position: relative;
@@ -124,7 +126,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba($token-text-primary, 0.1), transparent);
   transition: left 0.6s ease;
 }
 
@@ -134,10 +136,10 @@
   inset: 0;
   border-radius: 16px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, rgba(0, 185, 174, 0.1) 50%, transparent 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(135deg, rgba($token-color-primary, 0.3) 0%, rgba($token-color-primary, 0.1) 50%, transparent 100%);
+  -webkit-mask: linear-gradient($token-text-primary 0 0) content-box, linear-gradient($token-text-primary 0 0);
   -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient($token-text-primary 0 0) content-box, linear-gradient($token-text-primary 0 0);
   mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -145,15 +147,15 @@
 }
 
 .back-button-hero:hover {
-  background: linear-gradient(135deg, rgba(0, 185, 174, 0.25) 0%, rgba(0, 150, 140, 0.2) 100%);
-  border-color: rgba(0, 185, 174, 0.5);
+  background: linear-gradient(135deg, rgba($token-color-primary, 0.25) 0%, rgba($color-primary-dark, 0.2) 100%);
+  border-color: rgba($token-color-primary, 0.5);
   transform: translateX(-6px) translateY(-1px);
   box-shadow: 
-    0 12px 40px rgba(0, 185, 174, 0.35),
-    0 0 0 1px rgba(0, 185, 174, 0.2) inset,
-    0 1px 0 rgba(255, 255, 255, 0.15) inset,
-    0 0 30px rgba(0, 185, 174, 0.2);
-  color: #ffffff;
+    0 12px 40px rgba($token-color-primary, 0.35),
+    0 0 0 1px rgba($token-color-primary, 0.2) inset,
+    0 1px 0 rgba($token-text-primary, 0.15) inset,
+    0 0 30px rgba($token-color-primary, 0.2);
+  color: $token-text-primary;
 }
 
 .back-button-hero:hover::before {
@@ -226,7 +228,7 @@
     to bottom,
     transparent 0%,
     rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.8) 100%
+    $color-overlay-dark 100%
   );
   z-index: 1;
 }
@@ -257,7 +259,7 @@
 
 .tv-info-header {
   flex: 1;
-  color: #ffffff;
+  color: $token-text-primary;
   padding-bottom: 1rem;
 }
 
@@ -282,8 +284,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(0, 185, 174, 0.2);
-  border: 1px solid rgba(0, 185, 174, 0.4);
+  background: rgba($token-color-primary, 0.2);
+  border: 1px solid rgba($token-color-primary, 0.4);
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -291,7 +293,7 @@
 }
 
 .rating-badge svg {
-  color: #00b9ae;
+  color: $token-color-primary;
 }
 
 .meta-separator {
@@ -315,8 +317,8 @@
 
 .genre-tag {
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba($token-text-primary, 0.15);
+  border: 1px solid $token-border-default;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
@@ -325,8 +327,8 @@
 }
 
 .genre-tag:hover {
-  background: rgba(0, 185, 174, 0.3);
-  border-color: #00b9ae;
+  background: rgba($token-color-primary, 0.3);
+  border-color: $token-color-primary;
   transform: translateY(-2px);
 }
 
@@ -341,10 +343,10 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.875rem 1.75rem;
-  background: rgba(0, 185, 174, 0.2);
-  border: 2px solid #00b9ae;
+  background: rgba($token-color-primary, 0.2);
+  border: 2px solid $token-color-primary;
   border-radius: 12px;
-  color: #ffffff;
+  color: $token-text-primary;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -354,13 +356,13 @@
 }
 
 .watchlist-btn:hover {
-  background: rgba(0, 185, 174, 0.4);
+  background: rgba($token-color-primary, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 185, 174, 0.4);
+  box-shadow: 0 6px 20px rgba($token-color-primary, 0.4);
 }
 
 .watchlist-btn.active {
-  background: #00b9ae;
+  background: $token-color-primary;
   border-color: #00b9ae;
 }
 
@@ -379,21 +381,21 @@
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba($token-text-primary, 0.15);
+  border: 1px solid $token-border-default;
   backdrop-filter: blur(10px);
 }
 
 .status-badge.ended {
   background: rgba(255, 107, 107, 0.2);
   border-color: rgba(255, 107, 107, 0.4);
-  color: #ff6b6b;
+  color: $token-color-error;
 }
 
 .status-badge.returning {
   background: rgba(76, 175, 80, 0.2);
-  border-color: rgba(76, 175, 80, 0.4);
-  color: #4caf50;
+  border-color: rgba($color-success, 0.4);
+  color: $color-success;
 }
 
 .tv-content {
@@ -412,7 +414,7 @@
 .section-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 1.5rem 0;
   padding-bottom: 0.75rem;
   border-bottom: 2px solid rgba(0, 185, 174, 0.3);
@@ -463,7 +465,7 @@
 .show-info-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #00b9ae;
+  color: $token-color-primary;
 }
 
 .cast-section {
@@ -517,7 +519,7 @@
 .cast-name {
   font-size: 1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 0.25rem 0;
 }
 
@@ -591,7 +593,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(0, 185, 174, 0.3);
-  color: #00b9ae;
+  color: $token-color-primary;
   font-weight: 700;
   font-size: 1.2rem;
 }
@@ -604,7 +606,7 @@
 .author-name {
   font-size: 1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 0.25rem 0;
 }
 
@@ -618,7 +620,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #00b9ae;
+  color: $token-color-primary;
   font-weight: 600;
 }
 
@@ -690,14 +692,14 @@
   padding: 0.4rem 0.6rem;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 8px;
-  color: #ffffff;
+  color: $token-text-primary;
   font-size: 0.85rem;
   font-weight: 600;
   backdrop-filter: blur(10px);
 }
 
 .similar-tv-show-rating svg {
-  color: #00b9ae;
+  color: $token-color-primary;
 }
 
 .similar-tv-show-info {
@@ -707,7 +709,7 @@
 .similar-tv-show-title {
   font-size: 1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: $token-text-primary;
   margin: 0 0 0.5rem 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;

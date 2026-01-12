@@ -1,4 +1,4 @@
-@import "src/app/tokens.scss";
+@import '../../lib/styles/index';
 
 .header {
   position: fixed;
@@ -6,16 +6,15 @@
   left: 240px;
   right: 0;
   height: 72px;
-  background: rgba(10, 10, 10, 0.8);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: $token-bg-overlay;
+  @include backdrop-blur-md;
+  border-bottom: 1px solid $token-border-muted;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
   z-index: 50;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  box-shadow: 0 1px 0 rgba($token-text-primary, 0.03) inset;
 }
 
 .header-left {
@@ -33,10 +32,10 @@
 .brand-name {
   font-size: 20px;
   font-weight: 800;
-  color: #ffffff;
+  color: $token-text-primary;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+  background: linear-gradient(135deg, $token-text-primary 0%, rgba($token-text-primary, 0.9) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -46,7 +45,7 @@
 .brand-tagline {
   font-size: 11px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: $token-text-placeholder;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -63,27 +62,27 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #00b9ae 0%, #00a89a 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+  color: $token-text-primary;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 15px;
-  box-shadow: 0 4px 12px rgba(0, 185, 174, 0.4), 0 0 0 2px rgba(0, 185, 174, 0.1);
+  box-shadow: 0 4px 12px rgba($token-color-primary, 0.4), 0 0 0 2px rgba($token-color-primary, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 185, 174, 0.5), 0 0 0 3px rgba(0, 185, 174, 0.15);
+    box-shadow: 0 6px 16px rgba($token-color-primary, 0.5), 0 0 0 3px rgba($token-color-primary, 0.15);
   }
 }
 
 .share-btn {
   padding: 10px 20px;
-  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
+  color: $token-text-primary;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -91,13 +90,13 @@
   cursor: pointer;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+  box-shadow: 0 2px 8px rgba($color-secondary, 0.3);
   letter-spacing: 0.2px;
   
   &:hover {
-    background: linear-gradient(135deg, #0073e6 0%, #0060b8 100%);
+    background: linear-gradient(135deg, $color-secondary-light 0%, $color-secondary 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+    box-shadow: 0 4px 12px rgba($color-secondary, 0.4);
   }
   
   &:active {
@@ -114,29 +113,29 @@
   width: 24px;
   height: 24px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
+  background: $color-overlay-light;
   cursor: pointer;
   transition: all 0.2s ease;
   
   &:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba($token-text-primary, 0.15);
   }
 }
 
 .mobile-menu-btn {
   display: none;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: $color-overlay-light;
+  border: 1px solid $token-border-subtle;
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
-  color: #ffffff;
+  color: $token-text-primary;
   transition: all 0.3s ease;
   margin-right: 12px;
   
   &:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba($token-text-primary, 0.12);
+    border-color: $token-border-default;
   }
   
   svg {

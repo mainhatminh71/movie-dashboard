@@ -4,7 +4,7 @@ import { MainLayoutComponent } from "./lib/layouts/main-layout/main-layout.compo
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"],
+    styleUrls: ["./app.component.scss"],
     imports: [MainLayoutComponent],
     standalone: true
 })

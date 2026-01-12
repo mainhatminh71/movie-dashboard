@@ -1,3 +1,5 @@
+@import '../../lib/styles/index';
+
 :host {
   display: block;
   width: 100%;
@@ -11,7 +13,7 @@
   width: 100%;
   margin: 0;
   min-height: calc(100vh - 0px);
-  background: linear-gradient(180deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.08) 40%, transparent 100%);
+  background: linear-gradient(180deg, rgba($color-secondary, 0.12) 0%, rgba($color-secondary, 0.08) 40%, transparent 100%);
   position: relative;
   box-sizing: border-box;
 
@@ -62,8 +64,8 @@
   font-size: 1rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.7);
-  background: rgba(26, 26, 26, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba($color-bg-surface, 0.6);
+  border: 2px solid $token-border-subtle;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -73,21 +75,21 @@
   min-width: 120px;
 
   &:hover {
-    color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 185, 174, 0.4);
-    background: rgba(0, 185, 174, 0.1);
+    color: $token-text-secondary;
+    border-color: $color-overlay-primary-strong;
+    background: $color-overlay-primary;
     transform: translateY(-2px);
   }
 
   &.active {
-    color: #ffffff;
-    background: linear-gradient(135deg, #00b9ae 0%, #00a89a 100%);
-    border-color: #00b9ae;
-    box-shadow: 0 4px 16px rgba(0, 185, 174, 0.4);
+    color: $token-text-primary;
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    border-color: $token-color-primary;
+    box-shadow: 0 4px 16px rgba($token-color-primary, 0.4);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 185, 174, 0.5);
+      box-shadow: 0 6px 20px rgba($token-color-primary, 0.5);
     }
   }
 
@@ -99,8 +101,8 @@
 }
 
 .filters-section {
-  background: rgba(26, 26, 26, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba($color-bg-surface, 0.85);
+  border: 1px solid $token-border-subtle;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -125,7 +127,7 @@
   .search-icon {
     position: absolute;
     left: 1rem;
-    color: #00b9ae;
+    color: $token-color-primary;
     pointer-events: none;
     z-index: 1;
   }
@@ -134,22 +136,22 @@
     width: 100%;
     padding: 1rem 1rem 1rem 3rem;
     font-size: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid $token-border-default;
     border-radius: 12px;
     transition: all 0.3s ease;
-    background: rgba(18, 18, 18, 0.8);
-    color: #ffffff;
+    background: $token-bg-input;
+    color: $token-text-primary;
     box-sizing: border-box;
 
     &:focus {
       outline: none;
-      border-color: #00b9ae;
-      box-shadow: 0 0 0 3px rgba(0, 185, 174, 0.2);
-      background: rgba(18, 18, 18, 0.95);
+      border-color: $token-color-primary;
+      box-shadow: 0 0 0 3px rgba($token-color-primary, 0.2);
+      background: $token-bg-input-focus;
     }
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.5);
+      color: $token-text-placeholder;
     }
   }
 
@@ -159,7 +161,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.6);
+    color: $token-text-muted;
     display: flex;
     align-items: center;
     padding: 0.5rem;
@@ -167,8 +169,8 @@
     transition: all 0.2s ease;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #00b9ae;
+      background: $color-overlay-light;
+      color: $token-color-primary;
     }
   }
 }
@@ -180,7 +182,7 @@
   .filter-label {
     display: block;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: $token-text-secondary;
     margin-bottom: 0.75rem;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -207,7 +209,7 @@
   .filter-label {
     display: block;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: $token-text-secondary;
     margin-bottom: 0.75rem;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -225,30 +227,30 @@
 
 .genre-chip {
   padding: 0.625rem 1.125rem;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  background: rgba(18, 18, 18, 0.8);
+  border: 2px solid $token-border-default;
+  background: $token-bg-input;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: $token-text-secondary;
   white-space: nowrap;
   flex-shrink: 0;
 
   &:hover {
-    border-color: #00b9ae;
-    color: #00b9ae;
-    background: rgba(0, 185, 174, 0.12);
+    border-color: $token-color-primary;
+    color: $token-color-primary;
+    background: rgba($token-color-primary, 0.12);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 185, 174, 0.2);
+    box-shadow: 0 4px 8px rgba($token-color-primary, 0.2);
   }
 
   &.active {
-    background: linear-gradient(135deg, #00b9ae 0%, #00a89a 100%);
-    border-color: #00b9ae;
-    color: white;
-    box-shadow: 0 4px 12px rgba(0, 185, 174, 0.4);
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    border-color: $token-color-primary;
+    color: $token-text-primary;
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.4);
     font-weight: 600;
   }
 }
@@ -260,20 +262,20 @@
   border-radius: 12px;
   font-size: 1rem;
   background: rgba(18, 18, 18, 0.8);
-  color: #ffffff;
+  color: $token-text-primary;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:focus {
     outline: none;
-    border-color: #00b9ae;
-    box-shadow: 0 0 0 3px rgba(0, 185, 174, 0.2);
-    background: rgba(18, 18, 18, 0.95);
+    border-color: $token-color-primary;
+    box-shadow: 0 0 0 3px rgba($token-color-primary, 0.2);
+    background: $token-bg-input-focus;
   }
 
   option {
-    background: #1a1a1a;
-    color: #ffffff;
+    background: $color-bg-surface;
+    color: $token-text-primary;
   }
 }
 
@@ -287,7 +289,7 @@
   width: 100%;
   height: 8px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.15);
+  background: $token-border-default;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
@@ -298,32 +300,32 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #00b9ae 0%, #00a89a 100%);
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 185, 174, 0.4);
+    box-shadow: 0 2px 8px rgba($token-color-primary, 0.4);
   }
 
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #00b9ae 0%, #00a89a 100%);
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
     cursor: pointer;
     border: none;
-    box-shadow: 0 2px 8px rgba(0, 185, 174, 0.4);
+    box-shadow: 0 2px 8px rgba($token-color-primary, 0.4);
   }
 }
 
 .rating-value {
   font-weight: 600;
-  color: #00b9ae;
+  color: $token-color-primary;
   font-size: 0.9rem;
 }
 
 .clear-filters-btn {
   padding: 0.75rem 1.5rem;
-  background: #ff6b6b;
-  color: white;
+  background: $token-color-error;
+  color: $token-text-primary;
   border: none;
   border-radius: 12px;
   font-weight: 600;
@@ -333,15 +335,15 @@
   margin-top: auto;
 
   &:hover {
-    background: #ff5252;
+    background: $color-error-dark;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 4px 12px rgba($token-color-error, 0.3);
   }
 }
 
 .results-section {
-  background: rgba(26, 26, 26, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba($color-bg-surface, 0.85);
+  border: 1px solid $token-border-subtle;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -368,8 +370,8 @@
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  border-top: 4px solid #00b9ae;
+  border: 4px solid $token-border-subtle;
+  border-top: 4px solid $token-color-primary;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -381,13 +383,13 @@
 }
 
 .loading-text {
-  color: rgba(255, 255, 255, 0.8);
+  color: $token-text-secondary;
   font-size: 1.1rem;
 }
 
 .error-icon,
 .empty-icon {
-  color: #ff6b6b;
+  color: $token-color-error;
   margin-bottom: 1rem;
 }
 
@@ -395,19 +397,19 @@
 .empty-message {
   font-size: 1.2rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: $token-text-secondary;
   margin-bottom: 0.5rem;
 }
 
 .empty-submessage {
-  color: rgba(255, 255, 255, 0.6);
+  color: $token-text-muted;
   margin-bottom: 1.5rem;
 }
 
 .retry-btn {
   padding: 0.75rem 1.5rem;
-  background: #00b9ae;
-  color: white;
+  background: $token-color-primary;
+  color: $token-text-primary;
   border: none;
   border-radius: 12px;
   font-weight: 600;
@@ -415,9 +417,9 @@
   transition: all 0.3s ease;
 
   &:hover {
-    background: #00a89a;
+    background: $color-primary-dark;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 185, 174, 0.4);
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.4);
   }
 }
 
@@ -448,14 +450,14 @@
   transition: all 0.3s ease;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(18, 18, 18, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba($color-bg-surface, 0.9);
+  border: 1px solid $token-border-subtle;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 185, 174, 0.2);
-    border-color: rgba(0, 185, 174, 0.3);
+    box-shadow: 0 12px 24px rgba($token-color-primary, 0.2);
+    border-color: rgba($token-color-primary, 0.3);
 
     .movie-overlay {
       opacity: 1;
@@ -472,7 +474,7 @@
   width: 100%;
   padding-top: 150%;
   overflow: hidden;
-  background: #1a1a1a;
+  background: $color-bg-surface;
 
   img {
     position: absolute;
@@ -491,7 +493,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+  background: linear-gradient(to bottom, $color-overlay-dark 0%, transparent 50%);
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -504,17 +506,17 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(0, 0, 0, 0.7);
+  background: $color-overlay-dark;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
   font-weight: 600;
-  color: #ffffff;
+  color: $token-text-primary;
   font-size: 0.85rem;
 
   svg {
-    color: #fbbf24;
+    color: $color-warning;
     width: 14px;
     height: 14px;
   }
@@ -526,7 +528,7 @@
   .movie-title {
     font-size: 1rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: $token-text-secondary;
     margin: 0 0 0.25rem 0;
     line-height: 1.3;
     display: -webkit-box;
@@ -540,7 +542,7 @@
 
   .movie-year {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: $token-text-muted;
     margin: 0;
   }
 }
@@ -550,6 +552,6 @@
   padding: 1rem;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid $token-border-subtle;
   margin-top: 1rem;
 }
