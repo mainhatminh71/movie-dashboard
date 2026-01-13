@@ -1,73 +1,98 @@
-import { MovieService } from 'src/app/core/services/movie.service';
-import { Injectable, signal, computed } from "@angular/core";
+import { Injectable, signal, computed, inject } from "@angular/core";
 import { TVShow } from "../models/tvshow.model";
-import { WatchListItem } from "../models/watchlistitem.model";
-import { Observable } from 'rxjs';
-import { TVShowService } from '../services/tvshow.service';
-import { of } from 'rxjs';
+import { StorageService } from "../services/moviestorage.service";
+
 @Injectable({
     providedIn: 'root'
 })
 export class TVShowStore {
-    private tvShowSignalList = signal<WatchListItem[] | null> (null);
-    private discoveredTVShowSignalList = signal<TVShow[]>([]);
-    private discoveredTVShowGenreIdSignal = signal<any[]>([]);
+    private storageService = inject(StorageService);
+    
+    private discoveredTVShowsSignal = signal<TVShow[]>([]);
+    private genresSignal = signal<any[]>([]);
     private loadingSignal = signal<boolean>(false);
     private errorSignal = signal<string | null>(null);
     
-
     searchQuery = signal<string>('');
     selectedGenreIds = signal<number[]>([]);
-    selectedYear = signal<number|null>(null);
-    currentTVShowId = signal<number|null>(null);
-
-
-    discoverdTVShows = this.discoveredTVShowSignalList.asReadonly();
-    discoveredTVShowGenreId = this.discoveredTVShowGenreIdSignal.asReadonly();
+    selectedYear = signal<number | null>(null);
+    minRating = signal<number>(0);
+    
+    currentTVShowId = signal<number | null>(null);
+    currentName = signal<string>('');
+    posterPath = signal<string | null>(null);
+    backdropPath = signal<string | null>(null);
+    overview = signal<string>('');
+    firstAirDate = signal<string | null>(null);
+    voteAverage = signal<number>(0);
+    genreIds = signal<number[]>([]);
+    
+    discoveredTVShows = this.discoveredTVShowsSignal.asReadonly();
+    genres = this.genresSignal.asReadonly();
     loading = this.loadingSignal.asReadonly();
     error = this.errorSignal.asReadonly();
-
-    //attribute state
-    currentName = signal<string>('');
-    poster_path = signal<string|null>(null);
-    backdrop_path = signal< string| null>(null);
-    overview = signal<string>('');
-    first_air_date = signal<string|null>(null);
-    vote_average = signal<number>(0);
-    genre_id_list = signal<number[]>([]);
-
-
-    filteredTVShow = computed(() => {
-        let tvshows = this.discoveredTVShowSignalList();
+    
+    filteredTVShows = computed(() => {
+        let tvShows = this.discoveredTVShowsSignal();
         const query = this.searchQuery().toLowerCase().trim();
+        
         if (query) {
-            tvshows = tvshows?.filter(t => t.name.includes(query))
+            tvShows = tvShows.filter(t => 
+                t.name.toLowerCase().includes(query)
+            );
         }
-        return tvshows;
-    })
-    takeTVShowListByGenreId(tvShowService: TVShowService, genreIds: number[], options?: { year?: number; rating?: number }): Observable<TVShow[]> {
-            if (genreIds.length === 0) {
-                return of([]);
-            }
-            const genreList = genreIds.map(id => id.toString());
-            return tvShowService.getTVShowsByGenre(genreList, 1, options);
+        
+        if (this.minRating() > 0) {
+            tvShows = tvShows.filter(t => 
+                (t.vote_average || 0) >= this.minRating()
+            );
         }
-    setDiscoveredTVShowSignal(tvShowList : TVShow[]) : void {
-        this.discoveredTVShowSignalList.set(tvShowList);
+        
+        return tvShows;
+    });
+    
+    hasActiveFilters = computed(() => {
+        return !!this.searchQuery() || 
+               this.selectedGenreIds().length > 0 || 
+               !!this.selectedYear() || 
+               this.minRating() > 0;
+    });
+    
+    watchList = this.storageService.watchList;
+    watchListCount = this.storageService.count;
+    
+    setDiscoveredTVShows(tvShows: TVShow[]): void {
+        this.discoveredTVShowsSignal.set(tvShows);
     }
-    setGenreIDSignal(genreIdList : any[]) : void {
-        this.discoveredTVShowGenreIdSignal.set(genreIdList);
+    
+    setGenres(genres: any[]): void {
+        this.genresSignal.set(genres);
     }
-    setLoading(loadingStatus: boolean) : void {
-        this.loadingSignal.set(loadingStatus);
+    
+    setLoading(loading: boolean): void {
+        this.loadingSignal.set(loading);
     }
-    setError(errorStatus: string | null) : void {
-        this.errorSignal.set(errorStatus);
+    
+    setError(error: string | null): void {
+        this.errorSignal.set(error);
     }
-    clearFilter() : void {
+    
+    clearFilters(): void {
         this.searchQuery.set('');
         this.selectedGenreIds.set([]);
         this.selectedYear.set(null);
-        this.currentTVShowId.set(null);
+        this.minRating.set(0);
+    }
+    
+    isInWatchlist(tvShowId: number): boolean {
+        return this.storageService.checkTVShowById(tvShowId);
+    }
+    
+    toggleWatchlist(tvShow: TVShow): void {
+        if (this.storageService.checkTVShowById(tvShow.id)) {
+            this.storageService.removeTVShow(tvShow);
+        } else {
+            this.storageService.addTVShow(tvShow);
+        }
     }
 }

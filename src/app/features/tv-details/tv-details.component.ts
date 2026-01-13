@@ -33,12 +33,12 @@ export class TvDetailsComponent implements OnInit{
 
   currentTVShowId = this.tvShowStore.currentTVShowId;
   currentName = this.tvShowStore.currentName;
-  poster_path = this.tvShowStore.poster_path;
-  backdrop_path = this.tvShowStore.backdrop_path;
+  posterPath = this.tvShowStore.posterPath;
+  backdropPath = this.tvShowStore.backdropPath;
   overview = this.tvShowStore.overview;
-  first_air_date = this.tvShowStore.first_air_date;
-  vote_average = this.tvShowStore.vote_average;
-  genre_id_list = this.tvShowStore.genre_id_list;
+  firstAirDate = this.tvShowStore.firstAirDate;
+  voteAverage = this.tvShowStore.voteAverage;
+  genreIds = this.tvShowStore.genreIds;
 
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -81,17 +81,17 @@ export class TvDetailsComponent implements OnInit{
         
         this.tvShowStore.currentTVShowId.set(tvId);
         this.tvShowStore.currentName.set(tvDetails.name || '');
-        this.tvShowStore.poster_path.set(tvDetails.poster_path || null);
-        this.tvShowStore.backdrop_path.set(tvDetails.backdrop_path || null);
+        this.tvShowStore.posterPath.set(tvDetails.poster_path || null);
+        this.tvShowStore.backdropPath.set(tvDetails.backdrop_path || null);
         this.tvShowStore.overview.set(tvDetails.overview || '');
-        this.tvShowStore.first_air_date.set(tvDetails.first_air_date || null);
-        this.tvShowStore.vote_average.set(tvDetails.vote_average || 0);
+        this.tvShowStore.firstAirDate.set(tvDetails.first_air_date || null);
+        this.tvShowStore.voteAverage.set(tvDetails.vote_average || 0);
         
         if (tvDetails.genres && tvDetails.genres.length > 0) {
           const genreIds = tvDetails.genres.map((g: any) => g.id);
-          this.tvShowStore.genre_id_list.set(genreIds);
+          this.tvShowStore.genreIds.set(genreIds);
         } else {
-          this.tvShowStore.genre_id_list.set([]);
+          this.tvShowStore.genreIds.set([]);
         }
 
         this.cast.set(data.credits?.cast || []);

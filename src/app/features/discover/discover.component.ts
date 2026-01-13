@@ -66,7 +66,7 @@ export class DiscoverComponent implements OnInit{
     selectedGenreIDs = computed(() => {
         const store = this.currentStore();
         return store === this.movieStore 
-            ? store.selectedGenreIDs() 
+            ? this.movieStore.selectedGenreIds() 
             : (store as TVShowStore).selectedGenreIds();
     });
     
@@ -88,14 +88,14 @@ export class DiscoverComponent implements OnInit{
         const store = this.currentStore();
         return store === this.movieStore
             ? store.genres()
-            : (store as TVShowStore).discoveredTVShowGenreId();
+            : (store as TVShowStore).genres();
     });
     
     filteredContent = computed(() => {
         const store = this.currentStore();
         return store === this.movieStore
             ? (store as MovieStore).filteredMovies()
-            : (store as TVShowStore).filteredTVShow();
+            : (store as TVShowStore).filteredTVShows();
     });
     
     hasActiveFilters = computed(() => {
@@ -180,13 +180,13 @@ export class DiscoverComponent implements OnInit{
             if (params['genres']) {
                 const genreIds = params['genres'].split(',').map((id: string) => +id);
                 if (isMovies) {
-                    this.movieStore.selectedGenreIDs.set(genreIds);
+                    this.movieStore.selectedGenreIds.set(genreIds);
                 } else {
                     this.tvShowStore.selectedGenreIds.set(genreIds);
                 }
             } else {
                 if (isMovies) {
-                    this.movieStore.selectedGenreIDs.set([]);
+                    this.movieStore.selectedGenreIds.set([]);
                 } else {
                     this.tvShowStore.selectedGenreIds.set([]);
                 }
@@ -235,7 +235,7 @@ export class DiscoverComponent implements OnInit{
         if (this.activeTab() === 'movies') {
             this.movieService.getGenres().subscribe({
                 next: (response: any) => {
-                    this.movieStore.setGenresSignal(response.genres || []);
+                    this.movieStore.setGenres(response.genres || []);
                     this.cdr.markForCheck();
                 },
                 error: (err: any) => {
@@ -245,7 +245,7 @@ export class DiscoverComponent implements OnInit{
         } else {
             this.tvShowService.getGenres().subscribe({
                 next: (response: any) => {
-                    this.tvShowStore.setGenreIDSignal(response.genres || []);
+                    this.tvShowStore.setGenres(response.genres || []);
                     this.cdr.markForCheck();
                 },
                 error: (err: any) => {
@@ -277,7 +277,7 @@ export class DiscoverComponent implements OnInit{
             request = this.movieService.searchMovie(1, query);
             request.subscribe({
                 next: (response: any) => {
-                    this.movieStore.setDiscoveredMovie(response.results || []);
+                    this.movieStore.setDiscoveredMovies(response.results || []);
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
@@ -289,14 +289,15 @@ export class DiscoverComponent implements OnInit{
                 }
             });
         } else if (genres.length > 0) {
-            request = this.movieStore.takeMovieListByGenreId(this.movieService, genres, {
-                year: year || undefined,
-                rating: rating > 0 ? rating : undefined
-            });
+            const discoverParams: Record<string, string | number> = { page: 1 };
+            discoverParams['with_genres'] = genres.join(',');
+            if (year) discoverParams['year'] = year;
+            if (rating > 0) discoverParams['vote_average_gte'] = rating;
+            request = this.movieService.discoverMovie(discoverParams as any);
 
             request.subscribe({
-                next: (movies: Movie[]) => {
-                    this.movieStore.setDiscoveredMovie(movies);
+                next: (response: any) => {
+                    this.movieStore.setDiscoveredMovies(response.results || []);
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
@@ -315,7 +316,7 @@ export class DiscoverComponent implements OnInit{
 
             request.subscribe({
                 next: (response: any) => {
-                    this.movieStore.setDiscoveredMovie(response.results || []);
+                    this.movieStore.setDiscoveredMovies(response.results || []);
                     this.movieStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
@@ -343,7 +344,7 @@ export class DiscoverComponent implements OnInit{
             request = this.tvShowService.searchTVShow(1, query);
             request.subscribe({
                 next: (response: any) => {
-                    this.tvShowStore.setDiscoveredTVShowSignal(response.results || []);
+                    this.tvShowStore.setDiscoveredTVShows(response.results || []);
                     this.tvShowStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
@@ -355,14 +356,15 @@ export class DiscoverComponent implements OnInit{
                 }
             });
         } else if (genres.length > 0) {
-            request = this.tvShowStore.takeTVShowListByGenreId(this.tvShowService, genres, {
-                year: year || undefined,
-                rating: rating > 0 ? rating : undefined
-            });
+            const discoverParams: Record<string, string | number> = { page: 1 };
+            discoverParams['with_genres'] = genres.join(',');
+            if (year) discoverParams['first_air_date_year'] = year;
+            if (rating > 0) discoverParams['vote_average_gte'] = rating;
+            request = this.tvShowService.discoverTVShow(discoverParams as any);
 
             request.subscribe({
-                next: (tvShows: TVShow[]) => {
-                    this.tvShowStore.setDiscoveredTVShowSignal(tvShows);
+                next: (response: any) => {
+                    this.tvShowStore.setDiscoveredTVShows(response.results || []);
                     this.tvShowStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
@@ -381,7 +383,7 @@ export class DiscoverComponent implements OnInit{
 
             request.subscribe({
                 next: (response: any) => {
-                    this.tvShowStore.setDiscoveredTVShowSignal(response.results || []);
+                    this.tvShowStore.setDiscoveredTVShows(response.results || []);
                     this.tvShowStore.setLoading(false);
                     this.cdr.markForCheck();
                 },
@@ -409,11 +411,11 @@ export class DiscoverComponent implements OnInit{
     toggleGenre(genreId: number): void {
         const store = this.currentStore();
         if (store === this.movieStore) {
-            const current = (store as MovieStore).selectedGenreIDs();
+            const current = (store as MovieStore).selectedGenreIds();
             const updated = current.includes(genreId)
                 ? current.filter(id => id !== genreId)
                 : [...current, genreId];
-            (store as MovieStore).selectedGenreIDs.set(updated);
+            (store as MovieStore).selectedGenreIds.set(updated);
         } else {
             const current = (store as TVShowStore).selectedGenreIds();
             const updated = current.includes(genreId)
@@ -450,7 +452,7 @@ export class DiscoverComponent implements OnInit{
         const store = this.currentStore();
         if (store === this.movieStore) {
             (store as MovieStore).searchQuery.set('');
-            (store as MovieStore).selectedGenreIDs.set([]);
+            (store as MovieStore).selectedGenreIds.set([]);
             (store as MovieStore).selectedYear.set(null);
         } else {
             (store as TVShowStore).searchQuery.set('');

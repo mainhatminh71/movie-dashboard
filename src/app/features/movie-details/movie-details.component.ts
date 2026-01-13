@@ -87,14 +87,14 @@ export class MovieDetailsComponent implements OnInit {
                 
                 if (movieDetails.genres && movieDetails.genres.length > 0) {
                     const genreIds = movieDetails.genres.map((g: any) => g.id);
-                    this.movieStore.currentMovieGenre.set(genreIds[0] || null);
+                    this.movieStore.currentGenreId.set(genreIds[0] || null);
                 }
 
                 this.cast.set(data.credits?.cast || []);
                 this.reviews.set(data.reviews?.results || []);
                 this.similarMovies.set(data.similar?.results || []);
                 
-                this.isInWatchlist.set(this.movieStore.checkCurrentMovieInWatchList());
+                this.isInWatchlist.set(this.movieStore.isInWatchlist(movieId));
                 
                 this.loading.set(false);
                 this.movieStore.setLoading(false);
@@ -116,7 +116,10 @@ export class MovieDetailsComponent implements OnInit {
         const movie = this.movie();
         if (movie) {
             this.movieStore.toggleWatchlist(movie);
-            this.isInWatchlist.set(this.movieStore.checkCurrentMovieInWatchList());
+            const movieId = this.movieStore.currentMovieId();
+            if (movieId) {
+                this.isInWatchlist.set(this.movieStore.isInWatchlist(movieId));
+            }
         }
     }
 

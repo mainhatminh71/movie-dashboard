@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import {RouterModule} from '@angular/router';
-import { IconComponent } from "../../../features/icon/icon.component";
+import { IconComponent } from "../../components/icon/icon.component";
 import { StorageService } from '../../../core/services/moviestorage.service';
 import { CommonModule } from '@angular/common';
 

@@ -15,7 +15,7 @@
       }
     </div>
   } @else if (tv()) {
-    <div class="tv-hero" [style.background-image]="'url(' + getImageUrl(backdrop_path(), 'w1280') + ')'">
+    <div class="tv-hero" [style.background-image]="'url(' + getImageUrl(backdropPath(), 'w1280') + ')'">
       <div class="hero-overlay"></div>
       <button class="back-button-hero" (click)="goBack()" [attr.aria-label]="'Back to ' + (referrer() === 'discover' ? 'Discover' : 'Home')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -26,7 +26,7 @@
       <div class="hero-content">
         <div class="tv-poster-wrapper">
           <img 
-            [src]="getImageUrl(poster_path(), 'w500')" 
+            [src]="getImageUrl(posterPath(), 'w500')" 
             [alt]="currentName() + ' poster'"
             [title]="currentName() + ' poster'"
             class="tv-poster"
@@ -41,10 +41,10 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
               </svg>
-              <span>{{ vote_average() ? vote_average().toFixed(1) : 'N/A' }}</span>
+              <span>{{ voteAverage() ? voteAverage().toFixed(1) : 'N/A' }}</span>
             </div>
             <span class="meta-separator">•</span>
-            <span class="tv-year">{{ getYear(first_air_date()) }}</span>
+            <span class="tv-year">{{ getYear(firstAirDate()) }}</span>
             @if (tv()?.number_of_seasons) {
               <span class="meta-separator">•</span>
               <span class="tv-seasons">{{ tv().number_of_seasons }} Season{{ tv().number_of_seasons !== 1 ? 's' : '' }}</span>
