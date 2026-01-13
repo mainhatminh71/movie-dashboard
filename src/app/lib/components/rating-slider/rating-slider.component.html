@@ -1,0 +1,25 @@
+<div class="rating-slider-container">
+    <label class="filter-label" [for]="'rating-slider-' + _uniqueId">
+      Minimum Rating
+    </label>
+    <div class="rating-filter">
+      <input 
+        [id]="'rating-slider-' + _uniqueId"
+        type="range" 
+        class="rating-slider"
+        [min]="min"
+        [max]="max"
+        [step]="step"
+        [value]="value"
+        (input)="onInput($event)"
+        aria-label="Minimum rating filter"
+      />
+      <div class="rating-value">
+        @if (value > 0) {
+          <span>{{ displayValue }} ⭐</span>
+        } @else {
+          <span>{{ displayValue }}</span>
+        }
+      </div>
+    </div>
+  </div>

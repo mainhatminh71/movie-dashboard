@@ -1,0 +1,31 @@
+@import '../../styles/index';
+
+.filter-chip {
+  padding: 0.625rem 1.125rem;
+  border: 2px solid $token-border-default;
+  background: $token-bg-input;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $token-text-secondary;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: $token-color-primary;
+    color: $token-color-primary;
+    background: rgba($token-color-primary, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba($token-color-primary, 0.2);
+  }
+
+  &.active {
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    border-color: $token-color-primary;
+    color: $token-text-primary;
+    box-shadow: 0 4px 12px rgba($token-color-primary, 0.4);
+    font-weight: 600;
+  }
+}

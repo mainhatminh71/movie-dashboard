@@ -1,0 +1,40 @@
+<div class="sidebar-backdrop" (click)="closeMobileMenu()"></div>
+<div class="sidebar">
+  <span class="sidebar-logo">TINY MOVIEZ</span>
+  
+  <div class="sidebar-menu">
+    <span class="menu-label">Menu</span>
+    <div class="menu-item active" routerLink="/home" routerLinkActive="active">
+      <app-icon class="menu-icon"></app-icon>
+      <span class="menu-text">Home</span>
+    </div>
+    <div class="menu-item" routerLink="/discover" routerLinkActive="active">
+      <app-icon name="discover" class="menu-icon discover-icon"></app-icon>
+      <span class="menu-text">Discover</span>
+    </div>
+  </div>
+  
+  <div class="sidebar-library">
+    <span class="library-label">Library</span>
+    
+    <div class="library-item" routerLink="/watchlist" routerLinkActive="active">
+      <app-icon name="watchlist" class="library-icon"></app-icon>
+      <span class="library-text">Watchlist</span>
+      @if (watchListCount() > 0) {
+        <span class="watchlist-badge">{{ watchListCount() }}</span>
+      }
+    </div>
+    
+  </div>
+  
+  <!-- Decorative Footer -->
+  <div class="sidebar-footer">
+    <div class="footer-stats">
+      <div class="stat-item">
+        <span class="stat-label">Powered by</span>
+        <span class="stat-value">TMDB</span>
+      </div>
+    </div>
+    <div class="footer-accent"></div>
+  </div>
+</div>

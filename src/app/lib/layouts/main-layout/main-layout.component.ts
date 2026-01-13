@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from '../../../features/header/header.component';
-import { LeftSideComponent } from '../../../features/left-side/left-side.component';
 import { MainContentComponent } from '../../../features/main-content/main-content.component';
 import { CommonModule } from '@angular/common';
 import { Subscription, filter } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, startWith } from 'rxjs';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [CommonModule, RouterOutlet, HeaderComponent, LeftSideComponent, MainContentComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, MainContentComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
   standalone: true,

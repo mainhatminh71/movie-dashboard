@@ -1,0 +1,15 @@
+<div class="year-select-container">
+    <label class="filter-label" [for]="'year-select-' + _uniqueId">Year</label>
+    <select 
+      [id]="'year-select-' + _uniqueId"
+      class="filter-select"
+      [value]="selectedYear || ''"
+      (change)="onYearChange($event)"
+      aria-label="Filter by year"
+    >
+      <option value="">All Years</option>
+      @for (year of years(); track year) {
+        <option [value]="year">{{ year }}</option>
+      }
+    </select>
+  </div>

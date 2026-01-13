@@ -1,0 +1,364 @@
+@import '../../styles/index';
+
+/* Premium Dark theme Sidebar */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  max-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 12px;
+  background: linear-gradient(180deg, $color-bg-surface 0%, $color-bg-secondary 100%);
+  border-right: 1px solid $token-border-muted;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.3);
+  scrollbar-width: thin;
+  scrollbar-color: $token-border-default transparent;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+/* Logo */
+.sidebar-logo {
+  color: $token-text-primary;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  padding: 0 16px;
+  margin-bottom: 40px;
+  display: block;
+  background: linear-gradient(135deg, $token-text-primary 0%, rgba($token-text-primary, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 8px rgba($token-text-primary, 0.1);
+}
+
+/* Menu Section */
+.sidebar-menu {
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  padding: 0 8px;
+}
+
+.menu-label {
+  color: $token-text-muted;
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 0 16px;
+  margin-bottom: 20px;
+  margin-top: 0;
+  display: block;
+}
+
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  margin: 3px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: $token-text-tertiary;
+  font-weight: 600;
+  
+  &:hover {
+    color: $token-text-primary;
+    background-color: $color-overlay-light;
+    transform: translateX(2px);
+  }
+  
+  &.active {
+    color: $a-00-b-9-ae-color;
+    background-color: $color-overlay-primary;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 32px;
+      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, $color-primary-dark 100%);
+      border-radius: 0 3px 3px 0;
+      box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
+    }
+  }
+}
+
+.menu-text {
+  color: inherit;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: inherit;
+  
+  svg,
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+.menu-item.active .menu-icon {
+  color: $a-00-b-9-ae-color;
+}
+
+/* Library Section */
+.sidebar-library {
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  padding: 0 8px;
+  border-top: 1px solid $color-overlay-light;
+  padding-top: 20px;
+}
+
+.library-label {
+  color: $token-text-muted;
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 0 16px;
+  margin-bottom: 20px;
+  margin-top: 12px;
+  display: block;
+}
+
+.library-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  margin: 3px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: $token-text-tertiary;
+  font-weight: 500;
+  
+  &:hover {
+    color: $token-text-primary;
+    background-color: $color-overlay-light;
+    transform: translateX(2px);
+  }
+  
+  &.active {
+    color: $a-00-b-9-ae-color;
+    background-color: $color-overlay-primary;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 32px;
+      background: linear-gradient(180deg, $a-00-b-9-ae-background 0%, $color-primary-dark 100%);
+      border-radius: 0 3px 3px 0;
+      box-shadow: 0 0 12px rgba($token-color-primary, 0.5);
+    }
+  }
+}
+
+.library-text {
+  color: inherit;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.1px;
+  flex: 1;
+}
+
+.library-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: inherit;
+  
+  svg,
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+.watchlist-badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  background: rgba($token-color-primary, 0.2);
+  border: 1px solid rgba($token-color-primary, 0.3);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: $a-00-b-9-ae-color;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  min-width: 20px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid $color-overlay-light;
+}
+
+.footer-stats {
+  padding: 0 16px 16px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: $token-text-disabled;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.stat-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: $token-text-tertiary;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: 1px;
+}
+
+.footer-accent {
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba($token-color-primary, 0.3) 20%,
+    rgba($token-color-primary, 0.5) 50%,
+    rgba($token-color-primary, 0.3) 80%,
+    transparent 100%
+  );
+  margin: 0 24px;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: $token-border-default;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba($token-text-primary, 0.35);
+  border: 1px solid transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb:active {
+  background: rgba($token-text-primary, 0.5);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 200;
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+  
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: $color-overlay-dark;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    
+    &.mobile-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 280px;
+    padding: 20px 12px;
+  }
+  
+  .sidebar-logo {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+  
+  .menu-item,
+  .library-item {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+  
+  .menu-text,
+  .library-text {
+    font-size: 14px;
+  }
+}

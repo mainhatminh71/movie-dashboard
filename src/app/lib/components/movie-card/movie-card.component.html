@@ -1,0 +1,36 @@
+<div 
+  class="movie-card" 
+  [class.small]="size === 'small'"
+  [class.medium]="size === 'medium'"
+  [class.large]="size === 'large'"
+  (click)="onCardClick()"
+  [attr.aria-label]="'View details for ' + (movie | movieTitle)"
+  role="button"
+  tabindex="0"
+  (keydown.enter)="onCardClick()"
+  (keydown.space)="onCardClick(); $event.preventDefault()"
+>
+  <div class="movie-poster">
+    <img 
+      [src]="movie.poster_path | imageUrl:'w300'" 
+      [alt]="(movie | movieTitle) + ' poster'"
+      [title]="(movie | movieTitle) + ' poster'"
+      loading="lazy"
+      (error)="onImageError($event)"
+    />
+    @if (showRating) {
+      <div class="movie-overlay">
+        <div class="movie-rating">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <span>{{ movie.vote_average | rating:1 }}</span>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="movie-info">
+    <h3 class="movie-title">{{ movie | movieTitle }}</h3>
+    <p class="movie-year">{{ getReleaseDate() | year }}</p>
+  </div>
+</div>

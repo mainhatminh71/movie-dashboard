@@ -1,0 +1,58 @@
+@import '../../styles/index';
+
+.rating-slider-container {
+  width: 100%;
+}
+
+.filter-label {
+  display: block;
+  font-weight: 600;
+  color: $token-text-secondary;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rating-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rating-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: $token-border-default;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba($token-color-primary, 0.4);
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba($token-color-primary, 0.4);
+  }
+}
+
+.rating-value {
+  font-weight: 600;
+  color: $token-color-primary;
+  font-size: 0.9rem;
+}

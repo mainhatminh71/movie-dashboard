@@ -6,11 +6,13 @@ import { MovieService } from 'src/app/core/services/movie.service';
 import { TVShowService } from 'src/app/core/services/tvshow.service';
 import { Movie } from 'src/app/core/models/movie.model';
 import { TVShow } from 'src/app/core/models/tvshow.model';
-import { environment } from 'src/environments/environment';
+import { ImageUrlPipe, YearPipe, RatingPipe } from 'src/app/lib/common/pipes';
+import { getPlaceholderImage } from 'src/app/lib/common/utils/image.util';
+
 @Component({
   selector: 'app-main-content',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImageUrlPipe, YearPipe, RatingPipe],
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss'],
   animations: [
@@ -80,7 +82,6 @@ export class MainContentComponent implements OnInit{
         }
       },
       error: () => {
-        // Fallback to top rated on error
         this.movieService.getTopRatedMovies(1).subscribe({
           next: (topRatedResponse) => {
             this.heroMovies = (topRatedResponse.results || []).slice(0, 5);
@@ -109,7 +110,6 @@ export class MainContentComponent implements OnInit{
         }
       },
       error: () => {
-        // Fallback to top rated on error
         this.tvShowService.getTopRatedTVShows(1).subscribe({
           next: (topRatedResponse) => {
             this.heroTVShows = (topRatedResponse.results || []).slice(0, 5);
@@ -222,15 +222,11 @@ export class MainContentComponent implements OnInit{
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
-  getImageUrl(path: string | null, size: string = 'w300'): string {
-    if (!path) {
-      return 'https://via.placeholder.com/300x450?text=No+Image'
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.src = getPlaceholderImage();
     }
-    return `${environment.tmdbImageBaseUrl}${size}${path}`;
-  }
-  getYear(dateString: string | null) : string {
-    if (!dateString) return 'N/A';
-    return new Date(dateString).getFullYear().toString();
   }
 
   getPagesArray(totalPages: number): number[] {
@@ -286,12 +282,6 @@ export class MainContentComponent implements OnInit{
     });
   }
 
-  onImageError(event: Event): void {
-    const img = event.target as HTMLImageElement;
-    if (img) {
-      img.src = 'https://via.placeholder.com/500x750?text=No+Image';
-    }
-  }
 
   onSearchInput(event: Event): void {
     const input = event.target as HTMLInputElement;

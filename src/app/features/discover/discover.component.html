@@ -28,10 +28,12 @@
     <!-- Search Bar -->
     <div class="search-container">
       <div class="search-input-wrapper">
+        <label for="discover-search-input" class="sr-only">Search for {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}</label>
         <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.5 10.5L15.5 15.5M21 11C21 16.5228 16.5228 21 11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <input 
+          id="discover-search-input"
           type="text" 
           class="search-input" 
           [placeholder]="'Search for ' + (activeTab() === 'movies' ? 'movies' : 'TV shows') + '...'"
@@ -54,59 +56,33 @@
       <label class="filter-label">Genres</label>
       <div class="genre-chips">
         @for (genre of allGenres(); track genre.id) {
-          <button 
-            class="genre-chip"
-            [class.active]="selectedGenreIDs().includes(genre.id)"
-            (click)="toggleGenre(genre.id)"
-          >
-            {{ genre.name }}
-          </button>
+          <app-filter-chip
+        [label]="genre.name"
+        [isActive]="selectedGenreIDs().includes(genre.id)"
+        (clicked)="toggleGenre(genre.id)"
+      />
         }
       </div>
     </div>
 
     <div class="filters-row">
       <div class="filter-group">
-        <label class="filter-label" for="year-select">Year</label>
-        <select 
-          id="year-select"
-          class="filter-select"
-          [value]="selectedYear() || ''"
-          (change)="onYearChange($any($event.target).value ? +$any($event.target).value : null)"
-          aria-label="Filter by year"
-        >
-          <option value="">All Years</option>
-          @for (year of getYearsList(); track year) {
-            <option [value]="year">{{ year }}</option>
-          }
-        </select>
+        <app-year-select
+          [selectedYear]="selectedYear()"
+          (yearChange)="onYearChange($event)"
+        />
       </div>
-
-      <!-- Rating Filter -->
+    
       <div class="filter-group">
-        <label class="filter-label" for="rating-slider">Minimum Rating</label>
-        <div class="rating-filter">
-          <input 
-            id="rating-slider"
-            type="range" 
-            class="rating-slider"
-            min="0" 
-            max="10" 
-            step="0.5"
-            [value]="minRating()"
-            (input)="onRatingChange(+$any($event.target).value)"
-            aria-label="Minimum rating filter"
-          />
-          <div class="rating-value">
-            @if (minRating() > 0) {
-              <span>{{ minRating().toFixed(1) }} ⭐</span>
-            } @else {
-              <span>Any</span>
-            }
-          </div>
-        </div>
+        <app-rating-slider
+          [value]="minRating()"
+          [min]="0"
+          [max]="10"
+          [step]="0.5"
+          (valueChange)="onRatingChange($event)"
+        />
       </div>
-
+    
       @if (hasActiveFilters()) {
         <button class="clear-filters-btn" (click)="clearFilters()">
           Clear All Filters
@@ -143,29 +119,12 @@
     } @else {
       <div class="movies-grid">
         @for (item of filteredContent(); track item.id) {
-          <div class="movie-card" (click)="navigateToDetails(item.id)">
-            <div class="movie-poster">
-              <img 
-                [src]="getImageUrl(item.poster_path, 'w300')" 
-                [alt]="getImageAlt(getTitle(item))"
-                [title]="getTitle(item) + ' poster'"
-                loading="lazy"
-                (error)="onImageError($event)"
-              />
-              <div class="movie-overlay">
-                <div class="movie-rating">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                  </svg>
-                  <span>{{ item.vote_average.toFixed(1) }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="movie-info">
-              <h3 class="movie-title">{{ getTitle(item) }}</h3>
-              <p class="movie-year">{{ getYear(getReleaseDate(item)) }}</p>
-            </div>
-          </div>
+          <app-movie-card 
+            [movie]="item"
+            [showRating]="true"
+            size="medium"
+            (cardClick)="navigateToDetails(item.id)"
+          />
         }
       </div>
       <div class="results-count">

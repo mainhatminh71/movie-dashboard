@@ -5,12 +5,16 @@ import { MovieStore } from "src/app/core/stores/movie.store";
 import { TVShowStore } from "src/app/core/stores/tvshow.store";
 import { Movie } from "src/app/core/models/movie.model";
 import { TVShow } from "src/app/core/models/tvshow.model";
-import { environment } from "src/environments/environment";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { toSignal } from "@angular/core/rxjs-interop";
 import { CommonModule } from "@angular/common";
+import { MovieCardComponent } from "src/app/lib/components/movie-card/movie-card.component";
+import { FilterChipComponent } from "src/app/lib/components/filter-chip/filter-chip.component";
+import { YearSelectComponent } from "src/app/lib/components/year-select/year-select.component";
+import { RatingSliderComponent } from "src/app/lib/components/rating-slider/rating-slider.component";
+import { ImageUrlPipe, YearPipe, RatingPipe, TitlePipe } from "src/app/lib/common/pipes";
 
 type ContentType = 'movies' | 'tvshows';
 
@@ -20,7 +24,7 @@ type ContentType = 'movies' | 'tvshows';
     styleUrls: ["./discover.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule, MovieCardComponent, FilterChipComponent, YearSelectComponent, RatingSliderComponent]
 })
 export class DiscoverComponent implements OnInit{
     private movieService = inject(MovieService);
@@ -30,6 +34,7 @@ export class DiscoverComponent implements OnInit{
     private route = inject(ActivatedRoute);
     private router = inject(Router);
     private cdr = inject(ChangeDetectorRef);
+    
     
     // Active tab state
     activeTab = signal<ContentType>('movies');
@@ -472,50 +477,5 @@ export class DiscoverComponent implements OnInit{
                 mainContent.scrollTop = 0;
             }
         });
-    }
-
-    getImageUrl(path: string | null, size: string = 'w300'): string {
-        if (!path) {
-            return 'https://via.placeholder.com/300x450?text=No+Image';
-        }
-        return `${environment.tmdbImageBaseUrl}${size}${path}`;
-    }
-
-    getYear(dateString: string | null): string {
-        if (!dateString) return 'N/A';
-        return new Date(dateString).getFullYear().toString();
-    }
-    
-    getTitle(item: Movie | TVShow): string {
-        return 'title' in item ? item.title : item.name;
-    }
-    
-    getReleaseDate(item: Movie | TVShow): string | null {
-        return 'release_date' in item ? item.release_date : item.first_air_date;
-    }
-
-    getRatingStars(rating: number): number[] {
-        const stars = Math.round(rating / 2);
-        return Array.from({ length: 5 }, (_, i) => i < stars ? 1 : 0);
-    }
-
-    getYearsList(): number[] {
-        const currentYear = new Date().getFullYear();
-        const years: number[] = [];
-        for (let year = currentYear; year >= 1900; year--) {
-            years.push(year);
-        }
-        return years;
-    }
-
-    onImageError(event: Event): void {
-        const img = event.target as HTMLImageElement;
-        if (img) {
-            img.src = 'https://via.placeholder.com/300x450?text=No+Image';
-        }
-    }
-
-    getImageAlt(title: string): string {
-        return `Poster for ${title}`;
     }
 }
