@@ -27,28 +27,46 @@
   <div class="filters-section">
     <!-- Search Bar -->
     <div class="search-container">
-      <div class="search-input-wrapper">
-        <label for="discover-search-input" class="sr-only">Search for {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}</label>
-        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10.5 10.5L15.5 15.5M21 11C21 16.5228 16.5228 21 11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <label for="discover-search-input" class="sr-only">Search for {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}</label>
+      <mat-form-field appearance="fill" class="search-field" [floatLabel]="'always'">
+        <mat-label class="search-label" id="search-label-input">
+          <span class="label-text">Search {{ activeTab() === 'movies' ? 'Movies' : 'TV Shows' }}</span>
+        </mat-label>
         <input 
+          matInput
           id="discover-search-input"
+          name="discover-search-input"
           type="text" 
-          class="search-input" 
-          [placeholder]="'Search for ' + (activeTab() === 'movies' ? 'movies' : 'TV shows') + '...'"
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
+          (focus)="onSearchFocus()"
+          (blur)="onSearchBlur()"
+          [placeholder]="'Search ' + (activeTab() === 'movies' ? 'movies' : 'TV shows') + ' by title, genre...'"
           [attr.aria-label]="'Search for ' + (activeTab() === 'movies' ? 'movies' : 'TV shows')"
+          [attr.aria-labelledby]="'search-label-input'"
+          [attr.aria-describedby]="'search-hint-' + activeTab()"
+          title="Search for {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}"
+          autocomplete="off"
+          class="search-input"
         />
         @if (searchQuery()) {
-          <button class="clear-search-btn" (click)="clearSearch()" aria-label="Clear search">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button 
+            mat-icon-button 
+            matSuffix 
+            (click)="clearSearch()" 
+            aria-label="Clear search"
+            class="clear-search-btn"
+          >
+            <mat-icon>close</mat-icon>
           </button>
         }
-      </div>
+        <mat-icon matPrefix class="search-prefix-icon">search</mat-icon>
+        @if (!searchQuery()) {
+          <mat-hint class="search-hint" [id]="'search-hint-' + activeTab()">Press Enter to search</mat-hint>
+        } @else {
+          <mat-hint class="search-hint" [id]="'search-hint-' + activeTab()">{{ filteredContent().length }} {{ activeTab() === 'movies' ? 'movie' : 'TV show' }}{{ filteredContent().length !== 1 ? 's' : '' }} found</mat-hint>
+        }
+      </mat-form-field>
     </div>
 
     <!-- Genre Filter Section -->
@@ -84,7 +102,8 @@
       </div>
     
       @if (hasActiveFilters()) {
-        <button class="clear-filters-btn" (click)="clearFilters()">
+        <button mat-raised-button color="warn" (click)="clearFilters()">
+          <mat-icon>clear_all</mat-icon>
           Clear All Filters
         </button>
       }
@@ -94,26 +113,28 @@
   <div class="results-section">
     @if (loading()) {
       <div class="loading-container">
-        <div class="spinner"></div>
+        <mat-spinner diameter="60"></mat-spinner>
         <p class="loading-text">Loading {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}...</p>
       </div>
     } @else if (error()) {
       <div class="error-container">
-        <svg class="error-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <mat-icon class="error-icon">error_outline</mat-icon>
         <p class="error-message">{{ error() }}</p>
-        <button class="retry-btn" (click)="loadContent()">Try Again</button>
+        <button mat-raised-button color="primary" (click)="loadContent()">
+          <mat-icon>refresh</mat-icon>
+          Try Again
+        </button>
       </div>
     } @else if (filteredContent().length === 0) {
       <div class="empty-container">
-        <svg class="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <mat-icon class="empty-icon">search_off</mat-icon>
         <p class="empty-message">No {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }} found</p>
         <p class="empty-submessage">Try adjusting your filters or search query</p>
         @if (hasActiveFilters()) {
-          <button class="clear-filters-btn" (click)="clearFilters()">Clear Filters</button>
+          <button mat-raised-button color="warn" (click)="clearFilters()">
+            <mat-icon>clear_all</mat-icon>
+            Clear Filters
+          </button>
         }
       </div>
     } @else {

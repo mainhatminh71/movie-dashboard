@@ -7,38 +7,32 @@
     <div class="header-actions">
       @if (watchList().length > 0) {
         <button 
-          class="clear-watchlist-btn" 
+          mat-raised-button
+          color="warn"
           (click)="showClearConfirmDialog()"
           [attr.aria-label]="'Clear all watchlist items'"
           [attr.title]="'Clear all watchlist items'"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <mat-icon>delete_sweep</mat-icon>
           <span>Clear All</span>
         </button>
       }
-      <div class="search-bar">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search your watchlist...</mat-label>
         <input 
+          matInput
           type="text" 
-          class="search-input" 
-          placeholder="Search your watchlist..."
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
           [attr.aria-label]="'Search watchlist'"
         />
         @if (searchQuery()) {
-          <button class="clear-search-btn" (click)="clearSearch()" aria-label="Clear search" [attr.title]="'Clear search'">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button mat-icon-button matSuffix (click)="clearSearch()" aria-label="Clear search">
+            <mat-icon>close</mat-icon>
           </button>
         }
-      </div>
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
     </div>
   </div>
 
@@ -52,7 +46,7 @@
           </svg>
           <h2>No results found</h2>
           <p>Try adjusting your search query</p>
-          <button class="clear-search-btn-large" (click)="clearSearch()" [attr.aria-label]="'Clear search'">Clear Search</button>
+          <button mat-raised-button (click)="clearSearch()" [attr.aria-label]="'Clear search'">Clear Search</button>
         </div>
       } @else {
         <div class="empty-content">
@@ -61,13 +55,19 @@
           </svg>
           <h2>Your watchlist is empty</h2>
           <p>Start adding movies and TV shows to your watchlist</p>
-          <button class="browse-btn" (click)="navigateToDiscover()" [attr.aria-label]="'Browse discover page'">Browse Discover</button>
+          <button mat-raised-button color="primary" (click)="navigateToDiscover()" [attr.aria-label]="'Browse discover page'">
+            <mat-icon>explore</mat-icon>
+            Browse Discover
+          </button>
         </div>
       }
     </div>
   } @else {
     <div class="browse-section">
-      <button class="browse-btn" (click)="navigateToDiscover()" [attr.aria-label]="'Browse discover page'">Browse to Add More</button>
+      <button mat-raised-button color="primary" (click)="navigateToDiscover()" [attr.aria-label]="'Browse discover page'">
+        <mat-icon>add</mat-icon>
+        Browse to Add More
+      </button>
     </div>
     <div class="watchlist-grid">
       @for (item of paginatedWatchList(); track item.id) {
@@ -82,15 +82,13 @@
             />
             <div class="card-overlay">
               <button 
-                class="remove-btn" 
+                mat-mini-fab
+                color="warn"
                 (click)="removeFromWatchlist(item); $event.stopPropagation()"
                 [attr.aria-label]="'Remove ' + item.title + ' from watchlist'"
                 [attr.title]="'Remove ' + item.title + ' from watchlist'"
               >
-                <span class="sr-only">Remove {{ item.title }} from watchlist</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <mat-icon>close</mat-icon>
               </button>
             </div>
           </div>
@@ -112,26 +110,24 @@
       <div class="pagination-wrapper">
         <div class="pagination">
           <button 
-            class="pagination-btn" 
-            [class.disabled]="currentPage() === 1"
-            (click)="goToPage(currentPage() - 1)"
+            mat-icon-button
             [disabled]="currentPage() === 1"
+            (click)="goToPage(currentPage() - 1)"
             [attr.aria-label]="'Previous page'"
             [attr.title]="'Previous page'"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <mat-icon>chevron_left</mat-icon>
           </button>
           
           <div class="pagination-pages">
             @for (page of getPagesArray(); track page) {
               <button
-                class="pagination-page"
-                [class.active]="page === currentPage()"
+                mat-mini-fab
+                [color]="page === currentPage() ? 'primary' : null"
                 (click)="goToPage(page)"
                 [attr.aria-label]="'Go to page ' + page"
                 [attr.title]="'Go to page ' + page"
+                class="pagination-page"
               >
                 {{ page }}
               </button>
@@ -139,51 +135,17 @@
           </div>
           
           <button 
-            class="pagination-btn" 
-            [class.disabled]="currentPage() === totalPages()"
-            (click)="goToPage(currentPage() + 1)"
+            mat-icon-button
             [disabled]="currentPage() === totalPages()"
+            (click)="goToPage(currentPage() + 1)"
             [attr.aria-label]="'Next page'"
             [attr.title]="'Next page'"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
       </div>
     }
   }
 
-  <!-- Clear Confirmation Dialog -->
-  @if (showClearConfirm()) {
-    <div class="modal-overlay" (click)="cancelClear()">
-      <div class="modal-dialog" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">Clear Watchlist</h2>
-          <button class="modal-close" (click)="cancelClear()" [attr.aria-label]="'Close dialog'" [attr.title]="'Close dialog'">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="modal-message">
-            Are you sure you want to clear your entire watchlist? This action cannot be undone.
-          </p>
-          <p class="modal-submessage">
-            {{ watchList().length }} {{ watchList().length === 1 ? 'item' : 'items' }} will be removed.
-          </p>
-        </div>
-        <div class="modal-actions">
-          <button class="modal-btn cancel-btn" (click)="cancelClear()" [attr.aria-label]="'Cancel clearing watchlist'">
-            Cancel
-          </button>
-          <button class="modal-btn confirm-btn" (click)="confirmClearWatchlist()" [attr.aria-label]="'Confirm clearing watchlist'">
-            Clear Watchlist
-          </button>
-        </div>
-      </div>
-    </div>
-  }
 </div>

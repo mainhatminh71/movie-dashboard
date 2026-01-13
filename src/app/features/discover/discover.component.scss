@@ -128,6 +128,179 @@
 }
 
 .search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.search-field {
+  min-width: 500px;
+  max-width: 700px;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @media (max-width: 768px) {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  ::ng-deep {
+    // Main wrapper - Clean, modern fill style
+    .mat-mdc-text-field-wrapper {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      border-radius: 20px !important;
+      padding: 6px 14px !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 0 1px 2px rgba(255, 255, 255, 0.05);
+      border: none !important;
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      backdrop-filter: blur(16px) saturate(180%);
+      position: relative;
+      overflow: hidden;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.07) !important;
+        box-shadow: 
+          0 4px 12px rgba(0, 0, 0, 0.2),
+          inset 0 1px 2px rgba(255, 255, 255, 0.08);
+      }
+    }
+    
+    // Focused state - Elegant glow without border
+    &.mat-focused .mat-mdc-text-field-wrapper {
+      background-color: rgba(255, 255, 255, 0.09) !important;
+      box-shadow: 
+        0 0 0 3px rgba(0, 185, 174, 0.2),
+        0 6px 20px rgba(0, 185, 174, 0.25),
+        inset 0 1px 2px rgba(255, 255, 255, 0.1) !important;
+      transform: translateY(-1px);
+    }
+    
+    // Remove outline styles for fill appearance
+    .mat-mdc-form-field-outline,
+    .mdc-notched-outline {
+      display: none !important;
+    }
+    
+    // Label styling - Softer, more readable
+    .mat-mdc-form-field-label {
+      color: rgba(255, 255, 255, 0.65) !important;
+      font-weight: 500 !important;
+      font-size: 14px !important;
+      letter-spacing: 0.2px;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    &.mat-focused .mat-mdc-form-field-label,
+    &.mat-form-field-should-float .mat-mdc-form-field-label {
+      color: rgba(0, 185, 174, 0.85) !important;
+      font-weight: 500 !important;
+    }
+    
+    // Input text styling - Better contrast, softer
+    .mat-mdc-input-element {
+      color: rgba(255, 255, 255, 0.92) !important;
+      font-size: 15px !important;
+      font-weight: 400 !important;
+      padding: 2px 6px !important;
+      letter-spacing: 0.1px;
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+        font-weight: 400;
+        opacity: 1;
+        letter-spacing: 0.1px;
+        transition: color 0.3s ease;
+      }
+      
+      &:focus::placeholder {
+        color: rgba(255, 255, 255, 0.4) !important;
+      }
+      
+      &:not(:focus)::placeholder {
+        font-style: italic;
+      }
+    }
+    
+    // Prefix icon - Softer, more subtle
+    .mat-mdc-form-field-icon-prefix {
+      color: rgba(255, 255, 255, 0.55) !important;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-right: 8px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+    
+    &.mat-focused .mat-mdc-form-field-icon-prefix {
+      color: rgba(0, 185, 174, 0.9) !important;
+      transform: scale(1.05);
+    }
+    
+    // Suffix button (clear button) - Softer hover
+    .mat-mdc-form-field-icon-suffix {
+      .mdc-icon-button {
+        color: rgba(255, 255, 255, 0.55) !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        &:hover {
+          color: rgba(255, 255, 255, 0.85) !important;
+          background-color: rgba(255, 255, 255, 0.08) !important;
+          transform: scale(1.08) rotate(90deg);
+        }
+      }
+    }
+    
+    // Hint text - More subtle
+    .mat-mdc-form-field-hint-wrapper {
+      padding: 4px 14px 0;
+    }
+    
+    .mat-mdc-form-field-hint {
+      color: rgba(255, 255, 255, 0.45) !important;
+      font-size: 11px !important;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      transition: all 0.35s ease;
+    }
+    
+    &.mat-focused .mat-mdc-form-field-hint {
+      color: rgba(0, 185, 174, 0.7) !important;
+    }
+    
+    // Subscript wrapper (for errors/hints)
+    .mat-mdc-form-field-subscript-wrapper {
+      margin-top: 2px;
+      padding: 0 14px;
+    }
+  }
+}
+
+.search-label {
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  
+  .label-text {
+    display: inline-block;
+  }
+}
+
+.search-prefix-icon {
+  // Removed pulse animation for cleaner look
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-hint {
+  font-size: 11px;
+  margin-top: 4px;
+  transition: all 0.35s ease;
+  letter-spacing: 0.2px;
+}
+
+.search-input-wrapper {
   margin-bottom: 2rem;
 }
 
@@ -255,6 +428,13 @@
 }
 
 .clear-filters-btn {
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+// Old styles - can be removed if not needed
+.old-clear-filters-btn {
   padding: 0.75rem 1.5rem;
   background: $token-color-error;
   color: $token-text-primary;
@@ -297,6 +477,21 @@
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
+  
+  .error-icon,
+  .empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+  
+  .empty-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+  }
 }
 
 .spinner {

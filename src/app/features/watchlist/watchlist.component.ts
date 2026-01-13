@@ -1,28 +1,44 @@
 import { Component, OnInit, inject, signal, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MovieStore } from "src/app/core/stores/movie.store";
 import { StorageService } from "src/app/core/services/moviestorage.service";
 import { WatchListItem } from "src/app/core/models/watchlistitem.model";
 import { environment } from "src/environments/environment";
+import { ConfirmDialogComponent } from "../../lib/components/confirm-dialog/confirm-dialog.component";
 
 @Component({
     selector: "app-watchlist-page",
     templateUrl: "./watchlist.component.html",
     styleUrls: ["./watchlist.component.scss"],
     standalone: true,
-    imports: [CommonModule]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSnackBarModule
+    ]
 })
 export class WatchlistComponent implements OnInit {
     private movieStore = inject(MovieStore);
     private storageService = inject(StorageService);
+    private dialog = inject(MatDialog);
+    private snackBar = inject(MatSnackBar);
     router = inject(Router);
 
     watchList = this.storageService.watchList;
     searchQuery = signal<string>('');
     currentPage = signal<number>(1);
     itemsPerPage = 20;
-    showClearConfirm = signal<boolean>(false);
     
     filteredWatchList = computed(() => {
         const items = this.watchList();
@@ -68,6 +84,11 @@ export class WatchlistComponent implements OnInit {
 
     removeFromWatchlist(item: WatchListItem): void {
         this.storageService.removeItemById(item.id);
+        this.snackBar.open(`${item.title} removed from watchlist`, 'Close', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top'
+        });
     }
 
     navigateToDetails(item: WatchListItem): void {
@@ -149,16 +170,32 @@ export class WatchlistComponent implements OnInit {
     }
 
     showClearConfirmDialog(): void {
-        this.showClearConfirm.set(true);
-    }
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: {
+                title: 'Clear Watchlist',
+                message: 'Are you sure you want to clear your entire watchlist? This action cannot be undone.',
+                subMessage: `${this.watchList().length} ${this.watchList().length === 1 ? 'item' : 'items'} will be removed.`,
+                confirmText: 'Clear Watchlist',
+                cancelText: 'Cancel'
+            },
+            width: '500px',
+            maxWidth: '90vw'
+        });
 
-    cancelClear(): void {
-        this.showClearConfirm.set(false);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.confirmClearWatchlist();
+            }
+        });
     }
 
     confirmClearWatchlist(): void {
         this.storageService.clearWatchList([]);
-        this.showClearConfirm.set(false);
         this.currentPage.set(1);
+        this.snackBar.open('Watchlist cleared', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top'
+        });
     }
 }

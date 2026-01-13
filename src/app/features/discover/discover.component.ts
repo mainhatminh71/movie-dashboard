@@ -10,6 +10,11 @@ import { Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { toSignal } from "@angular/core/rxjs-interop";
 import { CommonModule } from "@angular/common";
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MovieCardComponent } from "src/app/lib/components/movie-card/movie-card.component";
 import { FilterChipComponent } from "src/app/lib/components/filter-chip/filter-chip.component";
 import { YearSelectComponent } from "src/app/lib/components/year-select/year-select.component";
@@ -24,7 +29,18 @@ type ContentType = 'movies' | 'tvshows';
     styleUrls: ["./discover.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [CommonModule, MovieCardComponent, FilterChipComponent, YearSelectComponent, RatingSliderComponent]
+    imports: [
+        CommonModule, 
+        MovieCardComponent, 
+        FilterChipComponent, 
+        YearSelectComponent, 
+        RatingSliderComponent,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class DiscoverComponent implements OnInit{
     private movieService = inject(MovieService);
@@ -397,6 +413,16 @@ export class DiscoverComponent implements OnInit{
         }
     }
     
+    searchFocused = signal<boolean>(false);
+
+    onSearchFocus(): void {
+        this.searchFocused.set(true);
+    }
+
+    onSearchBlur(): void {
+        this.searchFocused.set(false);
+    }
+
     onSearchInput(event: Event): void {
         const value = (event.target as HTMLInputElement).value;
         const store = this.currentStore();

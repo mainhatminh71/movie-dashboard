@@ -2,6 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MovieService } from 'src/app/core/services/movie.service';
 import { TVShowService } from 'src/app/core/services/tvshow.service';
 import { Movie } from 'src/app/core/models/movie.model';
@@ -12,7 +15,15 @@ import { getPlaceholderImage } from 'src/app/lib/common/utils/image.util';
 @Component({
   selector: 'app-main-content',
   standalone: true,
-  imports: [CommonModule, ImageUrlPipe, YearPipe, RatingPipe],
+  imports: [
+    CommonModule, 
+    ImageUrlPipe, 
+    YearPipe, 
+    RatingPipe,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss'],
   animations: [

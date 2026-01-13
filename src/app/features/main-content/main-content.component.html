@@ -84,26 +84,21 @@
           </div>
         </div>
         <div class="hero-actions">
-          <button class="hero-btn watchlist-btn" (click)="navigateToMovieDetails(currentMovie.id)" [attr.aria-label]="'Add ' + currentMovie.title + ' to watchlist'">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+          <button mat-raised-button class="hero-btn watchlist-btn" (click)="navigateToMovieDetails(currentMovie.id)" [attr.aria-label]="'Add ' + currentMovie.title + ' to watchlist'">
+            <mat-icon>bookmark_add</mat-icon>
             <span>Watchlist</span>
           </button>
-          <button class="hero-btn watch-now-btn" (click)="navigateToMovieDetails(currentMovie.id)" [attr.aria-label]="'Watch ' + currentMovie.title">
+          <button mat-raised-button color="primary" class="hero-btn watch-now-btn" (click)="navigateToMovieDetails(currentMovie.id)" [attr.aria-label]="'Watch ' + currentMovie.title">
+            <mat-icon>play_arrow</mat-icon>
             <span>Watch Now</span>
           </button>
         </div>
         <div class="carousel-controls">
-          <button class="carousel-arrow left-arrow" (click)="prevHero()" aria-label="Previous movie">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button mat-icon-button class="carousel-arrow left-arrow" (click)="prevHero()" aria-label="Previous movie">
+            <mat-icon>chevron_left</mat-icon>
           </button>
-          <button class="carousel-arrow right-arrow" (click)="nextHero()" aria-label="Next movie">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button mat-icon-button class="carousel-arrow right-arrow" (click)="nextHero()" aria-label="Next movie">
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
         <div class="carousel-indicators">
@@ -165,26 +160,21 @@
           </div>
         </div>
         <div class="hero-actions">
-          <button class="hero-btn watchlist-btn" (click)="navigateToTVDetails(currentTVShow.id)" [attr.aria-label]="'Add ' + currentTVShow.name + ' to watchlist'">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+          <button mat-raised-button class="hero-btn watchlist-btn" (click)="navigateToTVDetails(currentTVShow.id)" [attr.aria-label]="'Add ' + currentTVShow.name + ' to watchlist'">
+            <mat-icon>bookmark_add</mat-icon>
             <span>Watchlist</span>
           </button>
-          <button class="hero-btn watch-now-btn" (click)="navigateToTVDetails(currentTVShow.id)" [attr.aria-label]="'Watch ' + currentTVShow.name">
+          <button mat-raised-button color="primary" class="hero-btn watch-now-btn" (click)="navigateToTVDetails(currentTVShow.id)" [attr.aria-label]="'Watch ' + currentTVShow.name">
+            <mat-icon>play_arrow</mat-icon>
             <span>Watch Now</span>
           </button>
         </div>
         <div class="carousel-controls">
-          <button class="carousel-arrow left-arrow" (click)="prevHero()" aria-label="Previous TV show">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button mat-icon-button class="carousel-arrow left-arrow" (click)="prevHero()" aria-label="Previous TV show">
+            <mat-icon>chevron_left</mat-icon>
           </button>
-          <button class="carousel-arrow right-arrow" (click)="nextHero()" aria-label="Next TV show">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button mat-icon-button class="carousel-arrow right-arrow" (click)="nextHero()" aria-label="Next TV show">
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
         <div class="carousel-indicators">

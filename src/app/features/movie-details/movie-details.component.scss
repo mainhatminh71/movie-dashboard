@@ -269,6 +269,8 @@
   margin: 0 0 1rem 0;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
   line-height: 1.1;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  letter-spacing: -0.5px;
 }
 
 .movie-meta {
@@ -282,29 +284,48 @@
 .rating-badge {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba($token-color-primary, 0.2);
-  border: 1px solid rgba($token-color-primary, 0.4);
-  border-radius: 8px;
-  font-size: 1.1rem;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba($token-color-primary, 0.15);
+  border: 1.5px solid rgba($token-color-primary, 0.5);
+  border-radius: 12px;
+  font-size: 1.05rem;
   font-weight: 600;
-  backdrop-filter: blur(10px);
+  font-family: 'Playfair Display', 'Georgia', serif;
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: 0 2px 8px rgba(0, 185, 174, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rating-badge:hover {
+  background: rgba($token-color-primary, 0.25);
+  border-color: rgba($token-color-primary, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 185, 174, 0.3);
+  transform: translateY(-1px);
 }
 
 .rating-badge svg {
   color: $token-color-primary;
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 1px 2px rgba(0, 185, 174, 0.4));
 }
 
 .meta-separator {
-  opacity: 0.6;
-  font-size: 1.2rem;
+  opacity: 0.5;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .movie-year,
 .movie-runtime {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   opacity: 0.9;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: 0.2px;
 }
 
 .movie-genres {
@@ -315,20 +336,25 @@
 }
 
 .genre-tag {
-  padding: 0.5rem 1rem;
-  background: rgba($token-text-primary, 0.15);
-  border: 1px solid $token-border-default;
+  padding: 0.55rem 1.1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: 0.3px;
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .genre-tag:hover {
-  background: rgba($token-color-primary, 0.3);
-  border-color: $token-color-primary;
+  background: rgba($token-color-primary, 0.2);
+  border-color: rgba($token-color-primary, 0.5);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 185, 174, 0.25);
 }
 
 .movie-actions {
@@ -340,32 +366,63 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.875rem 1.75rem;
-  background: rgba(0, 185, 174, 0.2);
-  border: 2px solid #00b9ae;
-  border-radius: 12px;
+  padding: 0.9rem 1.8rem;
+  background: rgba(0, 185, 174, 0.15);
+  border: 1.5px solid rgba(0, 185, 174, 0.5);
+  border-radius: 14px;
   color: $token-text-primary;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: 0.2px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: 0 2px 8px rgba(0, 185, 174, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.watchlist-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 .watchlist-btn:hover {
-  background: rgba(0, 185, 174, 0.4);
+  background: rgba(0, 185, 174, 0.3);
+  border-color: rgba(0, 185, 174, 0.7);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 185, 174, 0.4);
 }
 
+.watchlist-btn:hover::before {
+  opacity: 1;
+}
+
 .watchlist-btn.active {
-  background: $token-color-primary;
+  background: linear-gradient(135deg, $token-color-primary 0%, $color-primary-dark 100%);
   border-color: $token-color-primary;
+  box-shadow: 0 4px 16px rgba(0, 185, 174, 0.5);
+}
+
+.watchlist-btn.active::before {
+  opacity: 1;
 }
 
 .watchlist-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.watchlist-btn:hover svg {
+  transform: scale(1.1);
 }
 
 .movie-content {
@@ -388,6 +445,8 @@
   margin: 0 0 1.5rem 0;
   padding-bottom: 0.75rem;
   border-bottom: 2px solid rgba(0, 185, 174, 0.3);
+  font-family: 'Playfair Display', 'Georgia', serif;
+  letter-spacing: -0.3px;
 }
 
 .overview-section {
@@ -395,6 +454,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -410,6 +470,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -443,6 +504,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -491,12 +553,18 @@
   font-weight: 600;
   color: $token-text-primary;
   margin: 0 0 0.25rem 0;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  letter-spacing: -0.2px;
 }
 
 .cast-character {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  font-style: italic;
 }
 
 .reviews-section {
@@ -504,6 +572,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -665,6 +734,8 @@
   color: $token-text-primary;
   font-size: 0.85rem;
   font-weight: 600;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -681,16 +752,22 @@
   font-weight: 600;
   color: $token-text-primary;
   margin: 0 0 0.5rem 0;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  letter-spacing: -0.2px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-clamp: 2;
 }
 
 .similar-movie-year {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.2px;
 }
 
 @media (max-width: 1024px) {
