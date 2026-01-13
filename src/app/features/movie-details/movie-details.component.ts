@@ -44,12 +44,10 @@ export class MovieDetailsComponent implements OnInit {
             mainContent.scrollTop = 0;
         }
 
-        // Get referrer from history state
         const state = (window.history as any).state;
         if (state && state.referrer) {
             this.referrer.set(state.referrer);
         } else {
-            // Default to 'home' if no referrer found
             this.referrer.set('home');
         }
 
