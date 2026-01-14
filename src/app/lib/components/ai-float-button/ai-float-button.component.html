@@ -1,9 +1,7 @@
 <div class="fixed bottom-8 right-8 z-50">
     @if (isChatOpen()) {
-      <div class="card bg-base-100 shadow-2xl w-96 h-[600px] max-h-[calc(100vh-180px)] flex flex-col mb-4 border-primary/20" 
-           style="background-color: #0f0f0f !important; background: #0f0f0f !important;">
-        <div class="bg-gradient-to-r from-primary/10 to-primary/5 p-4 border-b-[0.5px] border-primary rounded-t-2xl" 
-             style="background: linear-gradient(to right, rgba(0, 185, 174, 0.1), rgba(0, 185, 174, 0.05)) !important; background-color: #0f0f0f !important;">
+      <div class="card bg-base-100 shadow-2xl w-96 h-[600px] max-h-[calc(100vh-180px)] flex flex-col mb-4 border-primary/20">
+        <div class="bg-gradient-to-r from-primary/10 to-primary/5 p-4 border-b-[0.5px] border-primary rounded-t-2xl">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
               <div class="avatar placeholder">
@@ -47,8 +45,7 @@
         </div>
   
         <!-- Chat Messages -->
-        <div class="flex-1 overflow-y-auto px-3 py-4 space-y-4" 
-             style="background-color: #0f0f0f !important; font-family: 'Playfair Display', 'Georgia', serif;">
+        <div class="flex-1 overflow-y-auto px-3 py-4 space-y-4" style="font-family: 'Playfair Display', 'Georgia', serif;">
           @for (message of messages(); track $index) {
             <div class="chat" [class.chat-start]="message.role === 'assistant'" [class.chat-end]="message.role === 'user'">
               <div class="chat-header">
@@ -72,8 +69,7 @@
         </div>
   
         <!-- Chat Input -->
-        <div class="px-3 pt-3 pb-4 border-t-[0.1px] border-base-300 bg-gradient-to-t from-base-100 to-transparent" 
-             style="background: linear-gradient(to top, #0f0f0f 0%, rgba(15, 15, 15, 0.8) 100%) !important; background-color: #0f0f0f !important; font-family: 'Playfair Display', 'Georgia', serif;">
+        <div class="px-3 pt-3 pb-4 border-t-[0.1px] border-base-300 bg-gradient-to-t from-base-100 to-transparent" style="font-family: 'Playfair Display', 'Georgia', serif;">
           <div class="flex gap-2 w-full">
             <input 
               type="text" 
