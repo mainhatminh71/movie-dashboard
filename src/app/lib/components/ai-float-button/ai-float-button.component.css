@@ -1,0 +1,97 @@
+.btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .btn-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 185, 174, 0.3);
+    border: 2px solid rgba(0, 185, 174, 0.2);
+  }
+  
+  .btn-circle:hover {
+    background: rgba(10, 10, 10, 0.9);
+    box-shadow: 0 6px 30px rgba(0, 185, 174, 0.5);
+    transform: scale(1.05);
+  }
+  
+  .mascot-logo {
+    width: 3.5em;
+    height: 3.5em;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .mascot-logo:hover {
+    animation: float 1s ease-in-out infinite, pulse 0.5s ease-in-out infinite, wiggle 0.5s ease-in-out infinite;
+    transform: scale(1.1);
+  }
+  
+  .play-icon {
+    animation: playPulse 1.5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  
+  .glow {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(2deg);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
+  
+  @keyframes playPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+  
+  @keyframes glowPulse {
+    0%, 100% {
+      opacity: 0.3;
+      stroke-width: 1;
+    }
+    50% {
+      opacity: 0.6;
+      stroke-width: 2;
+    }
+  }
+  
+  @keyframes wiggle {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-5deg);
+    }
+    75% {
+      transform: rotate(5deg);
+    }
+  }

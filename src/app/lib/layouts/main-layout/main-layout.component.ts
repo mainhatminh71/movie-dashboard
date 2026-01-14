@@ -7,10 +7,11 @@ import { Subscription, filter } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, startWith } from 'rxjs';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { AiFloatButtonComponent } from '../../components/ai-float-button/ai-float-button.component';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, MainContentComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, MainContentComponent, AiFloatButtonComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
   standalone: true,

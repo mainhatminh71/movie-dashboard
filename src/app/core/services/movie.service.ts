@@ -38,6 +38,9 @@ export class MovieService {
             map((response: any) => response.results as Movie[])
         );
     }
+    getMovieById(movieId: number) : Observable<Movie> {
+        return this.http.get<Movie>(`${this.baseUrl}/movie/${movieId}`);
+    }
     getTopRatedMovies(page: number = 1) : Observable<any> {
         return this.http.get(`${this.baseUrl}/movie/top-rated`, {
             params: {page}
@@ -53,6 +56,7 @@ export class MovieService {
             params: {page, query}
         })
     } 
+
     discoverMovie(params: {
         page?: number;
         genre?: number[];

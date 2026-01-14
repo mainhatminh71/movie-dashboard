@@ -65,6 +65,9 @@ export class TVShowService {
     getTVCredits(tvId: number) : Observable<any> {
         return this.http.get(`${this.baseUrl}/tv/${tvId}/credits`);
     }
+    getTVKeywords(tvId: number) : Observable<any> {
+        return this.http.get(`${this.baseUrl}/tv/${tvId}/keywords`);
+    }
     
     searchTVShow(page: number = 1, query: string): Observable<any> {
         return this.http.get(`${this.baseUrl}/search/tv`, {

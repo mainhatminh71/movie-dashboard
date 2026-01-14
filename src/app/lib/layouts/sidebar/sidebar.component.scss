@@ -41,7 +41,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: logoFloat 3s ease-in-out infinite;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   
@@ -57,12 +56,10 @@
   }
   
   .logo-film {
-    animation: logoPulse 2s ease-in-out infinite;
     transform-origin: center;
   }
   
   .logo-play {
-    animation: logoPlayPulse 1.5s ease-in-out infinite;
     transform-origin: center;
   }
   
