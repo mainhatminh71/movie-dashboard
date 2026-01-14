@@ -43,18 +43,19 @@ export interface ConfirmDialogData {
 
     mat-dialog-content {
       padding: 20px 24px;
-      color: rgba(255, 255, 255, 0.9);
+      color: #ffffff;
       font-size: 15px;
       line-height: 1.6;
     }
 
     .dialog-message {
       margin: 0 0 12px 0;
+      color: #ffffff;
     }
 
     .dialog-submessage {
       margin: 0;
-      color: rgba(255, 255, 255, 0.7);
+      color: #ffffff;
       font-size: 14px;
     }
 

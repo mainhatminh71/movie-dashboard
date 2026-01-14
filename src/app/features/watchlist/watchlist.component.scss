@@ -101,6 +101,33 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  button[mat-raised-button] {
+    min-width: 130px; 
+    padding: 10px 24px;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    
+    span {
+      white-space: nowrap;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba($token-color-primary, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba($token-color-primary, 0.3);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($token-color-primary, 0.2);
+    }
+  }
 }
 
 .clear-watchlist-btn {
@@ -114,7 +141,7 @@
   font-weight: 800;
   color: $token-text-primary;
   margin: 0 0 8px 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Playfair Display', 'Georgia', serif;
   letter-spacing: -1px;
   background: linear-gradient(135deg, $token-text-primary 0%, rgba($token-text-primary, 0.8) 100%);
   -webkit-background-clip: text;
@@ -135,6 +162,7 @@
   color: $token-text-muted;
   margin: 0;
   font-weight: 500;
+  font-family: 'Playfair Display', 'Georgia', serif;
 }
 
 .search-field {

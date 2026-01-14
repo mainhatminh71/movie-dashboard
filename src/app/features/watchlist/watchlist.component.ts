@@ -179,7 +179,9 @@ export class WatchlistComponent implements OnInit {
                 cancelText: 'Cancel'
             },
             width: '500px',
-            maxWidth: '90vw'
+            maxWidth: '90vw',
+            disableClose: false,
+            panelClass: 'confirm-dialog-container'
         });
 
         dialogRef.afterClosed().subscribe(result => {

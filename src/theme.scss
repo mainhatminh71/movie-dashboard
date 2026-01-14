@@ -59,10 +59,23 @@
 
 .mat-mdc-dialog-container {
   border-radius: 20px !important;
-  background: rgba(20, 20, 30, 0.95) !important;
+  background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+.confirm-dialog-container.mat-mdc-dialog-container {
+  background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%) !important;
+  color: #f5f5f5 !important;
+}
+
+// Ensure dialog content has correct styling
+.confirm-dialog-container {
+  .mat-mdc-dialog-surface {
+    background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%) !important;
+  }
 }
 
 .mat-mdc-snack-bar-container {

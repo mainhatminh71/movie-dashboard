@@ -1,0 +1,33 @@
+// Ant Design Dark Theme Overrides
+.ant-layout {
+    background: #0a0a0a;
+  }
+  
+  .ant-card {
+    background: rgba(26, 26, 26, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .ant-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    
+    &:hover {
+      border-color: rgba(0, 185, 174, 0.5);
+    }
+    
+    &:focus {
+      border-color: #00b9ae;
+      box-shadow: 0 0 0 2px rgba(0, 185, 174, 0.2);
+    }
+  }
+  
+  .ant-btn-primary {
+    background: linear-gradient(135deg, #00b9ae 0%, #00a89a 100%);
+    border: none;
+    
+    &:hover {
+      background: linear-gradient(135deg, #00d4c7 0%, #00b9ae 100%);
+    }
+  }
