@@ -95,3 +95,27 @@
       transform: rotate(5deg);
     }
   }
+  /* src/app/lib/components/ai-float-button/ai-float-button.component.css */
+
+/* Thêm vào cuối file */
+.card {
+    background-color: #0f0f0f !important; /* Fallback cho bg-base-100 */
+  }
+  
+  .bg-base-100 {
+    background-color: #0f0f0f !important;
+  }
+  
+  .bg-base-200 {
+    background-color: #1a1a1a !important;
+  }
+  
+  .bg-base-300 {
+    background-color: #2a2a2a !important;
+  }
+  
+  /* Đảm bảo chatbox có background đen */
+  .card.bg-base-100 {
+    background-color: #0f0f0f !important;
+    background: #0f0f0f !important;
+  }
