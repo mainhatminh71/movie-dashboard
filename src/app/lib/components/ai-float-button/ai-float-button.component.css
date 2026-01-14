@@ -96,36 +96,40 @@
       transform: rotate(5deg);
     }
   }
-/* Production fallback styles - chỉ apply khi background transparent hoặc không có */
-/* Đảm bảo chatbox luôn có background đen, nhưng không override DaisyUI khi hoạt động đúng */
-.card.bg-base-100 {
-  /* Fallback: nếu DaisyUI không apply background, dùng màu đen */
+/* Production styles - đảm bảo chatbox hiển thị đúng trong production */
+/* Scope styles để chỉ apply cho component này */
+:host {
+  display: block;
+}
+
+/* Card background - đảm bảo có background đen */
+:host .card.bg-base-100 {
+  background-color: #0f0f0f;
+  background: #0f0f0f;
+}
+
+/* Messages area */
+:host .flex-1.overflow-y-auto {
   background-color: #0f0f0f;
 }
 
-/* Chỉ override nếu background thực sự transparent */
-.card.bg-base-100[style*="background: transparent"],
-.card.bg-base-100[style*="background-color: transparent"] {
-  background-color: #0f0f0f !important;
-  background: #0f0f0f !important;
-}
-
-/* Messages area - đảm bảo có background */
-.flex-1.overflow-y-auto {
-  background-color: transparent;
-}
-
-/* Nếu parent card không có background, messages area cũng cần background */
-.card.bg-base-100 .flex-1.overflow-y-auto {
-  background-color: #0f0f0f;
-}
-
-/* Input area - giữ gradient nhưng có fallback */
-.bg-gradient-to-t.from-base-100 {
+/* Input area gradient */
+:host .bg-gradient-to-t.from-base-100 {
   background: linear-gradient(to top, #0f0f0f 0%, rgba(15, 15, 15, 0.8) 100%);
+  background-color: #0f0f0f;
 }
 
-/* Header - giữ gradient */
-.bg-gradient-to-r.from-primary\/10.to-primary\/5 {
+/* Header gradient */
+:host .bg-gradient-to-r.from-primary\/10.to-primary\/5 {
   background: linear-gradient(to right, rgba(0, 185, 174, 0.1), rgba(0, 185, 174, 0.05));
+  background-color: #0f0f0f;
+}
+
+/* Input field */
+:host .input.bg-base-200\/50 {
+  background-color: rgba(26, 26, 26, 0.5);
+}
+
+:host .input:focus {
+  background-color: #1a1a1a;
 }
