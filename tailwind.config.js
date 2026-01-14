@@ -3,6 +3,33 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
+  // Safelist để đảm bảo các classes DaisyUI không bị purge trong production
+  safelist: [
+    'bg-base-100',
+    'bg-base-200',
+    'bg-base-300',
+    'text-base-content',
+    'border-base-300',
+    'border-primary',
+    'bg-primary',
+    'bg-primary/10',
+    'bg-primary/5',
+    'bg-primary/20',
+    'from-primary/10',
+    'to-primary/5',
+    'from-base-100',
+    'to-transparent',
+    'chat-bubble',
+    'chat-bubble-primary',
+    'chat-start',
+    'chat-end',
+    {
+      pattern: /^(bg|text|border)-(base|primary)-(100|200|300|content)/,
+    },
+    {
+      pattern: /^(bg|text|border)-primary(\/.*)?$/,
+    },
+  ],
   theme: {
     extend: {
       colors: {
@@ -44,5 +71,8 @@ module.exports = {
       },
     ],
     darkTheme: 'dark',
+    base: true, // Đảm bảo base styles được apply
+    styled: true, // Đảm bảo component styles được apply
+    utils: true, // Đảm bảo utility classes được apply
   },
 }
