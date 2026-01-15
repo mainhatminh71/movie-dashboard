@@ -5,13 +5,18 @@ const envFilePath = path.join(__dirname, '../src/environments/environment.prod.t
 
 let content = fs.readFileSync(envFilePath, 'utf8');
 
-const apiKey = process.env.TMDB_API_KEY || 'YOUR_API_KEY_HERE';
+const tmdbApiKey = process.env.TMDB_API_KEY || 'YOUR_API_KEY_HERE';
+const groqApiKey = process.env.GROQ_API_KEY || 'GROQ_API_KEY';
 
 content = content.replace(
   /tmdbApiKey:\s*['"`].*?['"`]/,
-  `tmdbApiKey: '${apiKey}'`
+  `tmdbApiKey: '${tmdbApiKey}'`
+);
+
+content = content.replace(
+  /groqApiKey:\s*['"`].*?['"`]/,
+  `groqApiKey: '${groqApiKey}'`
 );
 
 fs.writeFileSync(envFilePath, content, 'utf8');
 console.log('✅ Environment variables injected successfully');
-
