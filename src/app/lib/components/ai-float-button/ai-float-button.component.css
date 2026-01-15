@@ -14,7 +14,6 @@
     height: 100px;
     border-radius: 50%;
     background: rgba(10, 10, 10, 0.8);
-    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 185, 174, 0.3);
     border: 2px solid rgba(0, 185, 174, 0.2);
@@ -96,40 +95,27 @@
       transform: rotate(5deg);
     }
   }
-/* Production styles - đảm bảo chatbox hiển thị đúng trong production */
-/* Scope styles để chỉ apply cho component này */
-:host {
-  display: block;
-}
+  /* src/app/lib/components/ai-float-button/ai-float-button.component.css */
 
-/* Card background - đảm bảo có background đen */
-:host .card.bg-base-100 {
-  background-color: #0f0f0f;
-  background: #0f0f0f;
-}
-
-/* Messages area */
-:host .flex-1.overflow-y-auto {
-  background-color: #0f0f0f;
-}
-
-/* Input area gradient */
-:host .bg-gradient-to-t.from-base-100 {
-  background: linear-gradient(to top, #0f0f0f 0%, rgba(15, 15, 15, 0.8) 100%);
-  background-color: #0f0f0f;
-}
-
-/* Header gradient */
-:host .bg-gradient-to-r.from-primary\/10.to-primary\/5 {
-  background: linear-gradient(to right, rgba(0, 185, 174, 0.1), rgba(0, 185, 174, 0.05));
-  background-color: #0f0f0f;
-}
-
-/* Input field */
-:host .input.bg-base-200\/50 {
-  background-color: rgba(26, 26, 26, 0.5);
-}
-
-:host .input:focus {
-  background-color: #1a1a1a;
-}
+/* Thêm vào cuối file */
+.card {
+    background-color: #0f0f0f !important; /* Fallback cho bg-base-100 */
+  }
+  
+  .bg-base-100 {
+    background-color: #0f0f0f !important;
+  }
+  
+  .bg-base-200 {
+    background-color: #1a1a1a !important;
+  }
+  
+  .bg-base-300 {
+    background-color: #2a2a2a !important;
+  }
+  
+  /* Đảm bảo chatbox có background đen */
+  .card.bg-base-100 {
+    background-color: #0f0f0f !important;
+    background: #0f0f0f !important;
+  }

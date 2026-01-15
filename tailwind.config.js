@@ -3,64 +3,6 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
-  // Safelist để đảm bảo các classes DaisyUI không bị purge trong production
-  safelist: [
-    // Base colors
-    'bg-base-100',
-    'bg-base-200',
-    'bg-base-300',
-    'text-base-content',
-    'border-base-300',
-    // Primary colors và variants
-    'bg-primary',
-    'bg-primary/10',
-    'bg-primary/5',
-    'bg-primary/20',
-    'border-primary',
-    'text-primary',
-    // Gradients
-    'from-primary/10',
-    'to-primary/5',
-    'from-base-100',
-    'to-transparent',
-    'bg-gradient-to-r',
-    'bg-gradient-to-t',
-    // Chat components
-    'chat',
-    'chat-bubble',
-    'chat-bubble-primary',
-    'chat-start',
-    'chat-end',
-    'chat-header',
-    // Input và button
-    'input',
-    'input-sm',
-    'input-bordered',
-    'btn',
-    'btn-sm',
-    'btn-primary',
-    'btn-circle',
-    'btn-ghost',
-    // Utility classes
-    'rounded-full',
-    'rounded-t-2xl',
-    'shadow-2xl',
-    'shadow-md',
-    'shadow-lg',
-    // Patterns để catch tất cả variants
-    {
-      pattern: /^(bg|text|border)-(base|primary)-(100|200|300|content)/,
-    },
-    {
-      pattern: /^(bg|text|border)-primary(\/.*)?$/,
-    },
-    {
-      pattern: /^(from|to)-(base|primary)(\/.*)?$/,
-    },
-    {
-      pattern: /^chat(-.*)?$/,
-    },
-  ],
   theme: {
     extend: {
       colors: {
@@ -102,8 +44,5 @@ module.exports = {
       },
     ],
     darkTheme: 'dark',
-    base: true, // Đảm bảo base styles được apply
-    styled: true, // Đảm bảo component styles được apply
-    utils: true, // Đảm bảo utility classes được apply
   },
 }

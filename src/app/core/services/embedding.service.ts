@@ -22,25 +22,49 @@ export class EmbeddingService {
       return of(this.embeddingCache.get(cacheKey)!);
     }
 
-    if (!environment.openaiApiKey || environment.openaiApiKey === 'OPENAI_API_KEY') {
-      console.warn('OpenAI API not found');
+    if (!environment.groqApiKey) {
+      console.warn('Groq API not found');
       return of([]);
     }
+    // if (environment.groqApiKey !== 'GROQ_API_KEY') {
+    //   console.warn('Groq API key is not valid');
+    //   return of([]);
+    // }
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${environment.openaiApiKey}`,
+      'Authorization': `Bearer ${environment.groqApiKey}`,
       'Content-Type': 'application/json'
     });
 
-    return this.http.post<{ data: Array<{ embedding: number[] }> }>(
-      'https://api.openai.com/v1/embeddings',
+    return this.http.post<any>(
+      `${environment.groqBaseUrl}/chat/completions`,
       {
-        model: 'text-embedding-3-small', 
-        input: text
+        model: 'llama-3.1-8b-instant',
+        messages: [
+          {
+            role: 'user',
+            content: `Please create an embedding vector for this text: "${text}". Return only a JSON array of numbers representing the embedding.`
+          }
+        ],
+        temperature: 0.1,
+        max_tokens: 2000
       },
       { headers }
     ).pipe(
-      map(response => response.data[0]?.embedding || []),
+      map(response => {
+        // Parse response từ chat completions
+        const content = response.choices?.[0]?.message?.content || '';
+        try {
+          // Thử parse JSON array từ response
+          const embedding = JSON.parse(content);
+          if (Array.isArray(embedding) && embedding.length > 0) {
+            return embedding;
+          }
+        } catch (e) {
+          console.warn('Could not parse embedding from chat response:', content);
+        }
+        return [];
+      }),
       map(embedding => {
         if (embedding.length > 0) {
           this.embeddingCache.set(cacheKey, embedding);

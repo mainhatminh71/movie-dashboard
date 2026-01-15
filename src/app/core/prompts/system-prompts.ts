@@ -98,3 +98,4 @@ export function formatContextWithScores(documents: RAGDocument[]): string {
     .join('\n\n');
 }
 
+
