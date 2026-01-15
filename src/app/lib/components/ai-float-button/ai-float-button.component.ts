@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { switchMap, catchError, of } from 'rxjs';
 import {AIChatService} from '../../../core/services/ai-chat.service';
 import { RAGService } from '../../../core/services/rag.service';
 
@@ -40,10 +41,11 @@ export class AiFloatButtonComponent {
       this.sendMessage();
     }
   }
-  async sendMessage() {
+  sendMessage() {
     const query = this.userInput().trim();
     if (!query || this.isLoading()) return;
 
+    // Thêm user message vào chat
     this.messages.update(msgs => [...msgs, {
       role: 'user',
       content: query,
@@ -53,32 +55,39 @@ export class AiFloatButtonComponent {
     this.userInput.set('');
     this.isLoading.set(true);
 
-    try {
-      const contextDocs = await this.ragService.getRelevantDocuments(query, 5).toPromise() || [];
-      
-      this.aiChatService.chat(query, contextDocs).subscribe({
-        next: (response) => {
-          this.messages.update(msgs => [...msgs, {
-            role: 'assistant',
-            content: response,
-            timestamp: new Date()
-          }]);
-          this.isLoading.set(false);
-        },
-        error: (error) => {
-          console.error('Chat error:', error);
-          this.messages.update(msgs => [...msgs, {
-            role: 'assistant',
-            content: 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.',
-            timestamp: new Date()
-          }]);
-          this.isLoading.set(false);
-        }
-      });
-    } catch (error) {
-      console.error('RAG search error:', error);
-      this.isLoading.set(false);
-    }
+    // Lấy relevant documents từ RAG, sau đó gọi AI chat
+    this.ragService.getRelevantDocuments(query, 5).pipe(
+      catchError((error) => {
+        console.error('RAG search error:', error);
+        return of([]);
+      }),
+      switchMap((contextDocs) => {
+        return this.aiChatService.chat(query, contextDocs);
+      }),
+      // Xử lý lỗi từ AI chat
+      catchError((error) => {
+        console.error('Chat error:', error);
+        return of('Xin lỗi, đã có lỗi xảy ra khi xử lý câu trả lời. Vui lòng thử lại sau.');
+      })
+    ).subscribe({
+      next: (response) => {
+        this.messages.update(msgs => [...msgs, {
+          role: 'assistant',
+          content: response,
+          timestamp: new Date()
+        }]);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Unexpected error:', error);
+        this.messages.update(msgs => [...msgs, {
+          role: 'assistant',
+          content: 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.',
+          timestamp: new Date()
+        }]);
+        this.isLoading.set(false);
+      }
+    });
   }
   
 }

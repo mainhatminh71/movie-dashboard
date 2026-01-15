@@ -75,7 +75,7 @@ export class RAGService {
   /**
    * Get relevant documents cho một query (không generate response)
    */
-  getRelevantDocuments(query: string, topK: number = 5): Observable<RAGDocument[]> {
+  getRelevantDocuments(query: string, topK: number = 100): Observable<RAGDocument[]> {
     if (!query || query.trim().length === 0) {
       return of([]);
     }
@@ -85,7 +85,65 @@ export class RAGService {
         if (embedding.length === 0) {
           return of([]);
         }
-        return this.vectorStore.searchSimilar(embedding, topK, 0.5);
+        return this.vectorStore.searchSimilar(embedding, topK, 0.3);
+      }),
+      switchMap(results => {
+        // Nếu embedding search không tìm thấy hoặc ít kết quả, thêm text matching
+        return this.vectorStore.getAllDocuments().pipe(
+          map(allDocs => {
+            const queryLower = query.toLowerCase().trim();
+            const words = queryLower.split(/\s+/).filter(w => w.length > 2); // Bỏ qua từ ngắn như "2"
+            
+            // Text matching với priority
+            const textMatches = allDocs
+              .map(doc => {
+                const titleLower = doc.title?.toLowerCase() || '';
+                const overviewLower = doc.overview?.toLowerCase() || '';
+                
+                // Exact match trong title
+                if (titleLower.includes(queryLower)) {
+                  return { doc, score: 100 };
+                }
+                
+                // Partial match - tất cả từ đều có trong title
+                if (words.every(word => titleLower.includes(word))) {
+                  return { doc, score: 80 };
+                }
+                
+                // Một số từ có trong title
+                const titleWordMatches = words.filter(word => titleLower.includes(word)).length;
+                if (titleWordMatches > 0) {
+                  return { doc, score: 50 + (titleWordMatches * 10) };
+                }
+                
+                // Match trong overview
+                if (overviewLower.includes(queryLower)) {
+                  return { doc, score: 40 };
+                }
+                
+                const overviewWordMatches = words.filter(word => overviewLower.includes(word)).length;
+                if (overviewWordMatches > 0) {
+                  return { doc, score: 20 + (overviewWordMatches * 5) };
+                }
+                
+                return null;
+              })
+              .filter((result): result is { doc: RAGDocument; score: number } => result !== null)
+              .sort((a, b) => b.score - a.score)
+              .slice(0, topK)
+              .map(result => result.doc);
+            
+            // Kết hợp kết quả từ embedding search và text matching
+            const combined = [...results];
+            textMatches.forEach(textMatch => {
+              if (!combined.find(r => r.id === textMatch.id)) {
+                combined.push(textMatch);
+              }
+            });
+            
+            return combined.slice(0, topK);
+          })
+        );
       })
     );
   }

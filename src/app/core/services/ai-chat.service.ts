@@ -58,40 +58,52 @@ export class AIChatService {
    * @param contextDocs Retrieved documents từ RAG
    * @param options Chat options (model, temperature, max_tokens)
    */
-  chat(
-    query: string, 
-    contextDocs: RAGDocument[],
-    options?: ChatOptions
-  ): Observable<string> {
-    if (!query || query.trim().length === 0) {
-      return of('Please provide a query to search for movies.');
-    }
-
-    if (!this.hasValidApiKey()) {
-      return this.getFallbackResponse(query, contextDocs);
-    }
-
-    const context = contextDocs.length > 0 
-      ? formatContext(contextDocs)
-      : '';
-    
-    const systemPrompt = contextDocs.length > 0
-      ? getSystemPrompt(context)
-      : getNoContextSystemPrompt();
-
-    const messages: ChatMessage[] = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: query }
-    ];
-
-    return this.callGroqAPI(messages, options).pipe(
-      map(response => response.choices[0]?.message?.content || 'No response generated'),
-      catchError(error => {
-        console.error('Groq API error:', error);
-        return this.getFallbackResponse(query, contextDocs);
-      })
-    );
+ chat(
+  query: string,
+  contextDocs: RAGDocument[],
+  options: ChatOptions = {}
+): Observable<string> {
+  if (!query?.trim()) {
+    return of('Please provide a query.');
   }
+
+  if (!this.hasValidApiKey()) {
+    // return this.getFallbackResponse(query, contextDocs);
+  }
+
+  const context = contextDocs.length > 0 ? formatContext(contextDocs) : '';
+  const systemPrompt = context
+    ? getSystemPrompt(context)
+    : getNoContextSystemPrompt();
+
+  const messages: ChatMessage[] = [
+    { role: 'system', content: systemPrompt },
+    // Thêm history nếu có: ...previousMessages,
+    { role: 'user', content: query }
+  ];
+
+  const defaultOptions = {
+    model: 'llama-3.3-70b-versatile',  // Hoặc từ env / config
+    temperature: 0.7,
+    max_tokens: 1024,
+    stream: false
+  };
+
+  const finalOptions = { ...defaultOptions, ...options };
+
+  return this.callGroqAPI(messages, finalOptions).pipe(
+    map(response => {
+      if (finalOptions.stream) {
+        return ''; 
+      }
+      return response.choices?.[0]?.message?.content || 'No response';
+    }),
+    catchError(error => {
+      console.error('Groq API error:', error);
+      return this.getFallbackResponse(query, contextDocs);
+    })
+  );
+}
 
   /**
    * Streaming chat response (for future implementation)

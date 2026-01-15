@@ -67,7 +67,7 @@ export class VectorStoreService {
   searchSimilar(
     queryEmbedding: number[], 
     topK: number = 5,
-    threshold: number = 0.7
+    threshold: number = 0.5
   ): Observable<RAGDocument[]> {
     if (queryEmbedding.length === 0 || this.index.length === 0) {
       return of([]);
@@ -75,13 +75,19 @@ export class VectorStoreService {
 
     const results = this.index
       .map(doc => {
+        // Bỏ qua documents không có embedding hoặc embedding rỗng
+        if (!doc.embedding || doc.embedding.length === 0) {
+          return null;
+        }
         const similarity = this.cosineSimilarity(queryEmbedding, doc.embedding);
         return {
           document: doc,
           similarity
         };
       })
-      .filter(result => result.similarity >= threshold)
+      .filter((result): result is { document: RAGDocument; similarity: number } => 
+        result !== null && result.similarity >= threshold
+      )
       .sort((a, b) => b.similarity - a.similarity)
       .slice(0, topK)
       .map(result => ({
@@ -157,15 +163,21 @@ export class VectorStoreService {
 
 
   private saveToLocalStorage(): void {
+    const data = Array.from(this.documents.values());
     try {
-      const data = Array.from(this.documents.values());
-      const dataToStore = data.map(doc => ({
-        ...doc,
-        embedding: [] 
-      }));
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(dataToStore));
+    
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
     } catch (error) {
       console.error('Error saving to localStorage:', error);
+      try {
+        const dataWithoutEmbedding = data.map((doc: RAGDocument) => ({
+          ...doc,
+          embedding: [] 
+        }));
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(dataWithoutEmbedding));
+      } catch (e) {
+        console.error('Error saving without embeddings:', e);
+      }
     }
   }
 
@@ -176,8 +188,10 @@ export class VectorStoreService {
       if (stored) {
         const documents: RAGDocument[] = JSON.parse(stored);
         documents.forEach(doc => {
-          if (doc.embedding) {
-            doc.embedding = []; 
+          // Giữ nguyên embedding nếu có, không xóa
+          // Nếu embedding rỗng hoặc không có, giữ nguyên (sẽ được filter khi search)
+          if (!doc.embedding) {
+            doc.embedding = [];
           }
           this.documents.set(doc.id, doc);
           const index = this.index.findIndex(d => d.id === doc.id);

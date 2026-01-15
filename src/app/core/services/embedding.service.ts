@@ -12,68 +12,47 @@ export class EmbeddingService {
   private embeddingCache = new Map<string, number[]>();
 
   createEmbedding(text: string): Observable<number[]> {
-    if (!text || text.trim().length === 0) {
-      return of([]);
-    }
+    if (!text?.trim()) return of([]);
 
     const cacheKey = this.hashText(text);
-    
     if (this.embeddingCache.has(cacheKey)) {
       return of(this.embeddingCache.get(cacheKey)!);
     }
 
-    if (!environment.groqApiKey || environment.groqApiKey === 'GROQ_API_KEY') {
-      console.warn('Groq API key not found or using default value');
+    if (!environment.nomicApiKey || environment.nomicApiKey === 'NOMIC_API_KEY') {
+      console.warn('Nomic API key invalid');
       return of([]);
     }
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${environment.groqApiKey}`,
+      'Authorization': `Bearer ${environment.nomicApiKey}`,
       'Content-Type': 'application/json'
     });
 
     return this.http.post<any>(
-      `${environment.groqBaseUrl}/chat/completions`,
+      'https://api-atlas.nomic.ai/v1/embedding/text',
       {
-        model: 'llama-3.1-8b-instant',
-        messages: [
-          {
-            role: 'user',
-            content: `Please create an embedding vector for this text: "${text}". Return only a JSON array of numbers representing the embedding.`
-          }
-        ],
-        temperature: 0.1,
-        max_tokens: 2000
+        model: 'nomic-embed-text-v1.5',
+        texts: [text],
+        task_type: 'search_document'
       },
       { headers }
     ).pipe(
-      map(response => {
-        // Parse response từ chat completions
-        const content = response.choices?.[0]?.message?.content || '';
-        try {
-          // Thử parse JSON array từ response
-          const embedding = JSON.parse(content);
-          if (Array.isArray(embedding) && embedding.length > 0) {
-            return embedding;
-          }
-        } catch (e) {
-          console.warn('Could not parse embedding from chat response:', content);
+      map(res => {
+        const embeddings = res.embeddings;
+        if (Array.isArray(embeddings) && embeddings.length > 0 && Array.isArray(embeddings[0])) {
+          const embedding = embeddings[0];
+          this.embeddingCache.set(cacheKey, embedding);
+          return embedding;
         }
         return [];
       }),
-      map(embedding => {
-        if (embedding.length > 0) {
-          this.embeddingCache.set(cacheKey, embedding);
-        }
-        return embedding;
-      }),
-      catchError(error => {
-        console.error('Error creating embedding:', error);
+      catchError(err => {
+        console.error('Embedding error:', err);
         return of([]);
       })
     );
   }
-
   createEmbeddingsBatch(documents: RAGDocument[]): Observable<RAGDocument[]> {
     if (documents.length === 0) {
       return of([]);

@@ -6,6 +6,7 @@ export const environment = {
   tmdbApiToken: /* SecretEnvironment.tmdbApiToken || */ 'TMDB_API_TOKEN',
   groqApiKey: 'GROQ_API_KEY',
   groqBaseUrl: 'https://api.groq.com/openai/v1',
-  openaiApiKey: 'OPENAI_API_KEY'
+  openaiApiKey: 'OPENAI_API_KEY',
+  nomicApiKey: 'NOMIC_API_KEY'
 };
 
