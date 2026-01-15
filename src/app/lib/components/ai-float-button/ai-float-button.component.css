@@ -95,27 +95,31 @@
       transform: rotate(5deg);
     }
   }
-  /* src/app/lib/components/ai-float-button/ai-float-button.component.css */
+/* Chat Messages Styles */
+.chat-messages {
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
 
-/* Thêm vào cuối file */
-.card {
-    background-color: #0f0f0f !important; /* Fallback cho bg-base-100 */
-  }
-  
-  .bg-base-100 {
-    background-color: #0f0f0f !important;
-  }
-  
-  .bg-base-200 {
-    background-color: #1a1a1a !important;
-  }
-  
-  .bg-base-300 {
-    background-color: #2a2a2a !important;
-  }
-  
-  /* Đảm bảo chatbox có background đen */
-  .card.bg-base-100 {
-    background-color: #0f0f0f !important;
-    background: #0f0f0f !important;
-  }
+/* Chat Header Styles */
+.chat-header-title,
+.chat-header-subtitle {
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+/* Chat Input Container */
+.chat-input-container {
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+/* Loading Dots Animation */
+.dot-1 {
+  animation-delay: 0ms;
+}
+
+.dot-2 {
+  animation-delay: 150ms;
+}
+
+.dot-3 {
+  animation-delay: 300ms;
+}
