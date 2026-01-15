@@ -14,12 +14,10 @@ export class AppComponent implements OnInit {
   private ragService = inject(RAGService);
 
   ngOnInit() {
-    // Kiểm tra và khởi tạo RAG nếu chưa có documents
     this.ragService.getDocumentCount().subscribe(count => {
       if (count === 0) {
         console.log('Initializing RAG system...');
-        // Khởi tạo với 100 movies phổ biến để có đủ dữ liệu
-        this.ragService.initializeRAG(100).subscribe({
+        this.ragService.initializeRAG(1000).subscribe({
           next: (addedCount) => {
             console.log(`✅ RAG initialized with ${addedCount} documents`);
           },
