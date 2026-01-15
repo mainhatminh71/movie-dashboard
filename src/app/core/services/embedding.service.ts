@@ -22,14 +22,10 @@ export class EmbeddingService {
       return of(this.embeddingCache.get(cacheKey)!);
     }
 
-    if (!environment.groqApiKey) {
-      console.warn('Groq API not found');
+    if (!environment.groqApiKey || environment.groqApiKey === 'GROQ_API_KEY') {
+      console.warn('Groq API key not found or using default value');
       return of([]);
     }
-    // if (environment.groqApiKey !== 'GROQ_API_KEY') {
-    //   console.warn('Groq API key is not valid');
-    //   return of([]);
-    // }
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${environment.groqApiKey}`,
