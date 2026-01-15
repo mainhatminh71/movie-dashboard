@@ -1,0 +1,1 @@
+import{Cb as r,Db as n,Wb as i,gb as o}from"./chunk-RVWI2C5K.js";var s=(()=>{class e{static{this.\u0275fac=function(t){return new(t||e)}}static{this.\u0275cmp=o({type:e,selectors:[["app-error"]],decls:2,vars:0,template:function(t,a){t&1&&(r(0,"p"),i(1,"error works!"),n())},encapsulation:2})}}return e})();export{s as ErrorComponent};
