@@ -19,7 +19,7 @@ export class EmbeddingService {
       return of(this.embeddingCache.get(cacheKey)!);
     }
 
-    if (!environment.nomicApiKey || environment.nomicApiKey === 'NOMIC_API_KEY') {
+    if ( environment.nomicApiKey !== 'NOMIC_API_KEY') {
       console.warn('Nomic API key invalid');
       return of([]);
     }
