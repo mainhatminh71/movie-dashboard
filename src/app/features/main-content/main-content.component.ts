@@ -12,6 +12,13 @@ import { TVShow } from 'src/app/core/models/tvshow.model';
 import { ImageUrlPipe, YearPipe, RatingPipe } from 'src/app/lib/common/pipes';
 import { getPlaceholderImage } from 'src/app/lib/common/utils/image.util';
 
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-main-content',
   standalone: true,
@@ -22,7 +29,14 @@ import { getPlaceholderImage } from 'src/app/lib/common/utils/image.util';
     RatingPipe,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NzButtonModule,
+    NzIconModule,
+    NzTabsModule,
+    NzInputModule,
+    NzSpinModule,
+    NzCardModule,
+    FormsModule
   ],
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss'],
@@ -208,7 +222,7 @@ export class MainContentComponent implements OnInit{
   activeTab: 'movies' | 'tvshows' | 'anime' = 'tvshows';
   switchTab(tab: 'movies' | 'tvshows' ) : void {
     this.activeTab = tab;
-    this.currentHeroIndex = 0; // Reset hero index when switching tabs
+    this.currentHeroIndex = 0; 
     if (tab === 'movies') {
       if (this.heroMovies.length === 0) {
         this.loadHeroMovies();

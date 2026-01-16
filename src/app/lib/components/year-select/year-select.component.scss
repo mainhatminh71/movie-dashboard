@@ -20,7 +20,7 @@
   border: 2px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   font-size: 1rem;
-  background: rgba(18, 18, 18, 0.8);
+  background: $theme-bg-input;
   color: $token-text-primary;
   cursor: pointer;
   transition: all 0.3s ease;

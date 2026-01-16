@@ -68,6 +68,7 @@ export class DiscoverComponent implements OnInit{
     // Rating filter
     minRating = signal<number>(0);
     private initialLoad = true;
+    private isUpdatingUrl = false; // Flag to prevent subscription from running when effect updates URL
 
     // Computed properties based on active tab
     currentStore = computed(() => 
@@ -124,29 +125,62 @@ export class DiscoverComponent implements OnInit{
     constructor() {
         // Sync URL params with state
         effect(() => {
-            const queryParams: Record<string, string | number> = {};
+            // Skip if this is initial load (params will be read from URL in ngOnInit)
+            if (this.initialLoad) return;
             
-            if (this.activeTab() !== 'movies') {
-                queryParams['type'] = this.activeTab();
+            // Set flag before navigation to prevent subscription from running
+            this.isUpdatingUrl = true;
+            const queryParams: Record<string, string | number | null> = {};
+            
+            // Always set type param to match current active tab
+            if (this.activeTab() === 'tvshows') {
+                queryParams['type'] = 'tvshows';
+            } else {
+                // Remove type param for movies
+                queryParams['type'] = null;
             }
             
             const search = this.searchQuery();
-            if (search) queryParams['search'] = search;
+            if (search) {
+                queryParams['search'] = search;
+            } else {
+                queryParams['search'] = null;
+            }
             
             const genres = this.selectedGenreIDs();
-            if (genres.length > 0) queryParams['genres'] = genres.join(',');
+            if (genres.length > 0) {
+                queryParams['genres'] = genres.join(',');
+            } else {
+                queryParams['genres'] = null;
+            }
             
             const year = this.selectedYear();
-            if (year) queryParams['year'] = year;
+            if (year) {
+                queryParams['year'] = year;
+            } else {
+                queryParams['year'] = null;
+            }
             
             const rating = this.minRating();
-            if (rating > 0) queryParams['rating'] = rating;
+            if (rating > 0) {
+                queryParams['rating'] = rating;
+            } else {
+                queryParams['rating'] = null;
+            }
             
             (this.router.navigate as any)([], {
                 relativeTo: this.route,
                 queryParams: queryParams,
                 queryParamsHandling: 'merge',
                 replaceUrl: true
+            }).then(() => {
+                // Reset flag after navigation completes (use setTimeout to ensure subscription has processed)
+                setTimeout(() => {
+                    this.isUpdatingUrl = false;
+                }, 100);
+            }).catch(() => {
+                // Reset flag even if navigation fails
+                this.isUpdatingUrl = false;
             });
         });
         
@@ -166,68 +200,60 @@ export class DiscoverComponent implements OnInit{
     
     ngOnInit(): void {
         (this.route.queryParams as any).subscribe((params: Record<string, string | undefined>) => {
-            // Set active tab first
-            if (params['type'] === 'tvshows') {
-                this.activeTab.set('tvshows');
-            } else {
-                this.activeTab.set('movies');
+            // Skip if this update is from our effect (to prevent infinite loop)
+            if (this.isUpdatingUrl) {
+                return;
+            }
+            
+            // Set active tab first - only if type param exists and is different from current
+            const urlTab = params['type'] === 'tvshows' ? 'tvshows' : 'movies';
+            if (urlTab !== this.activeTab()) {
+                this.activeTab.set(urlTab);
             }
             
             // Get the correct store based on active tab
             const isMovies = this.activeTab() === 'movies';
             const store = isMovies ? this.movieStore : this.tvShowStore;
             
-            // Set search query
-            if (params['search']) {
+            // Set search query - only update if different from current
+            const currentSearch = isMovies ? this.movieStore.searchQuery() : this.tvShowStore.searchQuery();
+            const urlSearch = params['search'] || '';
+            if (urlSearch !== currentSearch) {
                 if (isMovies) {
-                    this.movieStore.searchQuery.set(params['search']);
+                    this.movieStore.searchQuery.set(urlSearch);
                 } else {
-                    this.tvShowStore.searchQuery.set(params['search']);
-                }
-            } else {
-                if (isMovies) {
-                    this.movieStore.searchQuery.set('');
-                } else {
-                    this.tvShowStore.searchQuery.set('');
+                    this.tvShowStore.searchQuery.set(urlSearch);
                 }
             }
             
-            // Set genres
-            if (params['genres']) {
-                const genreIds = params['genres'].split(',').map((id: string) => +id);
+            // Set genres - only update if different from current
+            const currentGenres = isMovies ? this.movieStore.selectedGenreIds() : this.tvShowStore.selectedGenreIds();
+            const urlGenres = params['genres'] ? params['genres'].split(',').map((id: string) => +id) : [];
+            const genresEqual = urlGenres.length === currentGenres.length && 
+                               urlGenres.every(id => currentGenres.includes(id));
+            if (!genresEqual) {
                 if (isMovies) {
-                    this.movieStore.selectedGenreIds.set(genreIds);
+                    this.movieStore.selectedGenreIds.set(urlGenres);
                 } else {
-                    this.tvShowStore.selectedGenreIds.set(genreIds);
-                }
-            } else {
-                if (isMovies) {
-                    this.movieStore.selectedGenreIds.set([]);
-                } else {
-                    this.tvShowStore.selectedGenreIds.set([]);
+                    this.tvShowStore.selectedGenreIds.set(urlGenres);
                 }
             }
             
-            if (params['year']) {
-                const year = +params['year'];
+            // Set year - only update if different from current
+            const currentYear = isMovies ? this.movieStore.selectedYear() : this.tvShowStore.selectedYear();
+            const urlYear = params['year'] ? +params['year'] : null;
+            if (urlYear !== currentYear) {
                 if (isMovies) {
-                    this.movieStore.selectedYear.set(year);
+                    this.movieStore.selectedYear.set(urlYear);
                 } else {
-                    this.tvShowStore.selectedYear.set(year);
-                }
-            } else {
-                if (isMovies) {
-                    this.movieStore.selectedYear.set(null);
-                } else {
-                    this.tvShowStore.selectedYear.set(null);
+                    this.tvShowStore.selectedYear.set(urlYear);
                 }
             }
             
-            // Set rating
-            if (params['rating']) {
-                this.minRating.set(+params['rating']);
-            } else {
-                this.minRating.set(0);
+            // Set rating - only update if different from current
+            const urlRating = params['rating'] ? +params['rating'] : 0;
+            if (urlRating !== this.minRating()) {
+                this.minRating.set(urlRating);
             }
         });
         

@@ -10,6 +10,8 @@ import { antDesignConfig } from "./core/config/ant-design.config";
 import { IconDefinition } from '@ant-design/icons-angular';
 import { provideNzConfig } from "ng-zorro-antd/core/config";
 
+
+
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition };
 
 export const AppConfig: ApplicationConfig = {

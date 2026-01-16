@@ -11,6 +11,15 @@
     </div>
   </div>
   <div class="header-right">
+    <nz-switch [(ngModel)]="isDarkMode" [nzCheckedChildren]="checkedIcon" [nzUnCheckedChildren]="uncheckedIcon" class="theme-switch"></nz-switch>
+  </div>
+    <ng-template #checkedIcon>
+    <nz-icon nzType="sun" nzTheme="outline"></nz-icon>
+  </ng-template>
+  <ng-template #uncheckedIcon>
+    <nz-icon nzType="moon" nzTheme="outline"></nz-icon>
+  </ng-template>
+  <div class="header-right">
    
   </div>
 </div>

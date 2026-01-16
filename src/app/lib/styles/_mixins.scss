@@ -186,7 +186,7 @@
 
   // Secondary Button
 @mixin button-secondary {
-    background: rgba(18, 18, 18, 0.8);
+    background: $theme-bg-input;
     color: $color-text-secondary;
     border: $border-width-medium solid $color-border-primary;
     border-radius: $border-radius-lg;
@@ -195,7 +195,7 @@
     transition: $token-transition-button;
   
     &:hover {
-      background: rgba(18, 18, 18, 0.95);
+      background: $theme-bg-input-focus;
       border-color: $color-primary;
       color: $color-text-primary;
     }
@@ -252,7 +252,7 @@
 
   // Card with backdrop blur
 @mixin card-glass {
-    background: rgba(26, 26, 26, 0.85);
+    background: $theme-bg-glass;
     border: $border-width-thin solid $color-border-secondary;
     border-radius: $border-radius-xl;
     -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -332,7 +332,7 @@
     font-size: $font-size-base;
     border: $border-width-medium solid $color-border-primary;
     border-radius: $border-radius-lg;
-    background: rgba(18, 18, 18, 0.8);
+    background: $theme-bg-input;
     color: $color-text-primary;
     transition: $token-transition-input;
   
@@ -340,7 +340,7 @@
       outline: none;
       border-color: $color-primary;
       box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
-      background: rgba(18, 18, 18, 0.95);
+      background: $theme-bg-input-focus;
     }
   
     &::placeholder {

@@ -8,10 +8,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map, startWith } from 'rxjs';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { AiFloatButtonComponent } from '../../components/ai-float-button/ai-float-button.component';
+import { ParticlesBackgroundComponent } from '../../components/particles-background/particles-background.component';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, MainContentComponent, AiFloatButtonComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, MainContentComponent, AiFloatButtonComponent, ParticlesBackgroundComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
   standalone: true,

@@ -2,7 +2,7 @@
   <!-- Header Section -->
   <div class="discover-header">
     <h1 class="page-title">Discover</h1>
-    <p class="page-subtitle">Find your next favorite {{ activeTab() === 'movies' ? 'movie' : 'TV show' }}</p>
+    <p class="page-subtitle">Find your next favorite {{ activeTab() === 'movies' ? 'movies' : 'TV show' }}</p>
   </div>
 
   <!-- Tabs -->
@@ -30,7 +30,7 @@
       <label for="discover-search-input" class="sr-only">Search for {{ activeTab() === 'movies' ? 'movies' : 'TV shows' }}</label>
       <mat-form-field appearance="fill" class="search-field" [floatLabel]="'always'">
         <mat-label class="search-label" id="search-label-input">
-          <span class="label-text">Search {{ activeTab() === 'movies' ? 'Movies' : 'TV Shows' }}</span>
+          <span class="label-text">Search {{ activeTab() === 'movies' ? 'movies' : 'TV Shows' }}</span>
         </mat-label>
         <input 
           matInput

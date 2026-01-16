@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@import 'app/core/theme/theme';
 
 // Include the common styles for Angular Material
 @include mat.core();
@@ -19,12 +20,12 @@
   --mdc-theme-tertiary: #9c27b0;
   --mdc-theme-on-tertiary: #ffffff;
   
-  --mdc-theme-surface: #0a0a0a;
+  --mdc-theme-surface: #{$theme-bg-material-surface};
   --mdc-theme-on-surface: #ffffff;
-  --mdc-theme-surface-variant: #1a1a1a;
+  --mdc-theme-surface-variant: #{$theme-bg-material-surface-variant};
   --mdc-theme-on-surface-variant: rgba(255, 255, 255, 0.7);
   
-  --mdc-theme-background: #0a0a0a;
+  --mdc-theme-background: #{$theme-bg-material-background};
   --mdc-theme-on-background: #ffffff;
   
   --mdc-theme-error: #ff6b6b;
@@ -48,7 +49,7 @@
   width: 100%;
   
   .mat-mdc-text-field-wrapper {
-    background-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: $theme-bg-material-input !important;
     border-radius: 28px !important;
   }
   
@@ -59,7 +60,7 @@
 
 .mat-mdc-dialog-container {
   border-radius: 20px !important;
-  background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%) !important;
+  background: $theme-bg-material-dialog !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -67,20 +68,20 @@
 }
 
 .confirm-dialog-container.mat-mdc-dialog-container {
-  background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%) !important;
+  background: $theme-bg-material-dialog !important;
   color: #f5f5f5 !important;
 }
 
 // Ensure dialog content has correct styling
 .confirm-dialog-container {
   .mat-mdc-dialog-surface {
-    background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%) !important;
+    background: $theme-bg-material-dialog !important;
   }
 }
 
 .mat-mdc-snack-bar-container {
   border-radius: 12px !important;
-  background: rgba(30, 30, 40, 0.95) !important;
+  background: $theme-bg-material-snackbar !important;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);

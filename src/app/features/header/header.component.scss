@@ -212,4 +212,25 @@
     font-size: 13px;
   }
 }
+.theme-switch {
+  margin-left: 1800px;
+  
+  ::ng-deep {
+    .ant-switch {
+      min-width: 64px;
+      height: 32px;
+      font-size: 16px;
+    }
+    
+    .ant-switch-handle {
+      width: 28px;
+      height: 28px;
+      top: 2px;
+    }
+    
+    .ant-switch-inner {
+      font-size: 12px;
+    }
+  }
+}
 

@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 export type IconName = 'home' | 'watchlist' | 'discover' | 'settings';
 
@@ -7,7 +8,8 @@ export type IconName = 'home' | 'watchlist' | 'discover' | 'settings';
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.scss',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NzIconModule]
 })
 export class IconComponent {
   @Input() name: IconName = 'home';

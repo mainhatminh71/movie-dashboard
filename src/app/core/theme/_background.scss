@@ -1,0 +1,62 @@
+// ============================================
+// BACKGROUND COLORS - Centralized Configuration
+// Chỉnh sửa file này để thay đổi background cho toàn bộ app
+// ============================================
+
+// Base Background Colors
+$theme-bg-primary: #0a0a0a;
+$theme-bg-secondary: #16181e;
+$theme-bg-tertiary: #21242d;
+$theme-bg-surface: #1a1a1a;
+$theme-bg-surface-elevated: rgba(26, 26, 26, 0.85);
+$theme-bg-surface-hover: rgba(18, 18, 18, 0.95);
+
+// Component Backgrounds
+$theme-bg-card: $theme-bg-surface;
+$theme-bg-card-hover: $theme-bg-surface-hover;
+$theme-bg-overlay: $theme-bg-surface-elevated;
+$theme-bg-input: rgba(18, 18, 18, 0.8);
+$theme-bg-input-focus: rgba(18, 18, 18, 0.95);
+
+// Overlay Backgrounds (various opacities for components)
+$theme-bg-overlay-60: rgba(26, 26, 26, 0.6);
+$theme-bg-overlay-60-dark: rgba(18, 18, 18, 0.6);
+$theme-bg-glass: rgba(26, 26, 26, 0.85);
+
+// Overlay Backgrounds (various opacities)
+$theme-bg-overlay-60: rgba(26, 26, 26, 0.6);
+$theme-bg-overlay-60-dark: rgba(18, 18, 18, 0.6);
+$theme-bg-overlay-85: rgba(26, 26, 26, 0.85);
+
+// Gradient Backgrounds
+$theme-bg-gradient-subtle: linear-gradient(
+  180deg, 
+  rgba(42, 42, 42, 0.08) 0%, 
+  #{$theme-bg-primary} 12%
+);
+
+$theme-bg-gradient-overlay: linear-gradient(
+  180deg, 
+  rgba(0, 185, 174, 0.03) 0%, 
+  transparent 100%
+);
+
+$theme-bg-gradient-dialog: linear-gradient(
+  180deg, 
+  #1a1a1a 0%, 
+  #161616 100%
+);
+
+// Ant Design Backgrounds
+$theme-bg-ant-layout: $theme-bg-primary;
+$theme-bg-ant-card: rgba(26, 26, 26, 0.8);
+$theme-bg-ant-input: rgba(255, 255, 255, 0.05);
+
+// Material Theme Backgrounds
+$theme-bg-material-surface: $theme-bg-primary;
+$theme-bg-material-background: $theme-bg-primary;
+$theme-bg-material-surface-variant: $theme-bg-surface;
+$theme-bg-material-dialog: $theme-bg-gradient-dialog;
+$theme-bg-material-snackbar: rgba(30, 30, 40, 0.95);
+$theme-bg-material-input: rgba(255, 255, 255, 0.05);
+

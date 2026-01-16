@@ -1,4 +1,5 @@
 @import '../../lib/styles/index';
+@import '../../core/theme/theme';
 
 :host {
   display: block;
@@ -450,7 +451,7 @@
 }
 
 .overview-section {
-  background: rgba(26, 26, 26, 0.6);
+  background: $theme-bg-overlay-60;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
@@ -466,7 +467,7 @@
 }
 
 .financial-section {
-  background: rgba(26, 26, 26, 0.6);
+  background: $theme-bg-overlay-60;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
@@ -500,7 +501,7 @@
 }
 
 .cast-section {
-  background: rgba(26, 26, 26, 0.6);
+  background: $theme-bg-overlay-60;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
@@ -568,7 +569,7 @@
 }
 
 .reviews-section {
-  background: rgba(26, 26, 26, 0.6);
+  background: $theme-bg-overlay-60;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
@@ -583,7 +584,7 @@
 }
 
 .review-card {
-  background: rgba(18, 18, 18, 0.6);
+  background: $theme-bg-overlay-60-dark;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 1.5rem;
@@ -688,7 +689,7 @@
   transition: transform 0.3s ease;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(26, 26, 26, 0.6);
+  background: $theme-bg-overlay-60;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 

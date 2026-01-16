@@ -1,15 +1,12 @@
 <div class="main-content-wrapper">
   <div class="content-header">
-    <div class="category-tabs">
-      <button class="tab" [class.active]="activeTab === 'movies'" (click)="(switchTab('movies'))">
-        <span>Movies</span>
-        <div class="active-indicator" *ngIf="activeTab === 'movies'"></div>
-      </button>
-      <button class="tab" [class.active]="activeTab === 'tvshows'" (click)="(switchTab('tvshows'))">
-        <span>TV Shows</span>
-        <div class="active-indicator" *ngIf="activeTab === 'tvshows'"></div>
-      </button>
-    </div>
+    <nz-tabset 
+      class="custom-tabset"
+      [nzSelectedIndex]="activeTab === 'movies' ? 0 : 1"
+      (nzSelectChange)="switchTab($event.index === 0 ? 'movies' : 'tvshows')">
+      <nz-tab nzTitle="Movies"></nz-tab>
+      <nz-tab nzTitle="TV Shows"></nz-tab>
+    </nz-tabset>
     <div class="search-filter">
       <div class="search-bar">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -212,50 +209,58 @@
       <!-- Movies -->
       @if (activeTab === 'movies') {
         @for (movie of popularMovies; track movie.id) {
-          <div class="movie-card" (click)="navigateToMovieDetails(movie.id)">
-            <div class="movie-poster">
-              <img [src]="movie.poster_path | imageUrl:'w300'" [alt]="movie.title" [title]="movie.title">
-              <div class="poster-overlay"></div>
-              <div class="movie-badge popular-badge">Popular</div>
-            </div>
-            <div class="movie-info">
-              <h3 class="movie-title">{{movie.title}}</h3>
-              <div class="movie-meta">
-                <span class="movie-year">{{movie.release_date | year}}</span>
-                <div class="rating-wrapper">
-                  <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
-                  </svg>
-                  <span class="movie-rating">{{movie.vote_average | rating:1}}</span>
+          <div class="movie-card-wrapper">
+            <nz-card 
+              class="custom-movie-card"
+              (click)="navigateToMovieDetails(movie.id)">
+              <div class="movie-poster">
+                <img [src]="movie.poster_path | imageUrl:'w300'" [alt]="movie.title" [title]="movie.title">
+                <div class="poster-overlay"></div>
+                <div class="movie-badge popular-badge">Popular</div>
+              </div>
+              <div class="movie-info">
+                <h3 class="movie-title">{{movie.title}}</h3>
+                <div class="movie-meta">
+                  <span class="movie-year">{{movie.release_date | year}}</span>
+                  <div class="rating-wrapper">
+                    <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
+                    </svg>
+                    <span class="movie-rating">{{movie.vote_average | rating:1}}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-hover-effect"></div>
+              <div class="card-hover-effect"></div>
+            </nz-card>
           </div>
         }
       }
       <!-- TV Shows -->
       @if (activeTab === 'tvshows') {
         @for (tvShow of popularTVShows; track tvShow.id) {
-          <div class="movie-card" (click)="navigateToTVDetails(tvShow.id)">
-            <div class="movie-poster">
-              <img [src]="tvShow.poster_path | imageUrl:'w300'" [alt]="tvShow.name" [title]="tvShow.name">
-              <div class="poster-overlay"></div>
-              <div class="movie-badge popular-badge">Popular</div>
-            </div>
-            <div class="movie-info">
-              <h3 class="movie-title">{{tvShow.name}}</h3>
-              <div class="movie-meta">
-                <span class="movie-year">{{tvShow.first_air_date | year}}</span>
-                <div class="rating-wrapper">
-                  <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
-                  </svg>
-                  <span class="movie-rating">{{tvShow.vote_average | rating:1}}</span>
+          <div class="movie-card-wrapper">
+            <nz-card 
+              class="custom-movie-card"
+              (click)="navigateToTVDetails(tvShow.id)">
+              <div class="movie-poster">
+                <img [src]="tvShow.poster_path | imageUrl:'w300'" [alt]="tvShow.name" [title]="tvShow.name">
+                <div class="poster-overlay"></div>
+                <div class="movie-badge popular-badge">Popular</div>
+              </div>
+              <div class="movie-info">
+                <h3 class="movie-title">{{tvShow.name}}</h3>
+                <div class="movie-meta">
+                  <span class="movie-year">{{tvShow.first_air_date | year}}</span>
+                  <div class="rating-wrapper">
+                    <svg class="star-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 0L8.5716 5.33688L14 5.33688L9.7143 8.62624L11.2859 13.9631L7 10.6738L2.71411 13.9631L4.28571 8.62624L0 5.33688L5.42839 5.33688L7 0Z" fill="currentColor"/>
+                    </svg>
+                    <span class="movie-rating">{{tvShow.vote_average | rating:1}}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-hover-effect"></div>
+              <div class="card-hover-effect"></div>
+            </nz-card>
           </div>
         }
       }

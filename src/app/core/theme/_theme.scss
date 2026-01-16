@@ -1,0 +1,10 @@
+// ============================================
+// THEME - Centralized Theme Configuration
+// Import tất cả theme variables từ đây
+// ============================================
+
+@import 'background';
+
+// Export tất cả theme variables để sử dụng trong components
+// (SCSS variables tự động available khi import)
+

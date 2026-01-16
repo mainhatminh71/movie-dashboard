@@ -1,15 +1,134 @@
 // Ant Design Dark Theme Overrides
+@import '../theme/theme';
+
 .ant-layout {
-    background: #0a0a0a;
+    background: $theme-bg-ant-layout;
   }
   
   .ant-card {
-    background: rgba(26, 26, 26, 0.8);
+    background: $theme-bg-ant-card;
     border-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  // Custom movie/TV show card styling với glass morphism và hiệu ứng
+  .movie-card-wrapper,
+  .custom-movie-card {
+    .ant-card {
+      background: rgba(255, 255, 255, 0.03) !important;
+      border-radius: 20px !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+      backdrop-filter: blur(20px) saturate(180%) !important;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+      
+      // Gradient border effect
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(0, 185, 174, 0.3) 0%, transparent 50%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      // Hover effects
+      &:hover {
+        transform: translateY(-12px) scale(1.02) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(0, 185, 174, 0.2) !important;
+        box-shadow: 
+          0 20px 48px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(0, 185, 174, 0.3),
+          0 0 40px rgba(0, 185, 174, 0.1) !important;
+        
+        &::before {
+          opacity: 1;
+        }
+      }
+      
+      // Card body styling - remove padding để content tự control
+      .ant-card-body {
+        padding: 0 !important;
+        background: transparent !important;
+        position: relative;
+      }
+      
+      // Support cho cả nzCover và content trực tiếp
+      .ant-card-cover,
+      .movie-poster {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px 20px 0 0;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+          opacity: 0;
+          transition: opacity 0.5s ease;
+          z-index: 1;
+          pointer-events: none;
+        }
+        
+        img {
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+      &:hover {
+        .ant-card-cover::before,
+        .movie-poster::before {
+          opacity: 1;
+        }
+        
+        .ant-card-cover img,
+        .movie-poster img {
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    // Stagger animation cho grid
+    @for $i from 1 through 20 {
+      &:nth-child(#{$i}) {
+        .ant-card {
+          animation-delay: #{$i * 0.05}s;
+        }
+      }
+    }
+  }
+  
+  // Animation keyframes
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .ant-input {
-    background: rgba(255, 255, 255, 0.05);
+    background: $theme-bg-ant-input;
     border-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     

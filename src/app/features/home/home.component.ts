@@ -3,9 +3,16 @@ import { Movie } from 'src/app/core/models/movie.model';
 import { TVShow } from 'src/app/core/models/tvshow.model';
 import { MovieService } from 'src/app/core/services/movie.service';
 import { TVShowService } from 'src/app/core/services/tvshow.service';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [NzButtonModule, NzIconModule, NzTabsModule, NzInputModule, NzSpinModule, NzCardModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true
