@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
             console.log(`✅ RAG initialized with ${addedCount} documents`);
           },
           error: (error) => {
-            console.error('❌ Error initializing RAG:', error);
+            // console.error('❌ Error initializing RAG:', error);
           }
         });
       } else {
